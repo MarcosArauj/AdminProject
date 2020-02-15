@@ -1,0 +1,89 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1 id="titulo_home">
+            <b>{function="getNomeEmpresaCompleto()"}</b>
+
+
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="admin"><i class="fa fa-dashboard"></i> Level</a></li>
+            <li class="active">Here</li>
+        </ol>
+    </section>
+
+
+    <section class="content">
+        <div class="col-md-4">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>Controle</h3>
+                    <p>Estoque</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+                <a href="#" class="small-box-footer">Acessar
+                <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>Relatórios</h3>
+                    <p>Sistemas</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-list"></i>
+                </div>
+                <a href="#" class="small-box-footer">Acessar
+                    <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        {if="checarLogin()"}
+        <div class="col-md-4">
+            <div class="small-box bg-orange">
+                <div class="inner">
+                    <h3>{function="getNomeEmpresa()"}</h3>
+                    <p>Cadastro da Empresa </p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-cog"></i>
+                </div>
+                {if="getEmpresa() > 0"}
+                <a href="/admin/empresa/detalha/{function="getUrlEmpresa()"}" class="small-box-footer">Acessar
+                    <i class="fa fa-arrow-circle-right"></i></a>
+                {else}
+                <a href="/admin/empresa/cadastra" class="small-box-footer">Acessar
+                    <i class="fa fa-arrow-circle-right"></i></a>
+                {/if}
+            </div>
+        </div>
+        {else}
+        <div class="col-md-4">
+            <div class="small-box bg-orange">
+                <div class="inner">
+                    <h3>Outras</h3>
+                    <p>Opções</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-cog"></i>
+                </div>
+                <a href="#" class="small-box-footer">Acessar
+                    <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        {/if}
+    </section>
+    <!--Mensagem de Sucesso-->
+    {if="$empresaSucesso != ''"}
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {$empresaSucesso}
+    </div>
+    {/if}
+
+
+</div>
+<!-- /.content-wrapper -->

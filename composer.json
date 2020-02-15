@@ -1,0 +1,26 @@
+{
+    "name": "marcos-arauj/projectcc_administrativo",
+    "description": "Administrative",
+    "type": "project",
+    "authors": [
+        {
+            "name": "MarcosAraujo",
+            "email": "marcos.araujocruz@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "phpmailer/phpmailer":"~6.0",
+        "slim/slim":"^3.0",
+        "rain/raintpl":"3.0.0"
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "autoload" : {
+        "psr-4": {
+            "App\\":"App/",
+            "project\\": "vendor/project/"
+        }
+    }
+}

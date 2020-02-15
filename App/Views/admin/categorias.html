@@ -1,0 +1,84 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Lista de Categorias
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active"><a href="/admin/categorias">Categorias</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+         <div class="col-md-12">
+                <div class="box box-primary">
+
+                    <div class="box-header">
+                        <a href="/admin/categorias/cadastra" class="btn btn-success">Cadastrar Categoria</a>
+                        <div class="box-tools">
+                            <form action="/admin/categorias">
+                                <div class="input-group input-group-sm" style="width: 200px;">
+                                    <input type="text" name="busca" class="form-control pull-right" placeholder="Buscar" value="{$busca}">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="box-body no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Nome da Categoria</th>
+                                <th style="width: 240px">&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {loop="$categorias"}
+                            <tr>
+                                <td>{$value.id_categoria}</td>
+                                <td>{$value.nome_categoria}</td>
+
+                                <td>
+                                    <a href="/admin/categorias/{$value.id_categoria}/produtos" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Produtos</a>
+                                    <a href="/admin/categorias/{$value.id_categoria}/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                                    <a href="/admin/categorias/{$value.id_categoria}/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                                </td>
+                            </tr>
+                            {/loop}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        {if="$categoriaSucesso != ''"}
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {$categoriaSucesso}
+                        </div>
+                        {/if}
+                        {if="$categoriaErro != ''"}
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {$categoriaErro}
+                        </div>
+                        {/if}
+                        <ul class="pagination pagination-sm no-margin pull-right">
+                            {loop="$paginas"}
+                            <li><a href="{$value.href}">{$value.text}</a></li>
+                            {/loop}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

@@ -1,0 +1,9 @@
+<select id="seleciona-estado">
+    <option value="">
+        Selecione
+    </option>
+    {loop="$cidades"}
+    <option value="{$value.id_cidade}">{$value.nome_cidade}</option>
+    {/loop}
+</select>
+<img src="/res/imageSite/site/pequeno-loader.gif">Selecione um estado

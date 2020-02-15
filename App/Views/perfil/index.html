@@ -1,0 +1,130 @@
+
+<div class="container">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <a href="/admin"><strong>{function="getNomeEmpresa()"}</strong></a>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active"><a href="/perfil">{$usuario.primeiro_nome}</a></li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-3">
+                {include="perfil_menu"}
+            </div>
+            <div class="col-md-9">
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Perfil do Usu&aacute;rio</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-4">
+                            <h4><strong>Dados Pessoais</strong></h4>
+                                <label>Nome: </label>
+                                <span>{$usuario.primeiro_nome} {$usuario.sobrenome}</span>
+                            <br>
+                                <label>Sexo:  </label>
+                                <span>{$usuario.sexo}</span>
+                                <br>
+                                <label>Data de Nascimento:  </label>
+                                <span>{function="formatData($usuario.data_nascimento)"}</span>
+                                <br>
+                                <label>Naturalidade: </label>
+                                <span>{$usuario.naturalidade} - {$usuario.uf_nascimento}</span>
+                                <br>
+                            <h4><strong>Documentos</strong></h4>
+                                <label>RG: </label>
+                                <span>{$usuario.rg}</span>
+                                <br>
+                                <label>CPF: </label>
+                                <spna>{function="formataCpf($usuario.cpf)"}</spna>
+                                <br>
+                            <h4><strong>Contato</strong></h4>
+                                <label>Telefone: </label>
+                                <span>{$usuario.telefone}</span>
+                                <br>
+                                <label>Celular: </label>
+                                <span>{$usuario.celular}</span>
+                                <br>
+                                <label>Email: </label>
+                                <span>{$usuario.email}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <h4><strong>Endere&ccedil;o completo</strong></h4>
+                                <label>CEP: </label>
+                                <span>{$usuario.cep}</span>
+                                <br>
+                                <label>End: </label>
+                                <span>{$usuario.rua}</span>
+                                <br>
+                                <label>Número: </label>
+                                <span>{$usuario.numero}</span>
+                                <br>
+                                <label>Bairro: </label>
+                                <span>{$usuario.bairro}</span>
+                                <br>
+                                <label>Cidade: </label>
+                                <span>{$usuario.cidade}</span>
+                                <br>
+                                <label>Estado: </label>
+                                <span>{$usuario.estado}</span>
+                                <br>
+                                <label>Pa&iacute;s: </label>
+                                <span>{$usuario.pais}</span>
+                                <br>
+                            </div>
+                            <div class="col-md-4">
+                            {if="$usuario.tipo_usuario != 1"}
+                            <h4><strong>Contratuais</strong></h4>
+                                <label>Cargo: </label>
+                                <label>CTPS: </label>
+                                <span>{$usuario.numero_ctps}</span>
+                                <br>
+                                <label>S&eacute;rie: </label>
+                                <span>{$usuario.serie_ctps}</span>
+                                <br>
+                                <label>Estado Expedi&ccedil;&atilde;o: </label>
+                                <span>{$usuario.estado_ctps}</span>
+                                <br>
+                                <label>Data Expedi&ccedil;&atilde;o: </label>
+                                <span>{function="formatData($usuario.data_ctps)"}</span>
+                                <br>
+                                <label>PIS: </label>
+                                <span>{$usuario.pis}</span>
+                                <br>
+                                <label>Cargo: </label>
+                                <span>{$usuario.cargo}</span>
+                                <br>
+                                <label>Admiss&atilde;o: </label>
+                                <span>{function="formatData($usuario.dtadmissao)"}</span>
+                                <br>
+                                {if="$usuario.acesso == 1"}
+                                  <label>Com Acesso Administrativo </label>
+                                {else}
+                                   <label>Sem Acesso Administrativo </label>
+                                {/if}
+                            {/if}
+                        </div>
+                </div>
+            </div>
+                {if="$perfilMsg != ''"}
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {$perfilMsg}
+                </div>
+                {/if}
+        </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+

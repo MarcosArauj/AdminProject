@@ -1,0 +1,115 @@
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Dados da Empresa
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/admin/empresa/{$empresa.url_empresa}/detalaha">{$empresa.nome_curto}</a></li>
+
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!--Mensagem de Sucesso-->
+        {if="$empresaSucesso != ''"}
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {$empresaSucesso}
+        </div>
+        {/if}
+            <div class="box box-success">
+
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Dados Cadastrais</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                    <label>Nome Fantasia: </label>
+                                    <span>{$empresa.nome_fantasia}</span>
+                                    <br>
+                                    <label>Razão Social:  </label>
+                                    <span>{$empresa.razao_social}</span>
+                                    <br>
+                                    <label>CNPJ:  </label>
+                                    <span>{$empresa.cnpj}</span>
+                                    <br>
+                                    <label>Inscrição Municipal: </label>
+                                    <span>{$empresa.inscricao_municipal}</span>
+                                    <br>
+                                    <label>Inscrição Estadual: </label>
+                                    <span>{$empresa.inscricao_estadual}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Contatos</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <label>Telefone: </label>
+                                        <span>{$empresa.telefone}</span>
+                                        <br>
+                                        <label>Email: </label>
+                                        <span>{$empresa.email}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Celular: </label>
+                                        <span>{$empresa.celular}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Endere&ccedil;o</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                    <label>CEP: </label>
+                                    <span>{$empresa.cep}</span>
+                                    <br>
+                                    <label>End: </label>
+                                    <span>{$empresa.rua}</span>
+                                    <br>
+                                    <label>Número: </label>
+                                    <span>{$empresa.numero}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label>Bairro: </label>
+                                    <span>{$empresa.bairro}</span>
+                                    <br>
+                                    <label>Cidade: </label>
+                                    <span>{$empresa.cidade}</span>
+                                    <br>
+                                    <label>Estado: </label>
+                                    <span>{$empresa.estado}</span>
+                                    <br>
+                                    <label>Pa&iacute;s: </label>
+                                    <span>{$empresa.pais}</span>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="box-footer">
+                            <div class="pull-right">
+                            <a href="/admin/empresa/atualiza/{$empresa.id_empresa}" class="btn btn-primary btn-md">Editar</a>
+                            <a href="/admin" class="btn btn-primary btn-md">Voltar</a>
+                            </div>
+                        </div>
+
+                </div>
+
+    </section>
+</div>

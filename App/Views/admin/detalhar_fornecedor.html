@@ -1,0 +1,108 @@
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Dados da Fornecedor
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/admin/fornecedores/{$fornecedor.id_fornecedor}/detalha">{$fornecedor.nome_fantasia}</a></li>
+
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+            <div class="box box-success">
+
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Dados Cadastrais</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                    <label>Nome Fantasia: </label>
+                                    <span>{$fornecedor.nome_fantasia}</span>
+                                    <br>
+                                    <label>Razão Social:  </label>
+                                    <span>{$fornecedor.razao_social}</span>
+                                    <br>
+                                    <label>CNPJ:  </label>
+                                    <span>{function="formataCnpj($fornecedor.cnpj)"}</span>
+                                    <br>
+                                    <label>Inscrição Municipal: </label>
+                                    <span>{$fornecedor.inscricao_municipal}</span>
+                                    <br>
+                                    <label>Inscrição Estadual: </label>
+                                    <span>{$fornecedor.inscricao_estadual}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Contatos</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <label>Telefone: </label>
+                                        <span>{$fornecedor.telefone}</span>
+                                        <br>
+                                        <label>Email: </label>
+                                        <span>{$fornecedor.email}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Celular: </label>
+                                        <span>{$fornecedor.celular}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Endere&ccedil;o</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                    <label>CEP: </label>
+                                    <span>{$fornecedor.cep}</span>
+                                    <br>
+                                    <label>End: </label>
+                                    <span>{$fornecedor.rua}</span>
+                                    <br>
+                                    <label>Número: </label>
+                                    <span>{$fornecedor.numero}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label>Bairro: </label>
+                                    <span>{$fornecedor.bairro}</span>
+                                    <br>
+                                    <label>Cidade: </label>
+                                    <span>{$fornecedor.cidade}</span>
+                                    <br>
+                                    <label>Estado: </label>
+                                    <span>{$fornecedor.estado}</span>
+                                    <br>
+                                    <label>Pa&iacute;s: </label>
+                                    <span>{$fornecedor.pais}</span>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="box-footer">
+                            <div class="pull-right">
+                            <a href="/admin/fornecedores/{$fornecedor.id_fornecedor}/atualiza" class="btn btn-primary btn-md">Editar</a>
+                            <a href="/admin/fornecedores" class="btn btn-primary btn-md">Fornecedores</a>
+                            </div>
+                        </div>
+
+                </div>
+
+    </section>
+</div>
