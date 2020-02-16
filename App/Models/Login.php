@@ -121,6 +121,8 @@ class Login  extends Usuario {
 
                     return $usuario;
 
+            } else {
+               throw new \Exception("Você não tem acesso a esse Sistema!!!");
             }
 
 
