@@ -19,30 +19,28 @@ class Usuario extends Model  {
     const SECRET = "Casa_Nova_Secret";
 
 
-    public static function listAll() {
-        $sql = new Sql();
-
-
-        return $sql->select(" SELECT * FROM tb_usuario as u 
-                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
-                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
-                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                    INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario 
-                    INNER JOIN tb_cargo_funcionario as ca ON f.cargo_id = ca.id_cargo
-                    ORDER BY pf.primeiro_nome");
-
-       // WHERE u.cargo = 'Administrador'
-    }
+//    public static function listAll() {
+//        $sql = new Sql();
+//
+//
+//        return $sql->select("SELECT * FROM tb_usuario as u
+//                    INNER JOIN tb_proprietario pro ON pro.usuario_id = u.id_usuario
+//                    INNER JOIN tb_pessoa_fisica as pf ON pro.pessoaf_id = pf.id_pessoaf
+//                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+//                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+//                    ORDER BY pf.primeiro_nome");
+//
+//       // WHERE u.cargo = 'Administrador'
+//    }
 
     public function get($id_usuario) {
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_usuario as u 
-                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
+        $results =  $sql->select("SELECT * FROM tb_usuario as u
+                    INNER JOIN tb_proprietario pro ON pro.usuario_id = u.id_usuario 
+                    INNER JOIN tb_pessoa_fisica as pf ON pro.pessoaf_id = pf.id_pessoaf
                     INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
                     INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                    INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario 
-                    INNER JOIN tb_cargo_funcionario as ca ON f.cargo_id = ca.id_cargo
                     WHERE u.id_usuario = :id_usuario",array(
                     ":id_usuario"=>$id_usuario
                  ));
@@ -80,13 +78,13 @@ class Usuario extends Model  {
 
 
 //atualizar dados de Usuario Funcionnario
- public function atualizarUsuario(){
+ public function atualizarUsuarioFuncionario(){
 
      $sql = new Sql();
 
-     $results =  $sql->select("CALL sp_usuario_atualizar(:id_usuario,:primeiro_nome,:sobrenome,:rg,:numero_ctps,:serie_ctps,:data_ctps,
+     $results =  $sql->select("CALL sp_usuario_funcionario_atualizar(:id_funcionario,:primeiro_nome,:sobrenome,:rg,:numero_ctps,:serie_ctps,:data_ctps,
         :estado_ctps,:pis,:telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:responsavel_cadastro)",array(
-         ":id_usuario"=>$this->getid_usuario(),
+         ":id_funcionario"=>$this->getid_funcionario(),
          ":primeiro_nome"=>utf8_decode($this->getprimeiro_nome()),
          ":sobrenome"=>utf8_decode($this->getsobrenome()),
          ":rg"=>$this->getrg(),
@@ -116,16 +114,16 @@ class Usuario extends Model  {
 
   }
 
-   //atualiza usuario Proprietario
+//atualiza usuario Proprietario
     public function atualizaProprietario(){
 
         $sql = new Sql();
 
-        $results =  $sql->select("CALL sp_proprietario_atualizar(:id_usuario,:primeiro_nome,:sobrenome,
+        $results =  $sql->select("CALL sp_proprietario_atualizar(:id_proprietario,:primeiro_nome,:sobrenome,
             :rg,:telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:responsavel_cadastro)",array(
-            ":id_usuario"=>$this->getid_usuario(),
-            ":primeiro_nome"=>utf8_decode($this->getprimeiro_nome()),
-            ":sobrenome"=>utf8_decode($this->getsobrenome()),
+            ":id_proprietario"=>$this->getid_proprietario(),
+            ":primeiro_nome"=>$this->getprimeiro_nome(),
+            ":sobrenome"=>$this->getsobrenome(),
             ":rg"=>$this->getrg(),
             ":telefone"=>$this->gettelefone(),
             ":celular"=>$this->getcelular(),

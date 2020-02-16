@@ -192,7 +192,7 @@ class FuncionarioController extends Controller {
 
         $estados = EstadosCidades::listarEstado();
 
-        $funcionario->get((int)$params['id_usuario']);
+        $funcionario->get((int)$params['id_funcionario']);
 
         if ($request->isGet()) {
 
@@ -234,7 +234,7 @@ class FuncionarioController extends Controller {
 
         $funcionario = new Funcionario();
 
-        $funcionario->get((int)$params['id_usuario']);
+        $funcionario->get((int)$params['id_funcionario']);
 
         $page = new PageCadastro();
 
@@ -250,7 +250,7 @@ class FuncionarioController extends Controller {
 
         $funcionario = new Funcionario();
 
-        $funcionario->get((int)$params['id_usuario']);
+        $funcionario->get((int)$params['id_funcionario']);
 
         try{
             $funcionario->setstatus_funcionario("inativo");
@@ -277,7 +277,7 @@ class FuncionarioController extends Controller {
 
         $funcionario = new Funcionario();
 
-        $funcionario->get((int)$params['id_usuario']);
+        $funcionario->get((int)$params['id_funcionario']);
 
         try{
             $funcionario->setstatus_usuario("ativo");

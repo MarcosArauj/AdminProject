@@ -1,4 +1,4 @@
-
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="/admin/funcionarios">Funcion&aacute;rios</a></li>
-            <li class="active"><a href="/admin/funcionarios/{$funcionario.id_funcionario}/detalha">{$funcionario.primeiro_nome}</a></li>
+            <li class="active"><a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha"><?php echo htmlspecialchars( $funcionario["primeiro_nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
         </ol>
     </section>
     <!-- Main content -->
@@ -26,17 +26,17 @@
                                 <div class="panel-body">
                                     <div class="col-md-6">
                                     <label>Nome : </label>
-                                    <span>{$funcionario.primeiro_nome} {$funcionario.sobrenome}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["primeiro_nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?> <?php echo htmlspecialchars( $funcionario["sobrenome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     <br>
                                     <label>Data de Nascimento:  </label>
-                                    <span>{function="formatData($funcionario.data_nascimento)"}</span>
+                                    <span><?php echo formatData($funcionario["data_nascimento"]); ?></span>
                                     </div>
                                     <div class="col-md-6">
                                     <label>Sexo:  </label>
-                                    <span>{$funcionario.sexo}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["sexo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     <br>
                                     <label>Naturalidade: </label>
-                                    <span>{$funcionario.naturalidade} - {$funcionario.uf_nascimento}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["naturalidade"], ENT_COMPAT, 'UTF-8', FALSE ); ?> - <?php echo htmlspecialchars( $funcionario["uf_nascimento"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -47,26 +47,26 @@
                                 <div class="panel-body">
                                     <div class="col-md-6">
                                     <label>CEP: </label>
-                                    <span>{$funcionario.cep}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["cep"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     <br>
                                     <label>End: </label>
-                                    <span>{$funcionario.rua}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["rua"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     <br>
                                     <label>Número: </label>
-                                    <span>{$funcionario.numero}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["numero"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     </div>
                                     <div class="col-md-6">
                                     <label>Bairro: </label>
-                                    <span>{$funcionario.bairro}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["bairro"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     <br>
                                     <label>Cidade: </label>
-                                    <span>{$funcionario.cidade}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["cidade"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     <br>
                                     <label>Estado: </label>
-                                    <span>{$funcionario.estado}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["estado"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     <br>
                                     <label>Pa&iacute;s: </label>
-                                    <span>{$funcionario.pais}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["pais"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -77,14 +77,14 @@
                                 <div class="panel-body">
                                     <div class="col-md-6">
                                         <label>Telefone: </label>
-                                        <span>{$funcionario.telefone}</span>
+                                        <span><?php echo htmlspecialchars( $funcionario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                         <br>
                                         <label>Email: </label>
-                                        <span>{$funcionario.email}</span>
+                                        <span><?php echo htmlspecialchars( $funcionario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     </div>
                                     <div class="col-md-6">
                                         <label>Celular: </label>
-                                        <span>{$funcionario.celular}</span>
+                                        <span><?php echo htmlspecialchars( $funcionario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -97,11 +97,11 @@
                                 <div class="panel-body">
                                     <div class="col-md-4">
                                     <label>RG: </label>
-                                    <span>{$funcionario.rg}</span>
+                                    <span><?php echo htmlspecialchars( $funcionario["rg"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     </div>
                                     <div class="col-md-4">
                                     <label>CPF: </label>
-                                    <spna>{function="formataCpf($funcionario.cpf)"}</spna>
+                                    <spna><?php echo formataCpf($funcionario["cpf"]); ?></spna>
                                     </div>
                                 </div>
                             </div>
@@ -112,33 +112,33 @@
                                 <div class="panel-body">
                                 <div class="col-md-6">
                                 <label>CTPS: </label>
-                                <span>{$funcionario.numero_ctps}</span>
+                                <span><?php echo htmlspecialchars( $funcionario["numero_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                 <br>
                                 <label>S&eacute;rie: </label>
-                                <span>{$funcionario.serie_ctps}</span>
+                                <span><?php echo htmlspecialchars( $funcionario["serie_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                 <br>
                                 <label>Estado Expedi&ccedil;&atilde;o: </label>
-                                <span>{$funcionario.estado_ctps}</span>
+                                <span><?php echo htmlspecialchars( $funcionario["estado_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                 <br>
                                 <label>Data Expedi&ccedil;&atilde;o: </label>
-                                <span>{function="formatData($funcionario.data_ctps)"}</span>
+                                <span><?php echo formatData($funcionario["data_ctps"]); ?></span>
                                 </div>
                                 <div class="col-md-6">
                                 <label>PIS: </label>
-                                <span>{$funcionario.pis}</span>
+                                <span><?php echo htmlspecialchars( $funcionario["pis"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                 <br>
                                 <label>Cargo: </label>
-                                <span>{$funcionario.cargo}</span>
+                                <span><?php echo htmlspecialchars( $funcionario["cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                 <br>
                                 <label>Admiss&atilde;o: </label>
-                                <span>{function="formatData($funcionario.dtadmissao)"}</span>
+                                <span><?php echo formatData($funcionario["dtadmissao"]); ?></span>
                                 <br>
                                 <label>Acesso de Administrador: </label>
-                                    {if="$funcionario.acesso == 1"}
+                                    <?php if( $funcionario["acesso"] == 1 ){ ?>
                                     <span>Sim</span>
-                                    {else}
+                                    <?php }else{ ?>
                                     <span>Não</span>
-                                    {/if}
+                                    <?php } ?>
                                 </div>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
                         </div>
 
                         <div class="box-footer">
-                            <a href="/admin/funcionarios/{$funcionario.id_usuario}/atualiza" class="btn btn-primary btn-md">Editar</a>
+                            <a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-md">Editar</a>
                             <a href="/admin/funcionarios" class="btn btn-primary btn-md">Voltar</a>
                         </div>
 

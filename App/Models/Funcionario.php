@@ -72,23 +72,23 @@ class Funcionario extends Usuario implements Paginacao{
     }
 
     // Pegar dados de Usuario/Funcionario
-    public function get($id_usuario) {
+    public function get($id_funcionario) {
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_usuario as u 
-                INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
-                INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario  
-                INNER JOIN tb_cargo_funcionario as ca ON f.cargo_id = ca.id_cargo
-                WHERE u.id_usuario = :id_usuario", array(
-            ":id_usuario"=>$id_usuario
-        ));
+        $results =  $sql->select("SELECT * FROM tb_funcionario as fun
+                        INNER JOIN tb_usuario as u ON fun.usuario_id = u.id_usuario
+                        INNER JOIN tb_pessoa_fisica as pf ON fun.pessoa_id = pf.id_pessoaf
+                        INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                        INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                        INNER JOIN tb_cargo_funcionario as ca ON fun.cargo_id = ca.id_cargo
+                        WHERE fun.id_funcionario = :id_funcionario", array(
+                        ":id_funcionario"=>$id_funcionario
+                    ));
 
         $data = $results[0];
 
-        $data['primeiro_nome'] = utf8_encode($data['primeiro_nome']);
-        $data['sobrenome'] = utf8_encode($data['sobrenome']);
+//        $data['primeiro_nome'] = utf8_encode($data['primeiro_nome']);
+//        $data['sobrenome'] = utf8_encode($data['sobrenome']);
 
         $this->setData($data);
     }
@@ -97,17 +97,17 @@ class Funcionario extends Usuario implements Paginacao{
     public static function listarFuncionario() {
         $sql = new Sql();
 
-        return $sql->select(" SELECT * FROM tb_usuario as u 
-                INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
-                INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario
-                INNER JOIN tb_cargo_funcionario as ca ON f.cargo_id = ca.id_cargo
-                WHERE f.status_funcionario = :status
-                ORDER BY p.primeiro_nome" , array(
-            ":status"=>'ativo'
-             ));
-        // WHERE u.cargo = 'Administrador'
+        return $sql->select(" SELECT * FROM tb_funcionario as fun
+                    INNER JOIN tb_usuario as u ON fun.usuario_id = u.id_usuario
+                    INNER JOIN tb_pessoa_fisica as pf ON fun.pessoa_id = pf.id_pessoaf
+                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                    INNER JOIN tb_cargo_funcionario as ca ON fun.cargo_id = ca.id_cargo
+                    WHERE fun.status_funcionario = :status
+                    ORDER BY pf.primeiro_nome" , array(
+                ":status"=>'ativo'
+                 ));
+            // WHERE u.cargo = 'Administrador'
     }
 
     public static function ckecarPisExiste($pis){
@@ -126,9 +126,9 @@ class Funcionario extends Usuario implements Paginacao{
     public function atualizarFuncionario(){
         $sql = new Sql();
 
-        $results =  $sql->select("CALL sp_funcionario_atualizar(:id_usuario,:primeiro_nome,:sobrenome,:rg,:numero_ctps,:serie_ctps,:data_ctps,
+        $results =  $sql->select("CALL sp_funcionario_atualizar(:id_funcionario,:primeiro_nome,:sobrenome,:rg,:numero_ctps,:serie_ctps,:data_ctps,
         :estado_ctps,:pis,:cargo_id,:telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:acesso,:responsavel_cadastro)",array(
-            ":id_usuario"=>$this->getid_usuario(),
+            ":id_funcionario"=>$this->getid_funcionario(),
             ":primeiro_nome"=>utf8_decode($this->getprimeiro_nome()),
             ":sobrenome"=>utf8_decode($this->getsobrenome()),
             ":rg"=>$this->getrg(),
@@ -168,8 +168,8 @@ class Funcionario extends Usuario implements Paginacao{
     public function alteraStatusFuncionario(){
         $sql = new Sql();
 
-        $sql->query("CALL sp_altera_status_funcionario(:id_usuario,:status_funcionario,:status_usuario,:responsavel_cadastro)", array(
-            ":id_usuario"=>$this->getid_usuario(),
+        $sql->query("CALL sp_altera_status_funcionario(:id_funcionario,:status_funcionario,:status_usuario,:responsavel_cadastro)", array(
+            ":id_funcionario"=>$this->getid_funcionario(),
             ":status_funcionario"=>$this->getstatus_funcionario(),
             ":status_usuario"=>$this->getstatus_usuario(),
             ":responsavel_cadastro"=>$this->getresponsavel_cadastro()
@@ -183,15 +183,15 @@ class Funcionario extends Usuario implements Paginacao{
 
         $sql = new Sql();
 
-        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_usuario as u 
-                INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
-                INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario
-                INNER JOIN tb_cargo_funcionario as ca ON f.cargo_id = ca.id_cargo 
-                WHERE f.status_funcionario = 'ativo' AND u.tipo_usuario = 2
-                ORDER BY pf.primeiro_nome
-                LIMIT $start, $itemsPerPage;");
+        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_funcionario as fun
+                    INNER JOIN tb_usuario as u ON fun.usuario_id = u.id_usuario
+                    INNER JOIN tb_pessoa_fisica as pf ON fun.pessoa_id = pf.id_pessoaf
+                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                    INNER JOIN tb_cargo_funcionario as ca ON fun.cargo_id = ca.id_cargo
+                    WHERE fun.status_funcionario = 'ativo' AND u.tipo_usuario = 2
+                    ORDER BY pf.primeiro_nome
+                    LIMIT $start, $itemsPerPage;");
 
         $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
 
@@ -210,18 +210,18 @@ class Funcionario extends Usuario implements Paginacao{
         $sql = new Sql();
 
 
-        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_usuario as u
-                INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
-                INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario
-                INNER JOIN tb_cargo_funcionario as ca ON f.cargo_id = ca.id_cargo
-                WHERE f.status_funcionario = 'ativo' AND pf.primeiro_nome LIKE :busca OR c.email = :busca
-                AND u.tipo_usuario = 2 
-                ORDER BY pf.primeiro_nome
-                LIMIT $start, $itemsPerPage;",array(
-            ":busca"=>'%'.$busca.'%'
-        ));
+        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_funcionario as fun
+                    INNER JOIN tb_usuario as u ON fun.usuario_id = u.id_usuario
+                    INNER JOIN tb_pessoa_fisica as pf ON fun.pessoa_id = pf.id_pessoaf
+                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                    INNER JOIN tb_cargo_funcionario as ca ON fun.cargo_id = ca.id_cargo
+                    WHERE fun.status_funcionario = 'ativo' AND pf.primeiro_nome LIKE :busca OR c.email = :busca
+                    AND u.tipo_usuario = 2 
+                    ORDER BY pf.primeiro_nome
+                    LIMIT $start, $itemsPerPage;",array(
+                ":busca"=>'%'.$busca.'%'
+            ));
 
         $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
 
@@ -239,18 +239,18 @@ class Funcionario extends Usuario implements Paginacao{
 
         $cpf_sem_mascara =  Validacao::tiraMascaraCpf($busca);
 
-        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_usuario as u
-                INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
-                INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario
-                INNER JOIN tb_cargo_funcionario as ca ON f.cargo_id = ca.id_cargo
-                WHERE pf.cpf LIKE :busca 
-                AND u.tipo_usuario = 2
-                ORDER BY pf.primeiro_nome
-                LIMIT $start, $itemsPerPage;",array(
-            ":busca"=>'%'.$cpf_sem_mascara.'%',
-        ));
+        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_funcionario as fun
+                    INNER JOIN tb_usuario as u ON fun.usuario_id = u.id_usuario
+                    INNER JOIN tb_pessoa_fisica as pf ON fun.pessoa_id = pf.id_pessoaf
+                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                    INNER JOIN tb_cargo_funcionario as ca ON fun.cargo_id = ca.id_cargo
+                    WHERE pf.cpf LIKE :busca 
+                    AND u.tipo_usuario = 2
+                    ORDER BY pf.primeiro_nome
+                    LIMIT $start, $itemsPerPage;",array(
+                ":busca"=>'%'.$cpf_sem_mascara.'%',
+            ));
 
         $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
 

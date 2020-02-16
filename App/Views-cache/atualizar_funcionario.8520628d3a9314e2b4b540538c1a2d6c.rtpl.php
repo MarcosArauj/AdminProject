@@ -1,4 +1,4 @@
-
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -9,7 +9,7 @@
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="/admin/funcionarios">Funcionários</a></li>
-            <li class="active"><a href="/admin/funcionarios/{$funcionario.id_funcionario}/atualiza">Editar</a></li>
+            <li class="active"><a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza">Editar</a></li>
         </ol>
     </section>
 
@@ -21,7 +21,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form  role="form" action="/admin/funcionarios/{$funcionario.id_funcionario}/atualiza" name="FormCadastro" method="post">
+            <form  role="form" action="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" name="FormCadastro" method="post">
                 <div class="box-body">
                     <div class="col-md-6">
                         <div class="box box-primary">
@@ -31,15 +31,15 @@
                             <div class="box-body">
                                 <div class="col-md-6">
                                     <label class="control-label" for="primeiro_nome"><strong class="obrigatorio">*</strong>Primeiro Nome</label>
-                                    <input type="text" class="form-control" id="primeiro_nome" name="primeiro_nome" maxlength="20" value="{$funcionario.primeiro_nome}" autofocus required>
+                                    <input type="text" class="form-control" id="primeiro_nome" name="primeiro_nome" maxlength="20" value="<?php echo htmlspecialchars( $funcionario["primeiro_nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" autofocus required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="control-label" for="sobrenome"><strong class="obrigatorio">*</strong>Sobrenome</label>
-                                    <input type="text" class="form-control" id="sobrenome" name="sobrenome" maxlength="20" value="{$funcionario.sobrenome}" required>
+                                    <input type="text" class="form-control" id="sobrenome" name="sobrenome" maxlength="20" value="<?php echo htmlspecialchars( $funcionario["sobrenome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                 </div>
                                 <div class="col-md-12">
                                     <label class="control-label" for="rg"><strong class="obrigatorio">*</strong>RG</label>
-                                    <input type="text" class="form-control" name="rg" id="rg" placeholder="RG" value="{$funcionario.rg}" required>
+                                    <input type="text" class="form-control" name="rg" id="rg" placeholder="RG" value="<?php echo htmlspecialchars( $funcionario["rg"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                 </div>
                             </div>
                         </div>
@@ -50,32 +50,32 @@
                             <div class="box-body">
                                 <div class="col-md-4">
                                     <label class="control-label" for="cep"><strong class="obrigatorio">*</strong>CEP</label>
-                                    <input type="text" class="form-control cep-mask" name="cep" id="cep" value="{$funcionario.cep}"  required>
+                                    <input type="text" class="form-control cep-mask" name="cep" id="cep" value="<?php echo htmlspecialchars( $funcionario["cep"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"  required>
                                 </div>
                                 <div class="col-md-5">
                                     <label class="control-label" for="endereco"><strong class="obrigatorio">*</strong>Endereço</label>
-                                    <input type="text" class="form-control" name="rua" id="endereco" value="{$funcionario.rua}" required>
+                                    <input type="text" class="form-control" name="rua" id="endereco" value="<?php echo htmlspecialchars( $funcionario["rua"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                 </div>
 
                                 <div class="col-md-3">
                                     <label class="control-label" for="numero"><strong class="obrigatorio">*</strong>Número</label>
-                                    <input type="text" class="form-control" name="numero" id="numero" value="{$funcionario.numero}" maxlength="10" required>
+                                    <input type="text" class="form-control" name="numero" id="numero" value="<?php echo htmlspecialchars( $funcionario["numero"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="10" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="control-label" for="bairro"><strong class="obrigatorio">*</strong>Bairro</label>
-                                    <input type="text" class="form-control" name="bairro" id="bairro" value="{$funcionario.bairro}" required>
+                                    <input type="text" class="form-control" name="bairro" id="bairro" value="<?php echo htmlspecialchars( $funcionario["bairro"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="control-label" for="cidade"><strong class="obrigatorio">*</strong>Cidade</label>
-                                    <input type="text" class="form-control" name="cidade" id="cidade"  value="{$funcionario.cidade}" required>
+                                    <input type="text" class="form-control" name="cidade" id="cidade"  value="<?php echo htmlspecialchars( $funcionario["cidade"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="control-label" for="estado"><strong class="obrigatorio">*</strong>Estado</label>
-                                    <input type="text" class="form-control" name="estado" id="estado" value="{$funcionario.estado}" required>
+                                    <input type="text" class="form-control" name="estado" id="estado" value="<?php echo htmlspecialchars( $funcionario["estado"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                 </div>
                                 <div class="col-md-8">
                                     <label class="control-label" for="pais"><strong class="obrigatorio">*</strong>País</label>
-                                    <input type="text" class="form-control" name="pais" id="pais" value="{$funcionario.pais}" required>
+                                    <input type="text" class="form-control" name="pais" id="pais" value="<?php echo htmlspecialchars( $funcionario["pais"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                     <label class="control-label" for="email"><strong class="obrigatorio">*</strong>Email</label>
                                     <div class="input-group">
                                         <span class="input-group-addon" id="sizing-addon2">@</span>
-                                        <input type="email" class="form-control" name="email"  value="{$funcionario.email}" oninput="ValidarCampoEmail()" required>
+                                        <input type="email" class="form-control" name="email"  value="<?php echo htmlspecialchars( $funcionario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" oninput="ValidarCampoEmail()" required>
                                     </div>
                                 </div>
                                 </div>
@@ -102,7 +102,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-phone"></i>
                                         </div>
-                                        <input type="text" class="form-control phone-ddd-mask" name="telefone" id="telefone" value="{$funcionario.telefone}" required>
+                                        <input type="text" class="form-control phone-ddd-mask" name="telefone" id="telefone" value="<?php echo htmlspecialchars( $funcionario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -111,7 +111,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-phone"></i>
                                         </div>
-                                        <input type="text" class="form-control cel-sp-mask" name="celular" id="celular" value="{$funcionario.celular}" required>
+                                        <input type="text" class="form-control cel-sp-mask" name="celular" id="celular" value="<?php echo htmlspecialchars( $funcionario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -125,19 +125,19 @@
                             <div class="box-body">
                                 <div class="col-md-5">
                                     <label class="control-label" for="numero_ctps"><strong class="obrigatorio">*</strong>N&uacute;mero</label>
-                                    <input type="text" class="form-control" name="numero_ctps" id="numero_ctps" value="{$funcionario.numero_ctps}" maxlength="10" required>
+                                    <input type="text" class="form-control" name="numero_ctps" id="numero_ctps" value="<?php echo htmlspecialchars( $funcionario["numero_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="10" required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="control-label" for="serie_ctps"><strong class="obrigatorio">*</strong>S&eacute;rie</label>
-                                    <input type="text" class="form-control" name="serie_ctps" id="serie_ctps" value="{$funcionario.serie_ctps}" maxlength="5" required>
+                                    <input type="text" class="form-control" name="serie_ctps" id="serie_ctps" value="<?php echo htmlspecialchars( $funcionario["serie_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="5" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="control-label" for="estado_ctps"><strong class="obrigatorio">*</strong>Estado Expedi&ccedil;&atilde;o</label>
                                     <select class="form-control" name="estado_ctps" id="estado_ctps" required>
-                                        <option style="color: blue;" value="{$funcionario.estado_ctps}">{$funcionario.estado_ctps}</option>
-                                        {loop="$estados"}
-                                        <option value="{$value.uf}">{$value.uf}</option>
-                                        {/loop}
+                                        <option style="color: blue;" value="<?php echo htmlspecialchars( $funcionario["estado_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $funcionario["estado_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                                        <?php $counter1=-1;  if( isset($estados) && ( is_array($estados) || $estados instanceof Traversable ) && sizeof($estados) ) foreach( $estados as $key1 => $value1 ){ $counter1++; ?>
+                                        <option value="<?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -146,28 +146,28 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input type="date" class="form-control" name="data_ctps" id="data_ctps"  value="{$funcionario.data_ctps}" required>
+                                        <input type="date" class="form-control" name="data_ctps" id="data_ctps"  value="<?php echo htmlspecialchars( $funcionario["data_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="control-label" for="pis"><strong class="obrigatorio">*</strong>PIS</label>
-                                    <input type="text" class="form-control" name="pis" id="pis" value="{$funcionario.pis}" required>
+                                    <input type="text" class="form-control" name="pis" id="pis" value="<?php echo htmlspecialchars( $funcionario["pis"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="cargo_id">Cargo</label>
                                     <select class="form-control" name="cargo_id" id="cargo_id">
-                                        <option style="color: blue;" value="{$funcionario.cargo_id}">{$funcionario.cargo}</option>
-                                        {loop="$cargo"}
-                                        <option value="{$value.id_cargo}">{$value.cargo}</option>
-                                        {/loop}
+                                        <option style="color: blue;" value="<?php echo htmlspecialchars( $funcionario["cargo_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $funcionario["cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                                        <?php $counter1=-1;  if( isset($cargo) && ( is_array($cargo) || $cargo instanceof Traversable ) && sizeof($cargo) ) foreach( $cargo as $key1 => $value1 ){ $counter1++; ?>
+                                        <option value="<?php echo htmlspecialchars( $value1["id_cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="acesso" value="1" {if="$funcionario.acesso == 1"} checked {/if} > Acesso de Administrador
+                                            <input type="checkbox" name="acesso" value="1" <?php if( $funcionario["acesso"] == 1 ){ ?> checked <?php } ?> > Acesso de Administrador
                                         </label>
-                                        <input type="hidden" name="responsavel_cadastro" value="{function="getNomeUsuario()"}">
+                                        <input type="hidden" name="responsavel_cadastro" value="<?php echo getNomeUsuario(); ?>">
                                     </div>
                             </div>
                         </div>
@@ -186,12 +186,12 @@
 
         </div>
         <!--Mensagem de Erro-->
-        {if="$funcionarioErro != ''"}
+        <?php if( $funcionarioErro != '' ){ ?>
         <div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {$funcionarioErro}
+            <?php echo htmlspecialchars( $funcionarioErro, ENT_COMPAT, 'UTF-8', FALSE ); ?>
         </div>
-        {/if}
+        <?php } ?>
     </section>
 </div>
 

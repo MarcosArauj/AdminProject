@@ -12,7 +12,7 @@ namespace App\Models;
 use App\config\DB\Sql;
 
 
-class Login extends Usuario {
+class Login  extends Usuario {
 
 
     public static function getFromSession(){
@@ -54,14 +54,8 @@ class Login extends Usuario {
 
         $db = new Sql();
 
-        $results = $db->select("SELECT * FROM tb_usuario as u 
-                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
-                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
-                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                    INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario  
-                    INNER JOIN tb_cargo_funcionario as ca ON f.cargo_id = ca.id_cargo 
-                    AND f.status_funcionario = :status AND u.status_usuario = :status
-                    WHERE u.usuario = :login",
+        $results = $db->select("SELECT * FROM tb_usuario
+                    WHERE  usuario = :login AND status_usuario = :status",
             array(
                 ":login"=>$login,
                 ":status"=>"ativo"
@@ -78,16 +72,61 @@ class Login extends Usuario {
 
         if (password_verify($senha, $data["senha"])) {
 
-            $usuario = new Usuario();
 
-            $data['primeiro_nome'] = utf8_encode($data['primeiro_nome']);
-            $data['sobrenome'] = utf8_encode($data['sobrenome']);
 
-            $usuario->setData($data);
+            if ($data["tipo_usuario"] == 1 ) {
 
-            $_SESSION[Usuario::SESSION] = $usuario->getValues();
+                $usuario = new Usuario();
 
-            return $usuario;
+                $proprietario = $db->select("SELECT * FROM tb_usuario as u
+                    INNER JOIN tb_proprietario as pro ON pro.usuario_id = u.id_usuario 
+                    INNER JOIN tb_pessoa_fisica as pf ON pro.pessoaf_id = pf.id_pessoaf
+                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                    WHERE  u.usuario = :login AND u.status_usuario = :status",
+                    array(
+                        ":login"=>$login,
+                        ":status"=>"ativo"
+                    ));
+
+                $data2 = $proprietario[0];
+
+//                $data2['primeiro_nome'] = utf8_encode($data['primeiro_nome']);
+//                $data2['sobrenome'] = utf8_encode($data['sobrenome']);
+
+                $usuario->setData($data2);
+                $_SESSION[Usuario::SESSION] = $usuario->getValues();
+
+                return $usuario;
+
+            } else if($data["tipo_usuario"] == 2) {
+                $usuario = new Usuario();
+
+                  $funcionario = $db->select("SELECT * FROM tb_funcionario as fun
+                        INNER JOIN tb_usuario as u ON fun.usuario_id = u.id_usuario
+                        INNER JOIN tb_pessoa_fisica as pf ON fun.pessoa_id = pf.id_pessoaf
+                        INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                        INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                        INNER JOIN tb_cargo_funcionario as ca ON fun.cargo_id = ca.id_cargo
+                        WHERE  u.usuario = :login AND u.status_usuario = :status",
+                        array(
+                            ":login"=>$login,
+                            ":status"=>"ativo"
+                        ));
+
+                    $data2 = $funcionario[0];
+
+                    $usuario->setData($data2);
+                    $_SESSION[Usuario::SESSION] = $usuario->getValues();
+
+                    return $usuario;
+
+            }
+
+
+          //  $data['primeiro_nome'] = utf8_encode($data['primeiro_nome']);
+            //$data['sobrenome'] = utf8_encode($data['sobrenome']);
+
 
         } else {
 

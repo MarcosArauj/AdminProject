@@ -16,11 +16,11 @@ class Proprietario extends Usuario {
 
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_usuario as u 
-            INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
-            INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
-            INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-            INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario");
+        $results =  $sql->select(" SELECT * FROM tb_proprietario as pro 
+                            INNER JOIN tb_pessoa_fisica as pf ON pro.pessoaf_id = pf.id_pessoaf
+                            INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                            INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                            INNER JOIN tb_usuario as u ON pro.usuario_id = u.id_usuario");
 
         return (count($results) > 0);
     }

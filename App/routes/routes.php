@@ -57,17 +57,17 @@ $app->group('/admin', function ($app){
         //Rota carregar lista de Funcionários
         $this->get('', 'FuncionarioController:funcionarios')->setName('funcionarios');
         //Rota detalhar cadastro do Funcionário/Usurio
-        $this->get('/{id_usuario}/detalha', 'FuncionarioController:detalharFuncionario')->setName('detalha-funcionario');
+        $this->get('/{id_funcionario}/detalha', 'FuncionarioController:detalharFuncionario')->setName('detalha-funcionario');
         //Rota Buscar Funcionario
         $this->get('/buscar', 'FuncionarioController:buscaFuncionario')->setName('buscar-funcionario');
         //Rota ativar Funcionario/Usuario
-        $this->get('/buscar/{id_usuario}/ativa', 'FuncionarioController:ativaFuncionario')->setName('ativa-funcionario');
+        $this->get('/buscar/{id_funcionario}/ativa', 'FuncionarioController:ativaFuncionario')->setName('ativa-funcionario');
         //Rota cadastro de Funcionario/Usuario
         $this->map(['GET', 'POST'], '/cadastra', 'FuncionarioController:cadastrarFuncionario')->setName('cadastra-funcionario');
         //Rota atualizar Funcionário
-        $this->map(['GET', 'POST'], '/{id_usuario}/atualiza', 'FuncionarioController:atualizarFuncionario')->setName('atualiza-funcionario');
+        $this->map(['GET', 'POST'], '/{id_funcionario}/atualiza', 'FuncionarioController:atualizarFuncionario')->setName('atualiza-funcionario');
         //Rota excluir Funcionario/Usuario
-        $this->get('/{id_usuario}/exclui', 'FuncionarioController:excluirFuncionario')->setName('exclui-funcionario');
+        $this->get('/{id_funcionario}/exclui', 'FuncionarioController:excluirFuncionario')->setName('exclui-funcionario');
     });
     //Cargo do Funcionário
     $app->group('/cargos', function(){

@@ -65,7 +65,7 @@ class UsuarioController extends Controller {
 
                 $usuario->setData($posts);
 
-                $usuario->atualizarUsuario();
+                $usuario->atualizarUsuarioFuncionario();
 
                 Usuario::setSuccess("Dados Alterado com Sucesso! Na próxima vez que fizer o Login verá as Alterações!" );
 

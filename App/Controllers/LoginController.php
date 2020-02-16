@@ -30,6 +30,7 @@ class LoginController extends Controller {
 
             if ($proprietario > 0) {
 
+
                 $page = new PageLogin();
 
                 $page->setTpl('index', array(

@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>{function="getNomeEmpresa()"}</title>
+    <title><?php echo getNomeEmpresa(); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Icone -->
     <!--Icone-->
@@ -23,7 +23,7 @@
 <body class="hold-transition login-page">
 <div class="container">
     <h1 id="titulo_home">
-        <b>Cadastro Propriet&aacute;rio - {function="getNomeEmpresa()"}</b>
+        <b>Cadastro Propriet&aacute;rio - <?php echo getNomeEmpresa(); ?></b>
     </h1>
     <div class="box box-success">
         <div class="box-header with-border">
@@ -67,9 +67,9 @@
                                 <label class="control-label" for="uf_nascimento"><strong class="obrigatorio">*</strong>Estado Nascimento</label>
                                 <select class="form-control" name="uf_nascimento" id="uf_nascimento" required>
                                     <option value="">Selecione</option>
-                                    {loop="$estados"}
-                                    <option value="{$value.uf}">{$value.uf}</option>
-                                    {/loop}
+                                    <?php $counter1=-1;  if( isset($estados) && ( is_array($estados) || $estados instanceof Traversable ) && sizeof($estados) ) foreach( $estados as $key1 => $value1 ){ $counter1++; ?>
+                                    <option value="<?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                                    <?php } ?>
                                 </select>
 
                             </div>
@@ -177,12 +177,12 @@
         </form>
     </div>
     <!--Mensagem de Erro-->
-    {if="$proprietarioErro != ''"}
+    <?php if( $proprietarioErro != '' ){ ?>
     <div class="alert alert-danger alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        {$proprietarioErro}
+        <?php echo htmlspecialchars( $proprietarioErro, ENT_COMPAT, 'UTF-8', FALSE ); ?>
     </div>
-    {/if}
+    <?php } ?>
 </div>
 
 <!-- REQUIRED JS SCRIPTS -->
