@@ -104,7 +104,7 @@ class Login  extends Usuario {
         }
 
     }
-    
+
     // Pega dados do Usuario Logado
     public static function getFromSession(){
 

@@ -39,7 +39,6 @@ function getControllers($container, array $names) {
 }
 
 getControllers($container, array(
-    'HomeController',
     'LoginController',
     'UsuarioController',
     'RecuperaSenhaController',
