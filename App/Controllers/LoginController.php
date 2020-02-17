@@ -56,7 +56,7 @@ class LoginController extends Controller {
             $posts = $request->getParsedBody();
 
             try{
-                Login::login($posts["login"], $posts["senha"]);
+                Login::loginAdmin($posts["login"], $posts["senha"]);
 
             } catch (\Exception $e){
                 Usuario::setError($e->getMessage());

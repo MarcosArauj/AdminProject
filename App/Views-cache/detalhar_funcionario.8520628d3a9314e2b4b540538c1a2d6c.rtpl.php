@@ -95,7 +95,7 @@
                                     <h2 class="panel-title">Documentos Pessoais</h2>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                     <label>RG: </label>
                                     <span><?php echo htmlspecialchars( $funcionario["rg"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                                     </div>

@@ -14,51 +14,17 @@ use App\config\DB\Sql;
 
 class Login  extends Usuario {
 
-
-    public static function getFromSession(){
-
-        $usuario = new Usuario();
-
-        if (isset($_SESSION[Usuario::SESSION]) && (int)$_SESSION[Usuario::SESSION]['id_usuario'] >0) {
-            $usuario->setData($_SESSION[Usuario::SESSION]);
-        }
-
-        return $usuario;
-
-    }
-
-
-    public static function checkLogin($acesso = true){
-        if (!isset($_SESSION[Usuario::SESSION])
-            ||
-            !$_SESSION[Usuario::SESSION]
-            ||
-            !(int)$_SESSION[Usuario::SESSION]["id_usuario"] > 0) {
-            //Não esta logado
-            return false;
-        } else {
-            if($acesso === true && (bool)$_SESSION[Usuario::SESSION]["acesso"] === true) {
-                return true;
-
-            } else if($acesso === false){
-                return true;
-
-            } else {
-                return false;
-            }
-        }
-
-    }
-
-    public static function login($login, $senha){
+    // Ligin Administrativo
+    public static function loginAdmin($login, $senha){
 
         $db = new Sql();
 
         $results = $db->select("SELECT * FROM tb_usuario
-                    WHERE  usuario = :login AND status_usuario = :status",
+                    WHERE  usuario = :login AND status_usuario = :status AND tipo_usuario != :tipo_usuario",
             array(
                 ":login"=>$login,
-                ":status"=>"ativo"
+                ":status"=>"ativo",
+                ":tipo_usuario"=> 3 //Usuario Cliente
             ));
 
         if (count($results) === 0) {
@@ -102,31 +68,31 @@ class Login  extends Usuario {
             } else if($data["tipo_usuario"] == 2) {
                 $usuario = new Usuario();
 
-                  $funcionario = $db->select("SELECT * FROM tb_funcionario as fun
+                $funcionario = $db->select("SELECT * FROM tb_funcionario as fun
                         INNER JOIN tb_usuario as u ON fun.usuario_id = u.id_usuario
                         INNER JOIN tb_pessoa_fisica as pf ON fun.pessoa_id = pf.id_pessoaf
                         INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
                         INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
                         INNER JOIN tb_cargo_funcionario as ca ON fun.cargo_id = ca.id_cargo
                         WHERE  u.usuario = :login AND u.status_usuario = :status",
-                        array(
-                            ":login"=>$login,
-                            ":status"=>"ativo"
-                        ));
+                    array(
+                        ":login"=>$login,
+                        ":status"=>"ativo"
+                    ));
 
-                    $data2 = $funcionario[0];
+                $data2 = $funcionario[0];
 
-                    $usuario->setData($data2);
-                    $_SESSION[Usuario::SESSION] = $usuario->getValues();
+                $usuario->setData($data2);
+                $_SESSION[Usuario::SESSION] = $usuario->getValues();
 
-                    return $usuario;
+                return $usuario;
 
             } else {
-               throw new \Exception("Você não tem acesso a esse Sistema!!!");
+                throw new \Exception("Você não tem acesso a esse Sistema!!!");
             }
 
 
-          //  $data['primeiro_nome'] = utf8_encode($data['primeiro_nome']);
+            //  $data['primeiro_nome'] = utf8_encode($data['primeiro_nome']);
             //$data['sobrenome'] = utf8_encode($data['sobrenome']);
 
 
@@ -138,7 +104,42 @@ class Login  extends Usuario {
         }
 
     }
+    
+    // Pega dados do Usuario Logado
+    public static function getFromSession(){
 
+        $usuario = new Usuario();
+
+        if (isset($_SESSION[Usuario::SESSION]) && (int)$_SESSION[Usuario::SESSION]['id_usuario'] >0) {
+            $usuario->setData($_SESSION[Usuario::SESSION]);
+        }
+
+        return $usuario;
+
+    }
+
+  //Verifcar o Usuario logado e Tipo de acesso permitido
+    public static function checkLogin($acesso = true){
+        if (!isset($_SESSION[Usuario::SESSION])
+            ||
+            !$_SESSION[Usuario::SESSION]
+            ||
+            !(int)$_SESSION[Usuario::SESSION]["id_usuario"] > 0) {
+            //Não esta logado
+            return false;
+        } else {
+            if($acesso === true && (bool)$_SESSION[Usuario::SESSION]["acesso"] === true) {
+                return true;
+
+            } else if($acesso === false){
+                return true;
+
+            } else {
+                return false;
+            }
+        }
+
+    }
 
     public static function logout(){
 
