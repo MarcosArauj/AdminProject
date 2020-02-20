@@ -6,8 +6,8 @@
  * Time: 10:56
  */
 
-//Rota tela de Inicial/login
-$app->map(['GET', 'POST'],'/', 'LoginController:login')->setName('login');
+//Rota tela de Inicial/home
+$app->map(['GET', 'POST'],'/', 'LoginController:login')->setName('home');
 //Rota que carregar a Tela de Admin após logar
 $app->get('/admin', 'LoginController:admin')->setName('admin');
 //Rota logout

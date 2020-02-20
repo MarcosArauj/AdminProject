@@ -223,7 +223,7 @@ class FuncionarioController extends Controller {
 
                 Funcionario::setError($e->getMessage());
 
-                return $response->withRedirect($this->container->router->pathFor('atualiza-funcionario',['id_usuario'=>$funcionario->getid_usuario()]));
+                return $response->withRedirect($this->container->router->pathFor('atualiza-funcionario',['id_funcionario'=>$funcionario->getid_funcionario()]));
             }
         }
     }

@@ -17,28 +17,29 @@ class Usuario extends Model  {
 
     const SESSION = "Usuario";
     const SECRET = "Casa_Nova_Secret";
+    public $status_cadastro = "ativo";
 
 
-//    public static function listAll() {
-//        $sql = new Sql();
-//
-//
-//        return $sql->select("SELECT * FROM tb_usuario as u
-//                    INNER JOIN tb_proprietario pro ON pro.usuario_id = u.id_usuario
-//                    INNER JOIN tb_pessoa_fisica as pf ON pro.pessoaf_id = pf.id_pessoaf
-//                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
-//                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-//                    ORDER BY pf.primeiro_nome");
-//
-//       // WHERE u.cargo = 'Administrador'
-//    }
+    public static function listUsuario() {
+        $sql = new Sql();
+
+
+        $results =  $sql->select("SELECT * FROM tb_usuario as u
+                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
+                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                    ORDER BY pf.primeiro_nome");
+
+        return (count($results) > 0);
+
+       // WHERE u.cargo = 'Administrador'
+    }
 
     public function get($id_usuario) {
         $sql = new Sql();
 
         $results =  $sql->select("SELECT * FROM tb_usuario as u
-                    INNER JOIN tb_proprietario pro ON pro.usuario_id = u.id_usuario 
-                    INNER JOIN tb_pessoa_fisica as pf ON pro.pessoaf_id = pf.id_pessoaf
+                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
                     INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
                     INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
                     WHERE u.id_usuario = :id_usuario",array(
@@ -76,52 +77,51 @@ class Usuario extends Model  {
 
     }
 
-
-//atualizar dados de Usuario Funcionnario
- public function atualizarUsuarioFuncionario(){
-
-     $sql = new Sql();
-
-     $results =  $sql->select("CALL sp_usuario_funcionario_atualizar(:id_funcionario,:primeiro_nome,:sobrenome,:rg,:numero_ctps,:serie_ctps,:data_ctps,
-        :estado_ctps,:pis,:telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:responsavel_cadastro)",array(
-         ":id_funcionario"=>$this->getid_funcionario(),
-         ":primeiro_nome"=>utf8_decode($this->getprimeiro_nome()),
-         ":sobrenome"=>utf8_decode($this->getsobrenome()),
-         ":rg"=>$this->getrg(),
-         ":numero_ctps"=>$this->getnumero_ctps(),
-         ":serie_ctps"=>$this->getserie_ctps(),
-         ":data_ctps"=>$this->getdata_ctps(),
-         ":estado_ctps"=>$this->getestado_ctps(),
-         ":pis"=>$this->getpis(),
-         ":telefone"=>$this->gettelefone(),
-         ":celular"=>$this->getcelular(),
-         ":email"=>$this->getemail(),
-         ":cep"=>$this->getcep(),
-         ":rua"=>$this->getrua(),
-         ":numero"=>$this->getnumero(),
-         ":bairro"=>$this->getbairro(),
-         ":cidade"=>$this->getcidade(),
-         ":estado"=>$this->getestado(),
-         ":pais"=>$this->getpais(),
-         ":usuario"=>Validacao::getUsuario($this->getemail()),
-         ":responsavel_cadastro"=>$this->getresponsavel_cadastro()
-
-     ));
-
-   //  echo json_encode($this->getValues());
-
-     $this->setData($results[0]);
-
-  }
-
-//atualiza usuario Proprietario
-    public function atualizaProprietario(){
+    // Proprietario e Funcionarios
+    public function salvarUsuario(){
 
         $sql = new Sql();
 
-        $results =  $sql->select("CALL sp_proprietario_atualizar(:id_proprietario,:primeiro_nome,:sobrenome,
+        $results =  $sql->select("CALL sp_usuario_admin_salvar(:primeiro_nome,:sobrenome,:data_nascimento,:sexo,:naturalidade,:uf_nascimento,
+        :cpf,:rg,:telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:senha,:acesso,:tipo_usuario,:status_usuario,:responsavel_cadastro)",array(
+            ":primeiro_nome"=>utf8_decode($this->getprimeiro_nome()),
+            ":sobrenome"=>utf8_decode($this->getsobrenome()),
+            ":data_nascimento"=>$this->getdata_nascimento(),
+            ":sexo"=>$this->getsexo(),
+            ":naturalidade"=>$this->getnaturalidade(),
+            "uf_nascimento"=>$this->getuf_nascimento(),
+            ":cpf"=> Validacao::tiraMascaraCpf($this->getcpf()),
+            ":rg"=>$this->getrg(),
+            ":telefone"=>$this->gettelefone(),
+            ":celular"=>$this->getcelular(),
+            ":email"=>$this->getemail(),
+            ":cep"=>$this->getcep(),
+            ":rua"=>$this->getrua(),
+            ":numero"=>$this->getnumero(),
+            ":bairro"=>$this->getbairro(),
+            ":cidade"=>$this->getcidade(),
+            ":estado"=>$this->getestado(),
+            ":pais"=>$this->getpais(),
+            ":usuario"=>Validacao::getUsuario($this->getemail()),
+            ":senha"=>password_hash(Validacao::tiraMascaraCpf($this->getcpf()), PASSWORD_DEFAULT,["cost"=>12]),
+            ":acesso"=>$this->getacesso(),
+            ":tipo_usuario"=>$this->gettipo_usuario(),
+            ":status_usuario"=>$this->status_cadastro,
+            ":responsavel_cadastro"=>utf8_decode($this->getprimeiro_nome())
+
+        ));
+
+        $this->setData($results[0]);
+    }
+
+//atualiza usuario Logadp
+    public function atualizaUsuario(){
+
+        $sql = new Sql();
+
+        $results =  $sql->select("CALL sp_usuario_admin_atualizar(:id_usuario,:primeiro_nome,:sobrenome,
             :rg,:telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:responsavel_cadastro)",array(
-            ":id_proprietario"=>$this->getid_proprietario(),
+            ":id_usuario"=>$this->getid_usuario(),
             ":primeiro_nome"=>$this->getprimeiro_nome(),
             ":sobrenome"=>$this->getsobrenome(),
             ":rg"=>$this->getrg(),

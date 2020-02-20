@@ -5,7 +5,7 @@ namespace App\Controllers;
 
 
 use App\Models\Login;
-use App\Models\Proprietario;
+use App\Models\Usuario;
 use project\pages\PageCadastro;
 use project\pages\PagePerfil;
 use project\validacao\Validacao;
@@ -25,44 +25,47 @@ class ProprietarioController extends Controller {
 
         } else {
 
-            $proprietario = new Proprietario();
+            $proprietario = new Usuario();
 
             $posts = $request->getParsedBody();
 
-            if (Proprietario::ckecarEmailExiste($posts['email']) === true && Proprietario::ckecarCpfExiste($posts['cpf']) === true) {
+            if (Usuario::ckecarEmailExiste($posts['email']) === true && Usuario::ckecarCpfExiste($posts['cpf']) === true) {
 
-                Proprietario::setError("CPF e E-mail já; cadastrados!");
+                Usuario::setError("CPF e E-mail já; cadastrados!");
 
-                return $response->withRedirect($this->container->router->pathFor('login'));
+                return $response->withRedirect($this->container->router->pathFor('home'));
 
-            } else if (Proprietario::ckecarCpfExiste($posts['cpf']) === true) {
-                Proprietario::setError("CPF já; cadastrado!");
+            } else if (Usuario::ckecarCpfExiste($posts['cpf']) === true) {
+                Usuario::setError("CPF já; cadastrado!");
 
-                return $response->withRedirect($this->container->router->pathFor('login'));
+                return $response->withRedirect($this->container->router->pathFor('home'));
 
-            } else if (Proprietario::ckecarEmailExiste($posts['email']) === true) {
-                Proprietario::setError("E-mail já; cadastrado!");
+            } else if (Usuario::ckecarEmailExiste($posts['email']) === true) {
+                Usuario::setError("E-mail já; cadastrado!");
 
                 header("Location: /");
                 exit;
             } else if (!Validacao::validaCPF($posts["cpf"])) {
-                Proprietario::setError("CPF não; existe!");
+                Usuario::setError("CPF não; existe!");
 
-                return $response->withRedirect($this->container->router->pathFor('login'));
+                return $response->withRedirect($this->container->router->pathFor('home'));
             }
 
             try {
+                $proprietario->settipo_usuario('proprietario');
+                $proprietario->setacesso(1);
+
                 $proprietario->setData($posts);
 
-                $proprietario->salvarProprietario();
+                $proprietario->salvarUsuario();
 
                 return $response->withRedirect($this->container->router->pathFor('cadastrarProprietario'));
 
             } catch (\Exception $e) {
 
-                Proprietario::setErrorRegister("Erro ao Cadastrar Proprietario!");
+                Usuario::setErrorRegister("Erro ao Cadastrar Proprietario!");
 
-                return $response->withRedirect($this->container->router->pathFor('login'));
+                return $response->withRedirect($this->container->router->pathFor('home'));
             }
 
         }
@@ -80,7 +83,7 @@ class ProprietarioController extends Controller {
 
             $page->setTpl("atualiza_proprietario", array(
                 "proprietario" => $proprietario->getValues(),
-                "perfilErro" => Proprietario::getError()
+                "perfilErro" => Usuario::getError()
             ));
         } else {
             $proprietario = Login::getFromSession();
@@ -88,8 +91,8 @@ class ProprietarioController extends Controller {
             $posts = $request->getParsedBody();
 
             if($posts['email'] !== $proprietario->getemail()){
-                if(Proprietario::ckecarEmailExiste($posts['email'])=== true){
-                    Proprietario::setError("E-mail já; cadastrado!");
+                if(Usuario::ckecarEmailExiste($posts['email'])=== true){
+                    Usuario::setError("E-mail já; cadastrado!");
 
                     return $response->withRedirect($this->container->router->pathFor('atualiza-proprietario'));
                 }
@@ -99,15 +102,15 @@ class ProprietarioController extends Controller {
 
                 $proprietario->setData($posts);
 
-                $proprietario->atualizaProprietario();
+                $proprietario->atualizaUsuario();
 
-                Proprietario::setSuccess("Dados Alterado com Sucesso! Na próxima vez que fizer o Login verá as Alterações!" );
+                Usuario::setSuccess("Dados Alterado com Sucesso! Na próxima vez que fizer o Login verá as Alterações!" );
 
                 return $response->withRedirect($this->container->router->pathFor('perfil'));
 
             } catch (\Exception $e) {
 
-                Proprietario::setError("Erro ao Alterar Dados!");
+                Usuario::setError("Erro ao Alterar Dados!");
 
                 return $response->withRedirect($this->container->router->pathFor('atualiza-proprietario'));
             }

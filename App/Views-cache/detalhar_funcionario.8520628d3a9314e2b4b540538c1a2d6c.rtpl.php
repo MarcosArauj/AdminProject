@@ -146,7 +146,7 @@
                         </div>
 
                         <div class="box-footer">
-                            <a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-md">Editar</a>
+                            <a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-md">Editar</a>
                             <a href="/admin/funcionarios" class="btn btn-primary btn-md">Voltar</a>
                         </div>
 

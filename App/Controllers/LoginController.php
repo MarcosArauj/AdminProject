@@ -11,7 +11,6 @@ namespace App\Controllers;
 
 use App\Models\Empresa;
 use App\Models\EstadosCidades;
-use App\Models\Proprietario;
 use project\pages\PageCadastro;
 use App\Models\Login;
 use App\Models\Usuario;
@@ -26,7 +25,7 @@ class LoginController extends Controller {
 
         if($request->isGet()){
 
-            $proprietario = Proprietario::listarproprietario();
+            $proprietario = Usuario::listUsuario();
 
             if ($proprietario > 0) {
 
@@ -48,7 +47,7 @@ class LoginController extends Controller {
 
                 $pageCadastro->setTpl('cadastro_proprietario', array(
                     'estados'=>$estados,
-                    "proprietarioErro"=>Proprietario::getError()
+                    "proprietarioErro"=>Usuario::getError()
                 ));
             }
 
@@ -87,7 +86,7 @@ class LoginController extends Controller {
 
         Login::logout();
 
-        return $response->withRedirect($this->container->router->pathFor('login'));
+        return $response->withRedirect($this->container->router->pathFor('home'));
 
     }
 

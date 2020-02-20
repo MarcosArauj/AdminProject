@@ -66,7 +66,7 @@ function getIniciaisUsuario(){
 function getTipoUsuario() {
     $usuario = Login::getFromSession();
 
-    return $usuario->gettipo_usuario();
+    return $usuario->getid_usuario();
 }
 
 function getEmpresa(){

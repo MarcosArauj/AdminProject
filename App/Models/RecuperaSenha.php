@@ -20,12 +20,13 @@ class RecuperaSenha  extends  Usuario {
 
         $sql = new Sql();
 
+
+
         $results = $sql->select(
-            "SELECT * FROM tb_usuario as u 
-                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoaf_id = pf.id_pessoaf
+            "SELECT * FROM tb_usuario as u
+                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
                     INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
                     INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                    INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario 
                     WHERE c.email = :email", array(
             ":email"=>$email
         ));
@@ -88,8 +89,7 @@ class RecuperaSenha  extends  Usuario {
 	  $results = $sql->select("SELECT * FROM
 	  tb_recupera_senha as r 
 	  INNER JOIN tb_usuario as u ON r.id_usuario = u.id_usuario
-	  INNER JOIN tb_pessoa_fisica as pf  ON u.pessoaf_id = pf.id_pessoaf
-	  INNER JOIN tb_funcionario f ON u.funcionario_id = f.id_funcionario 
+	  INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
 	  WHERE r.id_recupera = :id_recupera AND 
 	  r.dtrecuperacao IS NULL AND 
 	  DATE_ADD(r.dtregistro, INTERVAL 1 HOUR) >= NOW()", array(
