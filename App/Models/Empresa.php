@@ -14,11 +14,11 @@ class Empresa extends Model {
 
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_empresa as ep 
+        $results =  $sql->select(" SELECT * FROM tb_empresa as ep 
                     INNER JOIN tb_pessoa_juridica as pj ON ep.pessoaj_id = pj.id_pessoaj
-                    INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
-                    INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha
-                    INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco");
+                    INNER JOIN tb_contato as c ON ep.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON ep.endereco_id = e.id_endereco
+                    INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha");
 
         return (count($results) > 0);
     }
@@ -27,11 +27,11 @@ class Empresa extends Model {
     public function get($id_empresa) {
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_empresa as ep 
+        $results =  $sql->select(" SELECT * FROM tb_empresa as ep 
                     INNER JOIN tb_pessoa_juridica as pj ON ep.pessoaj_id = pj.id_pessoaj
-                    INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
+                    INNER JOIN tb_contato as c ON ep.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON ep.endereco_id = e.id_endereco
                     INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha
-                    INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco
                     WHERE ep.id_empresa = :id_empresa",array(
             ":id_empresa"=>$id_empresa
         ));
@@ -53,11 +53,11 @@ class Empresa extends Model {
     public function getUrl($url_empresa) {
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_empresa as ep 
+        $results =  $sql->select(" SELECT * FROM tb_empresa as ep 
                     INNER JOIN tb_pessoa_juridica as pj ON ep.pessoaj_id = pj.id_pessoaj
-                    INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
+                    INNER JOIN tb_contato as c ON ep.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON ep.endereco_id = e.id_endereco
                     INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha
-                    INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco
                     WHERE ep.url_empresa = :url_empresa",array(
             ":url_empresa"=>$url_empresa
         ));
@@ -78,11 +78,11 @@ class Empresa extends Model {
     public function dadosempresa() {
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_empresa as ep 
+        $results =  $sql->select(" SELECT * FROM tb_empresa as ep 
                     INNER JOIN tb_pessoa_juridica as pj ON ep.pessoaj_id = pj.id_pessoaj
-                    INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
+                    INNER JOIN tb_contato as c ON ep.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON ep.endereco_id = e.id_endereco
                     INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha
-                    INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco
                     WHERE id_empresa > 0");
 
         if (count($results) > 0) {
