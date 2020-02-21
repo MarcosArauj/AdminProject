@@ -46,15 +46,6 @@
                                 <label>CPF: </label>
                                 <spna>{function="formataCpf($usuario.cpf)"}</spna>
                                 <br>
-                            <h4><strong>Contato</strong></h4>
-                                <label>Telefone: </label>
-                                <span>{$usuario.telefone}</span>
-                                <br>
-                                <label>Celular: </label>
-                                <span>{$usuario.celular}</span>
-                                <br>
-                                <label>Email: </label>
-                                <span>{$usuario.email}</span>
                         </div>
                         <div class="col-md-4">
                             <h4><strong>Endere&ccedil;o completo</strong></h4>
@@ -81,30 +72,17 @@
                                 <br>
                             </div>
                             <div class="col-md-4">
+                                <h4><strong>Contato</strong></h4>
+                                <label>Telefone: </label>
+                                <span>{$usuario.telefone}</span>
+                                <br>
+                                <label>Celular: </label>
+                                <span>{$usuario.celular}</span>
+                                <br>
+                                <label>Email: </label>
+                                <span>{$usuario.email}</span>
                             {if="$usuario.tipo_usuario != 1"}
-                            <h4><strong>Contratuais</strong></h4>
-                                <label>Cargo: </label>
-                                <label>CTPS: </label>
-                                <span>{$usuario.numero_ctps}</span>
-                                <br>
-                                <label>S&eacute;rie: </label>
-                                <span>{$usuario.serie_ctps}</span>
-                                <br>
-                                <label>Estado Expedi&ccedil;&atilde;o: </label>
-                                <span>{$usuario.estado_ctps}</span>
-                                <br>
-                                <label>Data Expedi&ccedil;&atilde;o: </label>
-                                <span>{function="formatData($usuario.data_ctps)"}</span>
-                                <br>
-                                <label>PIS: </label>
-                                <span>{$usuario.pis}</span>
-                                <br>
-                                <label>Cargo: </label>
-                                <span>{$usuario.cargo}</span>
-                                <br>
-                                <label>Admiss&atilde;o: </label>
-                                <span>{function="formatData($usuario.dtadmissao)"}</span>
-                                <br>
+                            <h4><strong>Acesso</strong></h4>
                                 {if="$usuario.acesso == 1"}
                                   <label>Com Acesso Administrativo </label>
                                 {else}

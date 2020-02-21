@@ -29,26 +29,69 @@
                     <!-- form start -->
                     <form  role="form" action="/perfil/atualiza" name="FormCadastro" method="post">
                         <div class="box-body">
+                            <div class="col-md-12">
                             <div class="col-md-6">
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
                                         <h2 class="box-title">Dados Pessoais</h2>
                                     </div>
                                     <div class="box-body">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <label class="control-label" for="primeiro_nome"><strong class="obrigatorio">*</strong>Primeiro Nome</label>
                                             <input type="text" class="form-control" id="primeiro_nome" name="primeiro_nome" maxlength="20" value="<?php echo htmlspecialchars( $usuario["primeiro_nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" autofocus required>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <label class="control-label" for="sobrenome"><strong class="obrigatorio">*</strong>Sobrenome</label>
                                             <input type="text" class="form-control" id="sobrenome" name="sobrenome" maxlength="20" value="<?php echo htmlspecialchars( $usuario["sobrenome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-8">
                                             <label class="control-label" for="rg"><strong class="obrigatorio">*</strong>RG</label>
                                             <input type="text" class="form-control" name="rg" id="rg" placeholder="RG" value="<?php echo htmlspecialchars( $usuario["rg"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                         </div>
                                     </div>
                                 </div>
+                              </div>
+                                <div class="col-md-6">
+                                    <!--                                Contato-->
+                                    <div class="box box-primary">
+                                        <div class="box-header with-border">
+                                            <h2 class="box-title">Contatos</h2>
+                                        </div>
+                                        <div class="box-body">
+                                            <div  class="col-md-12">
+                                                <div id="email">
+                                                    <label class="control-label" for="email"><strong class="obrigatorio">*</strong>Email</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon" id="sizing-addon2">@</span>
+                                                        <input type="email" class="form-control" name="email"  value="<?php echo htmlspecialchars( $usuario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" oninput="ValidarCampoEmail()"  required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="control-label" for="telefone"><strong class="obrigatorio">*</strong>Telefone</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-phone"></i>
+                                                    </div>
+                                                    <input type="text" class="form-control phone-ddd-mask" name="telefone" id="telefone" value="<?php echo htmlspecialchars( $usuario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="control-label" for="celular"><strong class="obrigatorio">*</strong>Celular</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-phone"></i>
+                                                    </div>
+                                                    <input type="text" class="form-control cel-sp-mask" name="celular" id="celular" value="<?php echo htmlspecialchars( $usuario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
+                                                </div>
+                                                <input type="hidden" name="responsavel_cadastro" value="<?php echo getNomeUsuario(); ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <!--                                ENdereco-->
                                 <div class="box box-primary">
                                     <div class="box-header with-border">
                                         <h2 class="box-title">Endereço</h2>
@@ -71,98 +114,21 @@
                                             <label class="control-label" for="bairro"><strong class="obrigatorio">*</strong>Bairro</label>
                                             <input type="text" class="form-control" name="bairro" id="bairro" value="<?php echo htmlspecialchars( $usuario["bairro"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                         </div>
-                                        <div class="col-md-7">
+                                        <div class="col-md-5">
                                             <label class="control-label" for="cidade"><strong class="obrigatorio">*</strong>Cidade</label>
                                             <input type="text" class="form-control" name="cidade" id="cidade"  value="<?php echo htmlspecialchars( $usuario["cidade"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-3">
                                             <label class="control-label" for="estado"><strong class="obrigatorio">*</strong>Estado</label>
                                             <input type="text" class="form-control" name="estado" id="estado" value="<?php echo htmlspecialchars( $usuario["estado"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-md-4">
                                             <label class="control-label" for="pais"><strong class="obrigatorio">*</strong>País</label>
                                             <input type="text" class="form-control" name="pais" id="pais" value="<?php echo htmlspecialchars( $usuario["pais"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                         </div>
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="col-md-6">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h2 class="box-title">Contatos</h2>
-                                    </div>
-                                    <div class="box-body">
-                                        <div  class="col-md-12">
-                                        <div id="email">
-                                            <label class="control-label" for="email"><strong class="obrigatorio">*</strong>Email</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon" id="sizing-addon2">@</span>
-                                                <input type="email" class="form-control" name="email"  value="<?php echo htmlspecialchars( $usuario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" oninput="ValidarCampoEmail()"  required>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="control-label" for="telefone"><strong class="obrigatorio">*</strong>Telefone</label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-phone"></i>
-                                                </div>
-                                                <input type="text" class="form-control phone-ddd-mask" name="telefone" id="telefone" value="<?php echo htmlspecialchars( $usuario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="control-label" for="celular"><strong class="obrigatorio">*</strong>Celular</label>
-                                            <div class="input-group">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-phone"></i>
-                                                </div>
-                                                <input type="text" class="form-control cel-sp-mask" name="celular" id="celular" value="<?php echo htmlspecialchars( $usuario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="box box-primary">
-                                    <div class="box-header with-border">
-                                        <h2 class="box-title">Profissional</h2>
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="col-md-7">
-                                            <label class="control-label" for="numero_ctps"><strong class="obrigatorio">*</strong>N&uacute;mero</label>
-                                            <input type="text" class="form-control" name="numero_ctps" id="numero_ctps" value="<?php echo htmlspecialchars( $usuario["numero_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="10" required>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <label class="control-label" for="serie_ctps"><strong class="obrigatorio">*</strong>S&eacute;rie</label>
-                                            <input type="text" class="form-control" name="serie_ctps" id="serie_ctps" value="<?php echo htmlspecialchars( $usuario["serie_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="5" required>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <label class="control-label" for="data_ctps"><strong class="obrigatorio">*</strong>Expedi&ccedil;&atilde;o</label>
-                                            <div class="input-group date">
-                                                <div class="input-group-addon">
-                                                    <i class="fa fa-calendar"></i>
-                                                </div>
-                                                <input type="date" class="form-control" name="data_ctps" id="data_ctps"  value="<?php echo htmlspecialchars( $usuario["data_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="control-label" for="estado_ctps"><strong class="obrigatorio">*</strong>Estado</label>
-                                            <select class="form-control" name="estado_ctps" id="estado_ctps" required>
-                                                <option style="color: blue;" value="<?php echo htmlspecialchars( $usuario["estado_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $usuario["estado_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
-                                                <?php $counter1=-1;  if( isset($estados) && ( is_array($estados) || $estados instanceof Traversable ) && sizeof($estados) ) foreach( $estados as $key1 => $value1 ){ $counter1++; ?>
-                                                <option value="<?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-
-                                        <div id="pis" class="col-md-6">
-                                            <label class="control-label" for="pis"><strong class="obrigatorio">*</strong>PIS</label>
-                                            <input type="text" class="form-control" name="pis" value="<?php echo htmlspecialchars( $usuario["pis"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"  onkeypress="formatar('###.#####.##-#',this)"  oninput="ValidarPis()" maxlength="14" required>
-                                        </div>
-                                        <input type="hidden" name="responsavel_cadastro" value="<?php echo getNomeUsuario(); ?>">
-                                    </div>
-                                </div>
                             </div>
                            </div>
                             <div class="box-footer">

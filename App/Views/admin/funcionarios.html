@@ -40,7 +40,6 @@
                             <tr>
                                 <th style="width: 10px"><strong>#</strong></th>
                                 <th>Funcionarios</th>
-                                <th>Cargo</th>
                                 <th>Acesso de Administrador</th>
                                 <th  style="width: 260px">&nbsp;</th>
                             </tr>
@@ -48,24 +47,17 @@
                             <tbody>
                             {loop="$funcionarios"}
                             <tr>
-                                <td>{$value.id_funcionario}</td>
+                                <td>{$value.id_usuario}</td>
                                 <td>{$value.primeiro_nome}</td>
-                                <td>{$value.cargo}</td>
                                 {if="$value.acesso == 1"}
                                 <td>Sim</td>
                                 {else}
                                 <td>Não</td>
                                 {/if}
                                 <td>
-<!--                                    {if="$value.status_funcionario == 'ativo'"}-->
-                                    <a href="/admin/funcionarios/{$value.id_funcionario}/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
-                                    <a href="/admin/funcionarios/{$value.id_funcionario}/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                                    <a href="/admin/funcionarios/{$value.id_funcionario}/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
-<!--                                    {else}-->
-<!--                                    <span class="erro"><b>Desligado</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-->
-<!--                                    <a href="/admin/funcionarios/{$value.id_usuario}/apaga" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>-->
-<!--                                    <a href="/admin/funcionarios/buscar/{$value.id_usuario}/ativa" onclick="return confirm('Deseja realmente ativar este registro?')" class="btn btn-success btn-xs"><i class="fa fa-sort-asc"></i> Ativar</a>-->
-<!--                                    {/if}-->
+                                    <a href="/admin/funcionarios/{$value.id_usuario}/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
+                                    <a href="/admin/funcionarios/{$value.id_usuario}/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                                    <a href="/admin/funcionarios/{$value.id_usuario}/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                                 </td>
                             </tr>
                             {/loop}

@@ -52,7 +52,7 @@ class ProprietarioController extends Controller {
             }
 
             try {
-                $proprietario->settipo_usuario('proprietario');
+                $proprietario->settipo_usuario(1);
                 $proprietario->setacesso(1);
 
                 $proprietario->setData($posts);

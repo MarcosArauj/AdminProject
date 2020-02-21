@@ -17,10 +17,10 @@ class Fornecedor extends Model implements Paginacao {
     public function get($id_fornecedor) {
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_fornecedor as f
+        $results =  $sql->select(" SELECT * FROM tb_fornecedor as f
                 INNER JOIN tb_pessoa_juridica as pj ON f.pessoaj_id = pj.id_pessoaj
-                INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco
+                INNER JOIN tb_contato as c ON f.contato_id = c.id_contato
+                INNER JOIN tb_endereco as e ON f.endereco_id = e.id_endereco
                 WHERE f.id_fornecedor = :id_fornecedor",array(
             ":id_fornecedor"=>$id_fornecedor
             ));
@@ -40,10 +40,10 @@ class Fornecedor extends Model implements Paginacao {
     public function listarFornecedores() {
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_fornecedor as f
+        $results =  $sql->select(" SELECT * FROM tb_fornecedor as f
                 INNER JOIN tb_pessoa_juridica as pj ON f.pessoaj_id = pj.id_pessoaj
-                INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco
+                INNER JOIN tb_contato as c ON f.contato_id = c.id_contato
+                INNER JOIN tb_endereco as e ON f.endereco_id = e.id_endereco
                 WHERE f.status_fornecedor = :status
                 ORDER BY pj.nome_fantasia", array(
             ":status"=>'ativo'
@@ -133,8 +133,8 @@ class Fornecedor extends Model implements Paginacao {
 
         $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_fornecedor as f
                 INNER JOIN tb_pessoa_juridica as pj ON f.pessoaj_id = pj.id_pessoaj
-                INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco 
+                INNER JOIN tb_contato as c ON f.contato_id = c.id_contato
+                INNER JOIN tb_endereco as e ON f.endereco_id = e.id_endereco
                 WHERE f.status_fornecedor = 'ativo'
                 ORDER BY pj.nome_fantasia
                 LIMIT $start, $itemsPerPage;");
@@ -155,8 +155,8 @@ class Fornecedor extends Model implements Paginacao {
         
         $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_fornecedor as f
                 INNER JOIN tb_pessoa_juridica as pj ON f.pessoaj_id = pj.id_pessoaj
-                INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco 
+                INNER JOIN tb_contato as c ON f.contato_id = c.id_contato
+                INNER JOIN tb_endereco as e ON f.endereco_id = e.id_endereco
                 WHERE f.status_fornecedor = 'ativo' AND pj.nome_fantasia LIKE :busca OR pj.razao_social LIKE :busca OR pj.cnpj LIKE :busca
                 ORDER BY pj.nome_fantasia
                 LIMIT $start, $itemsPerPage;",array(
@@ -181,8 +181,8 @@ class Fornecedor extends Model implements Paginacao {
 
         $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_fornecedor as f
                 INNER JOIN tb_pessoa_juridica as pj ON f.pessoaj_id = pj.id_pessoaj
-                INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
-                INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco 
+                INNER JOIN tb_contato as c ON f.contato_id = c.id_contato
+                INNER JOIN tb_endereco as e ON f.endereco_id = e.id_endereco
                 WHERE pj.cnpj LIKE :busca 
                 ORDER BY pj.nome_fantasia
                 LIMIT $start, $itemsPerPage;",array(

@@ -3,12 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Lista de Funcionários
-
+            Lista de Fornecedores
         </h1>
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active"><a href="/admin/funcionarios">Funcionários</a></li>
+            <li class="active"><a href="/admin/fornecedores">Fornecedores</a></li>
         </ol>
     </section>
 
@@ -20,10 +19,10 @@
                 <div class="box box-primary">
 
                     <div class="box-header">
-                        <a href="/admin/funcionarios/buscar" class="btn btn-success">Cadastrar Novo Funcionario</a>
+                        <a href="/admin/fornecedores/buscar" class="btn btn-success">Cadastrar Fornecedores</a>
                         <div class="box-tools">
-                            <form action="/admin/funcionarios">
-                                <div class="input-group input-group" style="width: 200px;">
+                            <form action="/admin/fornecedores">
+                                <div class="input-group input-group-sm" style="width: 200px;">
                                     <input type="text" name="busca" class="form-control pull-right" placeholder="Buscar" value="<?php echo htmlspecialchars( $busca, ENT_COMPAT, 'UTF-8', FALSE ); ?>">
                                     <div class="input-group-btn">
                                         <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -34,30 +33,28 @@
                     </div>
 
                     <div class="box-body no-padding">
-                        <?php if( $funcionarios ){ ?>
+                        <?php if( $fornecedores ){ ?>
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th style="width: 10px"><strong>#</strong></th>
-                                <th>Funcionarios</th>
-                                <th>Acesso de Administrador</th>
-                                <th  style="width: 260px">&nbsp;</th>
+                                <th style="width: 10px">#</th>
+                                <th>Fornecedores</th>
+                                <th>CNPJ</th>
+                                <th>Telefone</th>
+                                <th style="width: 210px">&nbsp;</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $counter1=-1;  if( isset($funcionarios) && ( is_array($funcionarios) || $funcionarios instanceof Traversable ) && sizeof($funcionarios) ) foreach( $funcionarios as $key1 => $value1 ){ $counter1++; ?>
+                            <?php $counter1=-1;  if( isset($fornecedores) && ( is_array($fornecedores) || $fornecedores instanceof Traversable ) && sizeof($fornecedores) ) foreach( $fornecedores as $key1 => $value1 ){ $counter1++; ?>
                             <tr>
-                                <td><?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                                <td><?php echo htmlspecialchars( $value1["primeiro_nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                                <?php if( $value1["acesso"] == 1 ){ ?>
-                                <td>Sim</td>
-                                <?php }else{ ?>
-                                <td>Não</td>
-                                <?php } ?>
+                                <td><?php echo htmlspecialchars( $value1["id_fornecedor"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                <td><?php echo htmlspecialchars( $value1["nome_fantasia"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                <td><?php echo formataCnpj($value1["cnpj"]); ?></td>
+                                <td><?php echo htmlspecialchars( $value1["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 <td>
-                                    <a href="/admin/funcionarios/<?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
-                                    <a href="/admin/funcionarios/<?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                                    <a href="/admin/funcionarios/<?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                                    <a href="/admin/fornecedores/<?php echo htmlspecialchars( $value1["id_fornecedor"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
+                                    <a href="/admin/fornecedores/<?php echo htmlspecialchars( $value1["id_fornecedor"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                                    <a href="/admin/fornecedores/<?php echo htmlspecialchars( $value1["id_fornecedor"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                                 </td>
                             </tr>
                             <?php } ?>
@@ -74,17 +71,16 @@
                         </ul>
                     </div>
                 </div>
-
-                <?php if( $funcionarioSucesso != '' ){ ?>
+                <?php if( $fornecedorSucesso != '' ){ ?>
                 <div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <?php echo htmlspecialchars( $funcionarioSucesso, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+                    <?php echo htmlspecialchars( $fornecedorSucesso, ENT_COMPAT, 'UTF-8', FALSE ); ?>
                 </div>
                 <?php } ?>
-                <?php if( $funcionarioErro != '' ){ ?>
+                <?php if( $fornecedorErro != '' ){ ?>
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <?php echo htmlspecialchars( $funcionarioErro, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+                    <?php echo htmlspecialchars( $fornecedorErro, ENT_COMPAT, 'UTF-8', FALSE ); ?>
                 </div>
                 <?php } ?>
             </div>

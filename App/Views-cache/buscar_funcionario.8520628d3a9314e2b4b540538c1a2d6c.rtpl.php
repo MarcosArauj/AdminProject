@@ -59,20 +59,20 @@
                             <tbody>
                             <?php $counter1=-1;  if( isset($funcionarios) && ( is_array($funcionarios) || $funcionarios instanceof Traversable ) && sizeof($funcionarios) ) foreach( $funcionarios as $key1 => $value1 ){ $counter1++; ?>
                             <tr>
-                                <td><?php echo htmlspecialchars( $value1["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                <td><?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 <td><?php echo htmlspecialchars( $value1["primeiro_nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 <td><?php echo formatData($value1["data_nascimento"]); ?></td>
                                 <td><?php echo htmlspecialchars( $value1["naturalidade"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 <td><?php echo formataCpf($value1["cpf"]); ?></td>
                                 <td><?php echo htmlspecialchars( $value1["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 <td>
-                                    <?php if( $value1["status_funcionario"] == 'ativo' ){ ?>
-                                    <a href="/admin/funcionarios/<?php echo htmlspecialchars( $value1["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
-                                    <a href="/admin/funcionarios/<?php echo htmlspecialchars( $value1["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                                    <a href="/admin/funcionarios/<?php echo htmlspecialchars( $value1["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                                    <?php if( $value1["status_usuario"] == 'ativo' ){ ?>
+                                    <a href="/admin/funcionarios/<?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
+                                    <a href="/admin/funcionarios/<?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                                    <a href="/admin/funcionarios/<?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                                     <?php }else{ ?>
                                     <span class="erro"><b>Funcion&aacute;rio Desligado</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                    <a href="/admin/funcionarios/buscar/<?php echo htmlspecialchars( $value1["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/ativa" onclick="return confirm('Deseja realmente ativar este registro?')" class="btn btn-success btn-xs pull-right"><i class="fa fa-sort-asc"></i> Ativar</a>
+                                    <a href="/admin/funcionarios/buscar/<?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/ativa" onclick="return confirm('Deseja realmente ativar este registro?')" class="btn btn-success btn-xs pull-right"><i class="fa fa-sort-asc"></i> Ativar</a>
                                     <?php } ?>
                                 </td>
                             </tr>

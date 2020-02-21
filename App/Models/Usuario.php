@@ -17,7 +17,7 @@ class Usuario extends Model  {
 
     const SESSION = "Usuario";
     const SECRET = "Casa_Nova_Secret";
-    public $status_cadastro = "ativo";
+    const STATUSUSUARIO = "ativo";
 
 
     public static function listUsuario() {
@@ -28,7 +28,9 @@ class Usuario extends Model  {
                     INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
                     INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
                     INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                    ORDER BY pf.primeiro_nome");
+                    ORDER BY pf.primeiro_nome" , array(
+                    ":status"=>'ativo'
+                     ));
 
         return (count($results) > 0);
 
@@ -106,7 +108,7 @@ class Usuario extends Model  {
             ":senha"=>password_hash(Validacao::tiraMascaraCpf($this->getcpf()), PASSWORD_DEFAULT,["cost"=>12]),
             ":acesso"=>$this->getacesso(),
             ":tipo_usuario"=>$this->gettipo_usuario(),
-            ":status_usuario"=>$this->status_cadastro,
+            ":status_usuario"=>Usuario::STATUSUSUARIO,
             ":responsavel_cadastro"=>utf8_decode($this->getprimeiro_nome())
 
         ));

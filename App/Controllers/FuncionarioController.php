@@ -8,9 +8,9 @@
 
 namespace App\Controllers;
 
+use App\Models\Usuario;
 use project\pages\PageCadastro;
 use project\validacao\Validacao;
-use App\Models\Cargo;
 use App\Models\Login;
 use App\Models\Funcionario;
 use App\Models\EstadosCidades;
@@ -26,10 +26,8 @@ class FuncionarioController extends Controller {
             $page = new PageCadastro();
 
             $estados = EstadosCidades::listarEstado();
-            $cargo = Cargo::listarCargo();
 
             $page->setTpl("cadastro_funcionario", array(
-                "cargos" => $cargo,
                 "estados" => $estados,
 //            "cidades"=>$cidades,
                 "funcionarioErro" => Funcionario::getError(),
@@ -37,11 +35,9 @@ class FuncionarioController extends Controller {
             ));
         } else {
 
-            $funcionario = new Funcionario();
+            $funcionario = new Usuario();
 
             $posts = $request->getParsedBody();
-
-            $posts["acesso"] = (isset($posts["acesso"]))?1:0;
 
 
             if (Funcionario::ckecarEmailExiste($posts['email'])=== true && Funcionario::ckecarCpfExiste($posts['cpf'])=== true){
@@ -55,11 +51,6 @@ class FuncionarioController extends Controller {
 
                 return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
 
-            } else if(Funcionario::ckecarPisExiste($posts['pis'])=== true){
-                Funcionario::setError("PIS já cadastrado!");
-
-                return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
-
             } else if(Funcionario::ckecarEmailExiste($posts['email'])=== true){
                 Funcionario::setError("E-mail já cadastrado!");
 
@@ -70,16 +61,13 @@ class FuncionarioController extends Controller {
 
                 return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
 
-            } else if (Validacao::validaPIS($posts["pis"])) {
-                Funcionario::setError("PIS não existe!");
-
-                return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
             }
 
             try{
+                $funcionario->settipo_usuario(2); //Usuario funcionario
                 $funcionario->setData($posts);
 
-                $funcionario->salvarFuncionario();
+                $funcionario->salvarUsuario();
 
                 Funcionario::setSuccess("Funcionário Cadastrado com Sucesso!");
 
@@ -87,7 +75,7 @@ class FuncionarioController extends Controller {
 
             } catch (\Exception $e) {
 
-                Funcionario::setError($e->getMessage());
+                Funcionario::setError("Erro ao Cadastrar Funcionario!");
 
                 return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
             }
@@ -188,11 +176,9 @@ class FuncionarioController extends Controller {
 
         $funcionario = new Funcionario();
 
-        $cargo = Cargo::listarCargo();
-
         $estados = EstadosCidades::listarEstado();
 
-        $funcionario->get((int)$params['id_funcionario']);
+        $funcionario->getFuncionario((int)$params['id_usuario']);
 
         if ($request->isGet()) {
 
@@ -200,7 +186,6 @@ class FuncionarioController extends Controller {
 
             $page->setTpl("atualizar_funcionario", array(
                 "estados" => $estados,
-                "cargo" => $cargo,
                 "funcionarioErro" => Funcionario::getError(),
                 "funcionario" => $funcionario->getValues()
             ));
@@ -223,7 +208,7 @@ class FuncionarioController extends Controller {
 
                 Funcionario::setError($e->getMessage());
 
-                return $response->withRedirect($this->container->router->pathFor('atualiza-funcionario',['id_funcionario'=>$funcionario->getid_funcionario()]));
+                return $response->withRedirect($this->container->router->pathFor('atualiza-funcionario',['id_usuario'=>$funcionario->getid_usuario()]));
             }
         }
     }
@@ -234,7 +219,7 @@ class FuncionarioController extends Controller {
 
         $funcionario = new Funcionario();
 
-        $funcionario->get((int)$params['id_funcionario']);
+        $funcionario->get((int)$params['id_usuario']);
 
         $page = new PageCadastro();
 
@@ -250,10 +235,9 @@ class FuncionarioController extends Controller {
 
         $funcionario = new Funcionario();
 
-        $funcionario->get((int)$params['id_funcionario']);
+        $funcionario->getFuncionario((int)$params['id_usuario']);
 
         try{
-            $funcionario->setstatus_funcionario("inativo");
             $funcionario->setstatus_usuario("inativo");
 
             $funcionario->alteraStatusFuncionario();
@@ -277,11 +261,10 @@ class FuncionarioController extends Controller {
 
         $funcionario = new Funcionario();
 
-        $funcionario->get((int)$params['id_funcionario']);
+        $funcionario->getFuncionario((int)$params['id_usuario']);
 
         try{
             $funcionario->setstatus_usuario("ativo");
-            $funcionario->setstatus_funcionario("ativo");
 
             $funcionario->alteraStatusFuncionario();
 

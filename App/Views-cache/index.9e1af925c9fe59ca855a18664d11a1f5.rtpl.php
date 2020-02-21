@@ -46,15 +46,6 @@
                                 <label>CPF: </label>
                                 <spna><?php echo formataCpf($usuario["cpf"]); ?></spna>
                                 <br>
-                            <h4><strong>Contato</strong></h4>
-                                <label>Telefone: </label>
-                                <span><?php echo htmlspecialchars( $usuario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Celular: </label>
-                                <span><?php echo htmlspecialchars( $usuario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Email: </label>
-                                <span><?php echo htmlspecialchars( $usuario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                         </div>
                         <div class="col-md-4">
                             <h4><strong>Endere&ccedil;o completo</strong></h4>
@@ -81,30 +72,17 @@
                                 <br>
                             </div>
                             <div class="col-md-4">
+                                <h4><strong>Contato</strong></h4>
+                                <label>Telefone: </label>
+                                <span><?php echo htmlspecialchars( $usuario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
+                                <br>
+                                <label>Celular: </label>
+                                <span><?php echo htmlspecialchars( $usuario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
+                                <br>
+                                <label>Email: </label>
+                                <span><?php echo htmlspecialchars( $usuario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
                             <?php if( $usuario["tipo_usuario"] != 1 ){ ?>
-                            <h4><strong>Contratuais</strong></h4>
-                                <label>Cargo: </label>
-                                <label>CTPS: </label>
-                                <span><?php echo htmlspecialchars( $usuario["numero_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>S&eacute;rie: </label>
-                                <span><?php echo htmlspecialchars( $usuario["serie_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Estado Expedi&ccedil;&atilde;o: </label>
-                                <span><?php echo htmlspecialchars( $usuario["estado_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Data Expedi&ccedil;&atilde;o: </label>
-                                <span><?php echo formatData($usuario["data_ctps"]); ?></span>
-                                <br>
-                                <label>PIS: </label>
-                                <span><?php echo htmlspecialchars( $usuario["pis"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Cargo: </label>
-                                <span><?php echo htmlspecialchars( $usuario["cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Admiss&atilde;o: </label>
-                                <span><?php echo formatData($usuario["dtadmissao"]); ?></span>
-                                <br>
+                            <h4><strong>Acesso</strong></h4>
                                 <?php if( $usuario["acesso"] == 1 ){ ?>
                                   <label>Com Acesso Administrativo </label>
                                 <?php }else{ ?>

@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="/admin/funcionarios">Funcion&aacute;rios</a></li>
-            <li class="active"><a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha"><?php echo htmlspecialchars( $funcionario["primeiro_nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+            <li class="active"><a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha"><?php echo htmlspecialchars( $funcionario["primeiro_nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
         </ol>
     </section>
     <!-- Main content -->
@@ -70,24 +70,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <h2 class="panel-title">Contatos</h2>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="col-md-6">
-                                        <label>Telefone: </label>
-                                        <span><?php echo htmlspecialchars( $funcionario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                        <br>
-                                        <label>Email: </label>
-                                        <span><?php echo htmlspecialchars( $funcionario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Celular: </label>
-                                        <span><?php echo htmlspecialchars( $funcionario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="panel panel-primary">
@@ -107,33 +89,28 @@
                             </div>
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    <h2 class="panel-title">Contratuais</h2>
+                                    <h2 class="panel-title">Contatos</h2>
                                 </div>
                                 <div class="panel-body">
-                                <div class="col-md-6">
-                                <label>CTPS: </label>
-                                <span><?php echo htmlspecialchars( $funcionario["numero_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>S&eacute;rie: </label>
-                                <span><?php echo htmlspecialchars( $funcionario["serie_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Estado Expedi&ccedil;&atilde;o: </label>
-                                <span><?php echo htmlspecialchars( $funcionario["estado_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Data Expedi&ccedil;&atilde;o: </label>
-                                <span><?php echo formatData($funcionario["data_ctps"]); ?></span>
+                                    <div class="col-md-6">
+                                        <label>Telefone: </label>
+                                        <span><?php echo htmlspecialchars( $funcionario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
+                                        <br>
+                                        <label>Email: </label>
+                                        <span><?php echo htmlspecialchars( $funcionario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Celular: </label>
+                                        <span><?php echo htmlspecialchars( $funcionario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                <label>PIS: </label>
-                                <span><?php echo htmlspecialchars( $funcionario["pis"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Cargo: </label>
-                                <span><?php echo htmlspecialchars( $funcionario["cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></span>
-                                <br>
-                                <label>Admiss&atilde;o: </label>
-                                <span><?php echo formatData($funcionario["dtadmissao"]); ?></span>
-                                <br>
-                                <label>Acesso de Administrador: </label>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Acesso</h2>
+                                </div>
+                                <div class="panel-body">
+                                <label>  Acesso de Administrador: </label>
                                     <?php if( $funcionario["acesso"] == 1 ){ ?>
                                     <span>Sim</span>
                                     <?php }else{ ?>
@@ -141,12 +118,10 @@
                                     <?php } ?>
                                 </div>
                                 </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
-
                         <div class="box-footer">
-                            <a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-md">Editar</a>
+                            <a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-md">Editar</a>
                             <a href="/admin/funcionarios" class="btn btn-primary btn-md">Voltar</a>
                         </div>
 

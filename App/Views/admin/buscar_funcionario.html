@@ -59,20 +59,20 @@
                             <tbody>
                             {loop="$funcionarios"}
                             <tr>
-                                <td>{$value.id_funcionario}</td>
+                                <td>{$value.id_usuario}</td>
                                 <td>{$value.primeiro_nome}</td>
                                 <td>{function="formatData($value.data_nascimento)"}</td>
                                 <td>{$value.naturalidade}</td>
                                 <td>{function="formataCpf($value.cpf)"}</td>
                                 <td>{$value.celular}</td>
                                 <td>
-                                    {if="$value.status_funcionario == 'ativo'"}
-                                    <a href="/admin/funcionarios/{$value.id_funcionario}/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
-                                    <a href="/admin/funcionarios/{$value.id_funcionario}/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                                    <a href="/admin/funcionarios/{$value.id_funcionario}/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                                    {if="$value.status_usuario == 'ativo'"}
+                                    <a href="/admin/funcionarios/{$value.id_usuario}/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
+                                    <a href="/admin/funcionarios/{$value.id_usuario}/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                                    <a href="/admin/funcionarios/{$value.id_usuario}/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                                     {else}
                                     <span class="erro"><b>Funcion&aacute;rio Desligado</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                    <a href="/admin/funcionarios/buscar/{$value.id_funcionario}/ativa" onclick="return confirm('Deseja realmente ativar este registro?')" class="btn btn-success btn-xs pull-right"><i class="fa fa-sort-asc"></i> Ativar</a>
+                                    <a href="/admin/funcionarios/buscar/{$value.id_usuario}/ativa" onclick="return confirm('Deseja realmente ativar este registro?')" class="btn btn-success btn-xs pull-right"><i class="fa fa-sort-asc"></i> Ativar</a>
                                     {/if}
                                 </td>
                             </tr>

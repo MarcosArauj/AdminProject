@@ -9,7 +9,7 @@
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="/admin/funcionarios">Funcionários</a></li>
-            <li class="active"><a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza">Editar</a></li>
+            <li class="active"><a href="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza">Editar</a></li>
         </ol>
     </section>
 
@@ -21,7 +21,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form  role="form" action="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_funcionario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" name="FormCadastro" method="post">
+            <form  role="form" action="/admin/funcionarios/<?php echo htmlspecialchars( $funcionario["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" name="FormCadastro" method="post">
                 <div class="box-body">
                     <div class="col-md-6">
                         <div class="box box-primary">
@@ -43,6 +43,42 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h2 class="box-title">Contatos</h2>
+                            </div>
+                            <div class="box-body">
+                                <div class="col-md-12">
+                                    <div id="email">
+                                        <label class="control-label" for="email"><strong class="obrigatorio">*</strong>Email</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="sizing-addon2">@</span>
+                                            <input type="email" class="form-control" name="email"  value="<?php echo htmlspecialchars( $funcionario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" oninput="ValidarCampoEmail()" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label" for="telefone"><strong class="obrigatorio">*</strong>Telefone</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <input type="text" class="form-control phone-ddd-mask" name="telefone" id="telefone" value="<?php echo htmlspecialchars( $funcionario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label" for="celular"><strong class="obrigatorio">*</strong>Celular</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <input type="text" class="form-control cel-sp-mask" name="celular" id="celular" value="<?php echo htmlspecialchars( $funcionario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <h2 class="box-title">Endereço</h2>
@@ -79,89 +115,13 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-md-6">
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                                <h2 class="box-title">Contatos</h2>
+                                <h2 class="box-title">Acesso</h2>
                             </div>
                             <div class="box-body">
-                                <div class="col-md-12">
-                                <div id="email">
-                                    <label class="control-label" for="email"><strong class="obrigatorio">*</strong>Email</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon" id="sizing-addon2">@</span>
-                                        <input type="email" class="form-control" name="email"  value="<?php echo htmlspecialchars( $funcionario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" oninput="ValidarCampoEmail()" required>
-                                    </div>
-                                </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="control-label" for="telefone"><strong class="obrigatorio">*</strong>Telefone</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-phone"></i>
-                                        </div>
-                                        <input type="text" class="form-control phone-ddd-mask" name="telefone" id="telefone" value="<?php echo htmlspecialchars( $funcionario["telefone"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="control-label" for="celular"><strong class="obrigatorio">*</strong>Celular</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-phone"></i>
-                                        </div>
-                                        <input type="text" class="form-control cel-sp-mask" name="celular" id="celular" value="<?php echo htmlspecialchars( $funcionario["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h2 class="box-title">Profissional</h2>
-                            </div>
-                            <div class="box-body">
-                                <div class="col-md-5">
-                                    <label class="control-label" for="numero_ctps"><strong class="obrigatorio">*</strong>N&uacute;mero</label>
-                                    <input type="text" class="form-control" name="numero_ctps" id="numero_ctps" value="<?php echo htmlspecialchars( $funcionario["numero_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="10" required>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="control-label" for="serie_ctps"><strong class="obrigatorio">*</strong>S&eacute;rie</label>
-                                    <input type="text" class="form-control" name="serie_ctps" id="serie_ctps" value="<?php echo htmlspecialchars( $funcionario["serie_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" maxlength="5" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="control-label" for="estado_ctps"><strong class="obrigatorio">*</strong>Estado Expedi&ccedil;&atilde;o</label>
-                                    <select class="form-control" name="estado_ctps" id="estado_ctps" required>
-                                        <option style="color: blue;" value="<?php echo htmlspecialchars( $funcionario["estado_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $funcionario["estado_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
-                                        <?php $counter1=-1;  if( isset($estados) && ( is_array($estados) || $estados instanceof Traversable ) && sizeof($estados) ) foreach( $estados as $key1 => $value1 ){ $counter1++; ?>
-                                        <option value="<?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="control-label" for="data_ctps"><strong class="obrigatorio">*</strong>Expedi&ccedil;&atilde;o</label>
-                                    <div class="input-group date">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </div>
-                                        <input type="date" class="form-control" name="data_ctps" id="data_ctps"  value="<?php echo htmlspecialchars( $funcionario["data_ctps"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="control-label" for="pis"><strong class="obrigatorio">*</strong>PIS</label>
-                                    <input type="text" class="form-control" name="pis" id="pis" value="<?php echo htmlspecialchars( $funcionario["pis"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="cargo_id">Cargo</label>
-                                    <select class="form-control" name="cargo_id" id="cargo_id">
-                                        <option style="color: blue;" value="<?php echo htmlspecialchars( $funcionario["cargo_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $funcionario["cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
-                                        <?php $counter1=-1;  if( isset($cargo) && ( is_array($cargo) || $cargo instanceof Traversable ) && sizeof($cargo) ) foreach( $cargo as $key1 => $value1 ){ $counter1++; ?>
-                                        <option value="<?php echo htmlspecialchars( $value1["id_cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
                                 <div class="col-md-12">
                                     <div class="checkbox">
                                         <label>
@@ -173,6 +133,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
                 <div class="box-footer">
                     <div class="form-row pull-right">
                         <div class="col-md-12">
@@ -180,7 +141,6 @@
                             <a href="/admin/funcionarios" class="btn btn-primary btn-md">Voltar</a>
                         </div>
                   </div>
-                </div>
                 </div>
             </form>
 

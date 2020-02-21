@@ -108,6 +108,8 @@
                             </div>
                            </div>
                           </div>
+                      </div>
+                      <div class="col-md-6">
                           <div class="box box-primary">
                               <div class="box-header with-border">
                                   <h2 class="box-title">Contatos</h2>
@@ -141,8 +143,6 @@
 
                               </div>
                           </div>
-                      </div>
-                      <div class="col-md-6">
                           <div class="box box-primary">
                               <div class="box-header with-border">
                                   <h2 class="box-title">Endereço</h2>
@@ -179,76 +179,21 @@
                                </div>
                               </div>
                            </div>
-                        </div>
-                      <div class="col-md-6">
                           <div class="box box-primary">
-                          <div class="box-header with-border">
-                              <h2 class="box-title">Profissional</h2>
+                              <div class="box-header with-border">
+                                  <h2 class="box-title">Tipo de Acesso</h2>
+                              </div>
+                              <div class="box-body">
+                                  <div class="col-md-6">
+                                      <select class="form-control" name="acesso" id="acesso" required>
+                                          <option value="">Acesso... </option>
+                                          <option value="1">Administrador</option>
+                                          <option value="2">Funcion&aacute;rio </option>
+                                      </select>
+                                  </div>
+                              </div>
                           </div>
-                          <div class="box-body">
-                              <div class="col-md-5">
-                                  <label class="control-label" for="numero_ctps"><strong class="obrigatorio">*</strong>N&uacute;mero</label>
-                                  <input type="text" class="form-control" name="numero_ctps" id="numero_ctps" placeholder="Ex: 1200000"  maxlength="10" required>
-                              </div>
-                              <div class="col-md-3">
-                                  <label class="control-label" for="serie_ctps"><strong class="obrigatorio">*</strong>S&eacute;rie</label>
-                                  <input type="text" class="form-control" name="serie_ctps" id="serie_ctps" placeholder="Ex: 0050" maxlength="5" required>
-                              </div>
-                              <div class="col-md-4">
-                                  <label class="control-label" for="estado_ctps"><strong class="obrigatorio">*</strong>Estado Expedi&ccedil;&atilde;o</label>
-                                  <select class="form-control" name="estado_ctps" id="estado_ctps" required>
-                                      <option value="">Selecione</option>
-                                      <?php $counter1=-1;  if( isset($estados) && ( is_array($estados) || $estados instanceof Traversable ) && sizeof($estados) ) foreach( $estados as $key1 => $value1 ){ $counter1++; ?>
-
-                                      <option value="<?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
-                                      <?php } ?>
-
-                                  </select>
-                              </div>
-                              <div class="col-md-6">
-                                  <label class="control-label" for="data_ctps"><strong class="obrigatorio">*</strong>Expedi&ccedil;&atilde;o</label>
-                                  <div class="input-group date">
-                                      <div class="input-group-addon">
-                                          <i class="fa fa-calendar"></i>
-                                      </div>
-                                      <input type="date" class="form-control" name="data_ctps" id="data_ctps"  placeholder="Ex.: 00/00/0000" required>
-                                  </div>
-                              </div>
-                              <div class="col-md-6" id="pis">
-                                  <label class="control-label" for="pis"><strong class="obrigatorio">*</strong>PIS</label>
-                                  <input type="text" class="form-control" name="pis"  placeholder="Ex: 120.3320.516-0" onkeypress="formatar('###.#####.##-#',this)" maxlength="14" oninput="ValidarPis()"  required>
-                              </div>
-                              <div class="col-md-6">
-                                  <label for="cargo_id"><a href="/admin/cargos/cadastra">Novo Cargo</a></label>
-                                  <select class="form-control" name="cargo_id" id="cargo_id" required>
-                                      <option value="">Cargo... </option>
-                                      <?php $counter1=-1;  if( isset($cargos) && ( is_array($cargos) || $cargos instanceof Traversable ) && sizeof($cargos) ) foreach( $cargos as $key1 => $value1 ){ $counter1++; ?>
-
-                                      <option value="<?php echo htmlspecialchars( $value1["id_cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["cargo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
-                                      <?php } ?>
-
-                                  </select>
-                             </div>
-                              <div class="col-md-4">
-                                  <label class="control-label" for="dtadmissao"><strong class="obrigatorio">*</strong>Admiss&atilde;o</label>
-                                  <div class="input-group date">
-                                      <div class="input-group-addon">
-                                          <i class="fa fa-calendar"></i>
-                                      </div>
-                                     <input type="date" class="form-control" name="dtadmissao" id="dtadmissao"  placeholder="Ex.: 00/00/0000" required>
-                                  </div>
-                              </div>
-                              <div class="col-md-6">
-                              <div class="checkbox">
-                                  <label>
-                                      <input type="checkbox" name="acesso" value="1"> Acesso de Administrador
-                                  </label>
-                                  <input type="hidden" name="responsavel_cadastro" value="<?php echo getNomeUsuario(); ?>">
-                              </div>
-                            </div>
-                         </div>
-                      </div>
-                    </div>
+                        </div>
                   </div>
                     <div class="box-footer">
                         <div class="botoescadastro">

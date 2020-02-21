@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="/admin/funcionarios">Funcion&aacute;rios</a></li>
-            <li class="active"><a href="/admin/funcionarios/{$funcionario.id_funcionario}/detalha">{$funcionario.primeiro_nome}</a></li>
+            <li class="active"><a href="/admin/funcionarios/{$funcionario.id_usuario}/detalha">{$funcionario.primeiro_nome}</a></li>
         </ol>
     </section>
     <!-- Main content -->
@@ -70,24 +70,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <h2 class="panel-title">Contatos</h2>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="col-md-6">
-                                        <label>Telefone: </label>
-                                        <span>{$funcionario.telefone}</span>
-                                        <br>
-                                        <label>Email: </label>
-                                        <span>{$funcionario.email}</span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Celular: </label>
-                                        <span>{$funcionario.celular}</span>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="panel panel-primary">
@@ -107,33 +89,28 @@
                             </div>
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    <h2 class="panel-title">Contratuais</h2>
+                                    <h2 class="panel-title">Contatos</h2>
                                 </div>
                                 <div class="panel-body">
-                                <div class="col-md-6">
-                                <label>CTPS: </label>
-                                <span>{$funcionario.numero_ctps}</span>
-                                <br>
-                                <label>S&eacute;rie: </label>
-                                <span>{$funcionario.serie_ctps}</span>
-                                <br>
-                                <label>Estado Expedi&ccedil;&atilde;o: </label>
-                                <span>{$funcionario.estado_ctps}</span>
-                                <br>
-                                <label>Data Expedi&ccedil;&atilde;o: </label>
-                                <span>{function="formatData($funcionario.data_ctps)"}</span>
+                                    <div class="col-md-6">
+                                        <label>Telefone: </label>
+                                        <span>{$funcionario.telefone}</span>
+                                        <br>
+                                        <label>Email: </label>
+                                        <span>{$funcionario.email}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Celular: </label>
+                                        <span>{$funcionario.celular}</span>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                <label>PIS: </label>
-                                <span>{$funcionario.pis}</span>
-                                <br>
-                                <label>Cargo: </label>
-                                <span>{$funcionario.cargo}</span>
-                                <br>
-                                <label>Admiss&atilde;o: </label>
-                                <span>{function="formatData($funcionario.dtadmissao)"}</span>
-                                <br>
-                                <label>Acesso de Administrador: </label>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Acesso</h2>
+                                </div>
+                                <div class="panel-body">
+                                <label>  Acesso de Administrador: </label>
                                     {if="$funcionario.acesso == 1"}
                                     <span>Sim</span>
                                     {else}
@@ -141,12 +118,10 @@
                                     {/if}
                                 </div>
                                 </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
-
                         <div class="box-footer">
-                            <a href="/admin/funcionarios/{$funcionario.id_funcionario}/atualiza" class="btn btn-primary btn-md">Editar</a>
+                            <a href="/admin/funcionarios/{$funcionario.id_usuario}/atualiza" class="btn btn-primary btn-md">Editar</a>
                             <a href="/admin/funcionarios" class="btn btn-primary btn-md">Voltar</a>
                         </div>
 
