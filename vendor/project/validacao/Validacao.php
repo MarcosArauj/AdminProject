@@ -65,21 +65,6 @@ class Validacao {
         }
     }
 
-
-    function validaPIS($pis){
-        $pis = preg_replace("/[^0-9]/", "", $pis);
-        $digito = 0;
-        for($i = 0, $x=3; $i<=10; $i++, $x--){
-            $x = ($x < 2) ? 9 : $x;
-            $digito += $pis[$i]*$x;
-        }
-        $calculo = (($digito%11) < 2) ? 0 : 11-($digito%11);
-        if($calculo <>  $pis[10]){
-            return false;
-        }
-        return true;
-    }
-
     public static function tiraMascaraCnpj($cnpj) {
         // Elimina possivel mascara
         $cnpj = str_pad(str_replace(array('.','-','/'),'',$cnpj),14,'0',STR_PAD_LEFT);

@@ -101,66 +101,6 @@ function ValidarCampoEmail() {
 }
 
 
-///----PIS---------//
-/*
-Validador PIS/PASEP
-Por Douglas J. Paula
-dougbr_4x4@hotmail.com
-Este script foi criado utilizando como base
-o Validador PIS/PASEP em ASP de Gabriel Fróes
-disponível em www.codigofonte.com.br
-*/
-
-
-function ChecaPIS(pis) {
-
-    total=0;
-    resto=0;
-    numPIS=0;
-    strResto="";
-
-    numPIS=pis;
-
-
-    numPIS = RemoveMascar(numPIS, ".");
-    numPIS = RemoveMascar(numPIS, "-");
-
-    if (numPIS=="" || numPIS==null) {
-        return false;
-    }
-
-    for(i=0; i<=9; i++) {
-        resultado = (numPIS.slice(i,i+1))*(ftap.slice(i,i+1));
-        total=total+resultado;
-    }
-
-    resto = (total % 11)
-
-    if (resto != 0) {
-        resto=11-resto;
-    }
-
-    if (resto==10 || resto==11) {
-        strResto=resto+"";
-        resto = strResto.slice(1,2);
-    }
-
-    if (resto!=(numPIS.slice(10,11))) {
-        return false;
-    }
-
-    return true;
-}
-
-function ValidarPis() {
-
-    if (ChecaPIS(document.FormCadastro.pis.value))
-    {
-        document.getElementById("pis").setAttribute("class", "has-error col-md-6");
-    } else {
-        document.getElementById("pis").setAttribute("class", "has-success  col-md-6");
-    }
-}
 
 function ValidaFormCategoria(){
     var formulario = document.forms["FormCategoria"];

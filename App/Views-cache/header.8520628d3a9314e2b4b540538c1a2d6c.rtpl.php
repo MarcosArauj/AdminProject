@@ -108,7 +108,6 @@ desired effect
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="/admin/funcionarios/buscar">Cadastrar</a></li>
-                        <li><a href="/admin/cargos">Cargos</a></li>
                         <li><a href="/admin/funcionarios">Listar</a></li>
                     </ul>
                 </li>
@@ -135,6 +134,17 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="/admin/fornecedores/buscar">Cadastrar</a></li>
                         <li><a href="/admin/fornecedores">Listar</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-users" aria-hidden="true"></i> <span>Clientes</span>
+                        <span class="pull-right-container">
+                             <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="#">Cadastrar</a></li>
+                        <li><a href="#">Listar</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
