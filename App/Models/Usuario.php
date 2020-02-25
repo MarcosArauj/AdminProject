@@ -37,6 +37,24 @@ class Usuario extends Model {
 
        // WHERE u.cargo = 'Administrador'
     }
+    // Pegar dados de Usuario/Funcionario e Cliente para recuparar a senha
+    public function getUsuarioSenha($id_usuario) {
+        $sql = new Sql();
+
+        $results =  $sql->select("SELECT * FROM tb_usuario as u
+                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
+                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                    WHERE u.id_usuario = :id_usuario",array(
+            ":id_usuario"=>$id_usuario,
+        ));
+
+        $data = $results[0];
+
+        $data["primeiro_nome"] = utf8_encode($data["primeiro_nome"] );
+
+        $this->setData($data);
+    }
 
     // Pegar dados de Usuario/Funcionario e Cliente
     public function getUsuario($id_usuario,$tipo_usuario) {

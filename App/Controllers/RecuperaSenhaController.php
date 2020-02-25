@@ -87,7 +87,7 @@ class RecuperaSenhaController extends Controller {
 
             $usuario = new Usuario();
 
-            $usuario->get((int)$recuperarSenha['id_usuario']);
+            $usuario->getUsuarioSenha((int)$recuperarSenha['id_usuario']);
 
             $usuario->setsenha($posts['nova_senha']);
 

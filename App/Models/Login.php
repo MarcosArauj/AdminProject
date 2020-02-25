@@ -23,14 +23,14 @@ class Login  extends Usuario {
                     INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
                     INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
                     INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                    WHERE  usuario = :login AND status_usuario = :status",
+                    WHERE  usuario = :login AND status_usuario = :status AND tipo_usuario != :tipo_usuario",
             array(
                 ":login"=>$login,
                 ":status"=>"ativo",
+                ":tipo_usuario"=> 3 //Usuario Cliente
             ));
 
         if (count($results) === 0) {
-
 
             throw new \Exception("Usuário ou Senha inválidos");
 
@@ -38,27 +38,24 @@ class Login  extends Usuario {
 
         $data = $results[0];
 
+        if ($data['tipo_usuario'] === 3){
+
+               throw new \Exception("Você não tem acesso a esse Sistema!!!");
+           }
+
         if (password_verify($senha, $data["senha"])) {
 
-            if ($data['tipo_usuario'] == 3){
+            $usuario = new Usuario();
 
-                throw new \Exception("Você não tem acesso a esse Sistema!!!");
-            } else {
+            $usuario->setData($data);
 
-                $usuario = new Usuario();
+            $_SESSION[Usuario::SESSION] = $usuario->getValues();
 
-                $usuario->setData($data);
-
-                $_SESSION[Usuario::SESSION] = $usuario->getValues();
-
-                return $usuario;
-            }
-
+            return $usuario;
 
         } else {
 
             throw new \Exception("Usuário ou Senha inválidos!");
-
 
         }
 
