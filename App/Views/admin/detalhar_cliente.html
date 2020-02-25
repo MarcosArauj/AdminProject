@@ -1,0 +1,118 @@
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Detalhes Cliente
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/admin/clientes">Clientes</a></li>
+            <li class="active"><a href="/admin/funcionarios/{$cliente.id_usuario}/detalha">{$cliente.primeiro_nome}</a></li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+            <div class="box box-success">
+
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Dados Pessoais</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                    <label>Nome : </label>
+                                    <span>{$cliente.primeiro_nome} {$cliente.sobrenome}</span>
+                                    <br>
+                                    <label>Data de Nascimento:  </label>
+                                    <span>{function="formatData($cliente.data_nascimento)"}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label>Sexo:  </label>
+                                    <span>{$cliente.sexo}</span>
+                                    <br>
+                                    <label>Naturalidade: </label>
+                                    <span>{$cliente.naturalidade} - {$cliente.uf_nascimento}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Endere&ccedil;o</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                    <label>CEP: </label>
+                                    <span>{$cliente.cep}</span>
+                                    <br>
+                                    <label>End: </label>
+                                    <span>{$cliente.rua}</span>
+                                    <br>
+                                    <label>Número: </label>
+                                    <span>{$cliente.numero}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <label>Bairro: </label>
+                                    <span>{$cliente.bairro}</span>
+                                    <br>
+                                    <label>Cidade: </label>
+                                    <span>{$cliente.cidade}</span>
+                                    <br>
+                                    <label>Estado: </label>
+                                    <span>{$cliente.estado}</span>
+                                    <br>
+                                    <label>Pa&iacute;s: </label>
+                                    <span>{$cliente.pais}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Documentos Pessoais</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-5">
+                                    <label>RG: </label>
+                                    <span>{$cliente.rg}</span>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <label>CPF: </label>
+                                    <spna>{function="formataCpf($cliente.cpf)"}</spna>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h2 class="panel-title">Contatos</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <label>Telefone: </label>
+                                        <span>{$cliente.telefone}</span>
+                                        <br>
+                                        <label>Email: </label>
+                                        <span>{$cliente.email}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Celular: </label>
+                                        <span>{$cliente.celular}</span>
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+                        <div class="box-footer">
+                            <a href="/admin/clientes/{$cliente.id_usuario}/atualiza" class="btn btn-primary btn-md">Editar</a>
+                            <a href="/admin/clientes" class="btn btn-primary btn-md">Voltar</a>
+                        </div>
+
+                </div>
+
+    </section>
+</div>

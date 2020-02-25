@@ -1,3 +1,4 @@
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -16,20 +17,26 @@
     <!-- Main content -->
 <section class="content">
             <!--Mensagem de Erro-->
-            {if="$clienteErro != ''"}
+            <?php if( $clienteErro != '' ){ ?>
+
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                {$clienteErro}
+                <?php echo htmlspecialchars( $clienteErro, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+
             </div>
-            {/if}
+            <?php } ?>
+
 
             <!--Mensagem de Sucesso-->
-            {if="$clienteSucesso != ''"}
+            <?php if( $clienteSucesso != '' ){ ?>
+
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                {$clienteSucesso}
+                <?php echo htmlspecialchars( $clienteSucesso, ENT_COMPAT, 'UTF-8', FALSE ); ?>
+
             </div>
-            {/if}
+            <?php } ?>
+
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Novo Clientes</h3>
@@ -72,9 +79,11 @@
                               <label class="control-label" for="uf_nascimento"><strong class="obrigatorio">*</strong>Estado Nascimento</label>
                               <select class="form-control" name="uf_nascimento" id="uf_nascimento" required>
                                   <option value="">Selecione</option>
-                                  {loop="$estados"}
-                                  <option value="{$value.uf}">{$value.uf}</option>
-                                  {/loop}
+                                  <?php $counter1=-1;  if( isset($estados) && ( is_array($estados) || $estados instanceof Traversable ) && sizeof($estados) ) foreach( $estados as $key1 => $value1 ){ $counter1++; ?>
+
+                                  <option value="<?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["uf"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
+                                  <?php } ?>
+
                               </select>
 
                           </div>

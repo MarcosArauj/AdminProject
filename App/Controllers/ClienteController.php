@@ -63,6 +63,7 @@ class ClienteController extends Controller {
             }
 
             try{
+                $cliente->setacesso(0);
                 $cliente->settipo_usuario(3); //Usuario cliente
                 $cliente->setData($posts);
 
@@ -141,7 +142,7 @@ class ClienteController extends Controller {
 
         if ($busca) {
 
-                $paginacao = Usuario::getBuscaCliente($busca,$tipo_usuario, $pagina);
+                $paginacao = Usuario::getBuscaUsuario($busca,$tipo_usuario, $pagina);
 
                 for ($cont = 0; $cont < $paginacao['paginas']; $cont++) {
                     array_push($paginas, array(
@@ -154,7 +155,7 @@ class ClienteController extends Controller {
                 }
 
             if (!$paginacao['data']) {
-                Cliente::setError("Cadastra novo Cliente");
+                Usuario::setError("Cadastra novo Cliente");
                 }
             }
 
@@ -163,7 +164,7 @@ class ClienteController extends Controller {
 
         $page->setTpl("buscar_cliente", array(
             "clienteSucesso"=>Usuario::getSuccess(),
-            "clienteoErro"=>Usuario::getError(),
+            "clienteErro"=>Usuario::getError(),
             "clienteErroAtiva"=>Usuario::getError(),
             "clientes"=>$paginacao['data'],
             "busca"=>$busca,
@@ -203,7 +204,7 @@ class ClienteController extends Controller {
 
                 Usuario::setSuccess("Cliente Alterado com Sucesso!");
 
-                return $response->withRedirect($this->container->router->pathFor('cilentes'));
+                return $response->withRedirect($this->container->router->pathFor('clientes'));
 
             } catch (\Exception $e) {
 

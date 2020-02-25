@@ -72,7 +72,7 @@ $app->group('/admin', function ($app){
     //Cliente
     $app->group('/clientes', function(){
         //Rota carregar lista de Cliente
-        $this->get('', 'FuncionarioController:clientes')->setName('clientes');
+        $this->get('', 'ClienteController:clientes')->setName('clientes');
         //Rota detalhar cadastro do Cliente/Usurio
         $this->get('/{id_usuario}/detalha', 'ClienteController:detalharCliente')->setName('detalha-cliente');
         //Rota Buscar Cliente
@@ -80,7 +80,7 @@ $app->group('/admin', function ($app){
         //Rota ativar Cliente/Usuario
         $this->get('/buscar/{id_usuario}/ativa', 'ClienteController:ativaCliente')->setName('ativa-cliente');
         //Rota cadastro de Cliente/Usuario
-        $this->map(['GET', 'POST'], '/cadastra', 'FClienteController:cadastrarCliente')->setName('cadastra-cliente');
+        $this->map(['GET', 'POST'], '/cadastra', 'ClienteController:cadastrarCliente')->setName('cadastra-cliente');
         //Rota atualizar Cliente
         $this->map(['GET', 'POST'], '/{id_usuario}/atualiza', 'ClienteController:atualizarCliente')->setName('atualiza-cliente');
         //Rota excluir Cliente/Usuario

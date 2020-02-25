@@ -39,7 +39,7 @@ class Login  extends Usuario {
 
         $data = $results[0];
 
-        if ($data['tipo_usuario'] === "cliente"){
+        if ($data['tipo_usuario'] === 3){
 
                throw new \Exception("Você não tem acesso a esse Sistema!!!");
            }

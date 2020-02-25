@@ -45,7 +45,7 @@ getControllers($container, array(
     'ProprietarioController',
     'EmpresaController',
     'FuncionarioController',
-    'CargoController',
+    'ClienteController',
     'FornecedorController',
     'CategoriaController',
     'FabricanteController',

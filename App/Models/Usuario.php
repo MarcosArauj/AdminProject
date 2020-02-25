@@ -51,7 +51,11 @@ class Usuario extends Model {
                     ":tipo_usuario"=>$tipo_usuario  // 2 - Funcionario/ 3 - Cliente
                  ));
 
-        $this->setData($results[0]);
+        $data = $results[0];
+
+        $data["primeiro_nome"] = utf8_encode($data["primeiro_nome"] );
+
+        $this->setData($data);
     }
 
 
@@ -89,8 +93,8 @@ class Usuario extends Model {
 
         $results =  $sql->select("CALL sp_usuario_admin_cliente_salvar(:primeiro_nome,:sobrenome,:data_nascimento,:sexo,:naturalidade,:uf_nascimento,
         :cpf,:rg,:telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:senha,:acesso,:tipo_usuario,:status_usuario,:responsavel_cadastro)",array(
-            ":primeiro_nome"=>utf8_decode($this->getprimeiro_nome()),
-            ":sobrenome"=>utf8_decode($this->getsobrenome()),
+            ":primeiro_nome"=>$this->getprimeiro_nome(),
+            ":sobrenome"=>$this->getsobrenome(),
             ":data_nascimento"=>$this->getdata_nascimento(),
             ":sexo"=>$this->getsexo(),
             ":naturalidade"=>$this->getnaturalidade(),
