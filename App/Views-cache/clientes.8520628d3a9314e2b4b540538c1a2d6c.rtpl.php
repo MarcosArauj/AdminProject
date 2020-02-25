@@ -41,6 +41,8 @@
                                 <th style="width: 10px"><strong>#</strong></th>
                                 <th>Clientes</th>
                                 <th>Sobrenome</th>
+                                <th>CPF</th>
+                                <th>Celular</th>
                                 <th  style="width: 260px">&nbsp;</th>
                             </tr>
                             </thead>
@@ -50,6 +52,8 @@
                                 <td><?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 <td><?php echo htmlspecialchars( $value1["primeiro_nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 <td><?php echo htmlspecialchars( $value1["sobrenome"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                                <td><?php echo formataCpf($value1["cpf"]); ?></td>
+                                <td><?php echo htmlspecialchars( $value1["celular"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 <td>
                                     <a href="/admin/clientes/<?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
                                     <a href="/admin/clientes/<?php echo htmlspecialchars( $value1["id_usuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>

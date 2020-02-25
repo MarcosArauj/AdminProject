@@ -23,11 +23,10 @@ class Login  extends Usuario {
                     INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
                     INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
                     INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                    WHERE  usuario = :login AND status_usuario = :status AND tipo_usuario != :tipo_usuario",
+                    WHERE  usuario = :login AND status_usuario = :status",
             array(
                 ":login"=>$login,
                 ":status"=>"ativo",
-                ":tipo_usuario"=> 3 //Usuario Cliente
             ));
 
         if (count($results) === 0) {
@@ -39,21 +38,21 @@ class Login  extends Usuario {
 
         $data = $results[0];
 
-        if ($data['tipo_usuario'] === 3){
-
-               throw new \Exception("Você não tem acesso a esse Sistema!!!");
-           }
-
         if (password_verify($senha, $data["senha"])) {
 
-            $usuario = new Usuario();
+            if ($data['tipo_usuario'] == 3){
 
-            $usuario->setData($data);
+                throw new \Exception("Você não tem acesso a esse Sistema!!!");
+            } else {
 
-            $_SESSION[Usuario::SESSION] = $usuario->getValues();
+                $usuario = new Usuario();
 
-            return $usuario;
+                $usuario->setData($data);
 
+                $_SESSION[Usuario::SESSION] = $usuario->getValues();
+
+                return $usuario;
+            }
 
 
         } else {

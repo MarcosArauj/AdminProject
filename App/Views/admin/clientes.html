@@ -41,6 +41,8 @@
                                 <th style="width: 10px"><strong>#</strong></th>
                                 <th>Clientes</th>
                                 <th>Sobrenome</th>
+                                <th>CPF</th>
+                                <th>Celular</th>
                                 <th  style="width: 260px">&nbsp;</th>
                             </tr>
                             </thead>
@@ -50,6 +52,8 @@
                                 <td>{$value.id_usuario}</td>
                                 <td>{$value.primeiro_nome}</td>
                                 <td>{$value.sobrenome}</td>
+                                <td>{function="formataCpf($value.cpf)"}</td>
+                                <td>{$value.celular}</td>
                                 <td>
                                     <a href="/admin/clientes/{$value.id_usuario}/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
                                     <a href="/admin/clientes/{$value.id_usuario}/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>

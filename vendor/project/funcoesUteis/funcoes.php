@@ -88,6 +88,21 @@ function getNomeEmpresa(){
 
     return utf8_encode($nome);
 }
+function getIniciaisEmpresa(){
+
+
+    $empresa = new Empresa();
+
+    $empresa->dadosempresa();
+
+    $iniciais_nome = substr($empresa->getnome_curto(), 0, 2);
+
+    if($iniciais_nome == null) {
+        $iniciais_nome = " ";
+    }
+
+    return utf8_encode(mb_strtoupper($iniciais_nome));
+}
 
 function getNomeEmpresaCompleto(){
     $empresa = new Empresa();

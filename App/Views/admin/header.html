@@ -26,6 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
+
     <link rel="stylesheet" href="/App/Views/res/adminLte/dist/css/skins/skin-green.min.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,11 +66,11 @@ desired effect
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="/perfil" class="logo">
+        <a href="/admin" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>{function="getIniciaisUsuario()"}</b></span>
+            <span class="logo-mini"><b>{function="getIniciaisEmpresa()"}</b></span>
             <!-- Nome do Usuario Logado -->
-            <span><b style="font-size: 20px">{function="getNomeUsuario()"}</b></span>
+            <span><b style="font-size: 20px">{function="getNomeEmpresa()"}</b></span>
 
         </a>
 
@@ -79,15 +80,31 @@ desired effect
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
-            <!-- Navbar Right Menu -->
-            <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="" class="glyphicon glyphicon-log-out" data-toggle="modal" data-target="#ModalSair">&nbsp;<strong>Sair</strong></a>
 
-                    </li>
-                </ul>
-            </div>
+            <!-- Navbar Right Menu -->
+<!--                <div style="-->
+<!--                background: #333;-->
+<!--                color: #fff;-->
+<!--                border-radius: 50%;-->
+<!--                font-size: 2em;-->
+
+<!--                display: -webkit-flex;-->
+<!--                display: -ms-flexbox;-->
+<!--                display: flex;-->
+
+<!--                -webkit-align-items: center;-->
+<!--                -webkit-box-align: center;-->
+<!--                -ms-flex-align: center;-->
+<!--                align-items: center;-->
+
+<!--                justify-content: center;-->
+<!--                background: #1abc9c;-->
+<!--                height: 46px;-->
+<!--                width: 46px;" class="pull-right">-->
+<!--                    <a href="/perfil">-->
+<!--                        <strong>{function="getIniciaisUsuario()"}</strong>-->
+<!--                    </a>-->
+<!--            </div>-->
         </nav>
     </header>
 
@@ -95,6 +112,18 @@ desired effect
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <a href="/perfil">
+                <div class="user-panel mt-3">
+                    <div class="pull-left">
+                        <strong>{function="getIniciaisUsuario()"}</strong>
+                    </div>
+                    <div class="info">
+                        <!-- Status -->
+                        <strong style="font-size: large">{function="getNomeUsuario()"}</strong>
+                    </div>
+                </div>
+            </a>
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
                 <li><a href="/admin"><i class="fa fa-dashboard"></i><span>Pain&eacute;l de Controle</span></a></li>
@@ -157,6 +186,11 @@ desired effect
                         <li><a href="#">Cadastrar</a></li>
                         <li><a href="#">Listar</a></li>
                     </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#" data-toggle="modal" data-target="#ModalSair">
+                        <i class="glyphicon glyphicon-log-out" aria-hidden="true"></i>&nbsp;<span><strong>Sair</strong></span>
+                    </a>
                 </li>
             </ul>
             <!-- /.sidebar-menu -->
