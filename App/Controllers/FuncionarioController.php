@@ -8,11 +8,10 @@
 
 namespace App\Controllers;
 
-use App\Models\Usuario;
 use project\pages\PageCadastro;
 use project\validacao\Validacao;
 use App\Models\Login;
-use App\Models\Funcionario;
+use App\Models\Usuario;
 use App\Models\EstadosCidades;
 
 class FuncionarioController extends Controller {
@@ -30,8 +29,8 @@ class FuncionarioController extends Controller {
             $page->setTpl("cadastro_funcionario", array(
                 "estados" => $estados,
 //            "cidades"=>$cidades,
-                "funcionarioErro" => Funcionario::getError(),
-                "funcionarioSucesso" => Funcionario::getSuccess()
+                "funcionarioErro" => Usuario::getError(),
+                "funcionarioSucesso" => Usuario::getSuccess()
             ));
         } else {
 
@@ -40,24 +39,24 @@ class FuncionarioController extends Controller {
             $posts = $request->getParsedBody();
 
 
-            if (Funcionario::ckecarEmailExiste($posts['email'])=== true && Funcionario::ckecarCpfExiste($posts['cpf'])=== true){
+            if (Usuario::ckecarEmailExiste($posts['email'])=== true && Usuario::ckecarCpfExiste($posts['cpf'])=== true){
 
-                Funcionario::setError("CPF e E-mail já cadastrados!");
-
-                return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
-
-            } else if(Funcionario::ckecarCpfExiste($posts['cpf'])=== true){
-                Funcionario::setError("CPF já cadastrado!");
+                Usuario::setError("CPF e E-mail já cadastrados!");
 
                 return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
 
-            } else if(Funcionario::ckecarEmailExiste($posts['email'])=== true){
-                Funcionario::setError("E-mail já cadastrado!");
+            } else if(Usuario::ckecarCpfExiste($posts['cpf'])=== true){
+                Usuario::setError("CPF já cadastrado!");
+
+                return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
+
+            } else if(Usuario::ckecarEmailExiste($posts['email'])=== true){
+                Usuario::setError("E-mail já cadastrado!");
 
                 return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
 
             } else if (!Validacao::validaCPF($posts["cpf"])) {
-                Funcionario::setError("CPF não existe!");
+                Usuario::setError("CPF não existe!");
 
                 return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
 
@@ -69,13 +68,13 @@ class FuncionarioController extends Controller {
 
                 $funcionario->salvarUsuario();
 
-                Funcionario::setSuccess("Funcionário Cadastrado com Sucesso!");
+                Usuario::setSuccess("Funcionário Cadastrado com Sucesso!");
 
                 return $response->withRedirect($this->container->router->pathFor('funcionarios'));
 
             } catch (\Exception $e) {
 
-                Funcionario::setError("Erro ao Cadastrar Funcionario!");
+                Usuario::setError("Erro ao Cadastrar Funcionario!");
 
                 return $response->withRedirect($this->container->router->pathFor('cadastra-funcionario'));
             }
@@ -92,15 +91,15 @@ class FuncionarioController extends Controller {
         $busca = (isset($gets['busca'])) ? $gets['busca'] : "";
         $pagina = (isset($gets['pagina'])) ? (int)$gets['pagina'] : 1;
         $paginas = array();
-
+        $tipo_usuario = 2; //Funcionario
         if($busca != ''){
-            $paginacao = Funcionario::getPageBusca($busca);
+            $paginacao = Usuario::getPageBusca($busca,$tipo_usuario);
         } else {
-            $paginacao = Funcionario::getPage($pagina);
+            $paginacao = Usuario::getPage($pagina,$tipo_usuario);
         }
 
         if(!$paginacao['data']){
-            Funcionario::setError("Nenhum registro encontrado!");
+            Usuario::setError("Nenhum registro encontrado!");
         } else {
 
             for ($cont = 0; $cont < $paginacao['paginas']; $cont++) {
@@ -108,6 +107,7 @@ class FuncionarioController extends Controller {
                     'href' => '/admin/funcionarios?' . http_build_query(array(
                             'pagina' => $cont + 1,
                             'busca' => $busca
+
                         )),
                     'text' => $cont + 1
                 ));
@@ -118,8 +118,8 @@ class FuncionarioController extends Controller {
         $page = new PageCadastro();
 
         $page->setTpl("funcionarios", array(
-            "funcionarioSucesso"=>Funcionario::getSuccess(),
-            "funcionarioErro"=>Funcionario::getError(),
+            "funcionarioSucesso"=>Usuario::getSuccess(),
+            "funcionarioErro"=>Usuario::getError(),
             "funcionarios"=>$paginacao['data'],
             "busca"=>$busca,
             "paginas"=>$paginas
@@ -137,10 +137,11 @@ class FuncionarioController extends Controller {
 
         $busca = (isset($gets['busca'])) ? $gets['busca'] : "";
         $pagina = (isset($gets['pagina'])) ? (int)$gets['pagina'] : 1;
+        $tipo_usuario = 2; //Funcionario
 
         if ($busca) {
 
-                $paginacao = Funcionario::getBuscaFuncionario($busca, $pagina);
+                $paginacao = Usuario::getBuscaUsuario($busca,$tipo_usuario, $pagina);
 
                 for ($cont = 0; $cont < $paginacao['paginas']; $cont++) {
                     array_push($paginas, array(
@@ -153,7 +154,7 @@ class FuncionarioController extends Controller {
                 }
 
             if (!$paginacao['data']) {
-                    Funcionario::setError("Cadastra novo Funcionário");
+                Usuario::setError("Cadastra novo Funcionário");
                 }
             }
 
@@ -161,9 +162,9 @@ class FuncionarioController extends Controller {
         $page = new PageCadastro();
 
         $page->setTpl("buscar_funcionario", array(
-            "funcionarioSucesso"=>Funcionario::getSuccess(),
-            "funcionarioErro"=>Funcionario::getError(),
-            "funcionarioErroAtiva"=>Funcionario::getError(),
+            "funcionarioSucesso"=>Usuario::getSuccess(),
+            "funcionarioErro"=>Usuario::getError(),
+            "funcionarioErroAtiva"=>Usuario::getError(),
             "funcionarios"=>$paginacao['data'],
             "busca"=>$busca,
             "paginas"=>$paginas
@@ -174,11 +175,11 @@ class FuncionarioController extends Controller {
     public function atualizarFuncionario($request, $response, $params){
         Login::verifyLogin();
 
-        $funcionario = new Funcionario();
+        $funcionario = new Usuario();
 
         $estados = EstadosCidades::listarEstado();
 
-        $funcionario->getFuncionario((int)$params['id_usuario']);
+        $funcionario->getUsuario((int)$params['id_usuario'],2);
 
         if ($request->isGet()) {
 
@@ -186,7 +187,7 @@ class FuncionarioController extends Controller {
 
             $page->setTpl("atualizar_funcionario", array(
                 "estados" => $estados,
-                "funcionarioErro" => Funcionario::getError(),
+                "funcionarioErro" => Usuario::getError(),
                 "funcionario" => $funcionario->getValues()
             ));
         } else {
@@ -200,13 +201,13 @@ class FuncionarioController extends Controller {
 
                 $funcionario->atualizarFuncionario();
 
-                Funcionario::setSuccess("Funcionário Alterado com Sucesso!");
+                Usuario::setSuccess("Funcionário Alterado com Sucesso!");
 
                 return $response->withRedirect($this->container->router->pathFor('funcionarios'));
 
             } catch (\Exception $e) {
 
-                Funcionario::setError($e->getMessage());
+                Usuario::setError($e->getMessage());
 
                 return $response->withRedirect($this->container->router->pathFor('atualiza-funcionario',['id_usuario'=>$funcionario->getid_usuario()]));
             }
@@ -217,9 +218,9 @@ class FuncionarioController extends Controller {
     public static function detalharFuncionario($request, $response, $params){
         Login::verifyLogin();
 
-        $funcionario = new Funcionario();
+        $funcionario = new Usuario();
 
-        $funcionario->get((int)$params['id_usuario']);
+        $funcionario->getUsuario((int)$params['id_usuario'],2);
 
         $page = new PageCadastro();
 
@@ -233,22 +234,22 @@ class FuncionarioController extends Controller {
     public function excluirFuncionario($request, $response, $params){
         Login::verifyLogin();
 
-        $funcionario = new Funcionario();
+        $funcionario = new Usuario();
 
-        $funcionario->getFuncionario((int)$params['id_usuario']);
+        $funcionario->getUsuario((int)$params['id_usuario'],2);
 
         try{
             $funcionario->setstatus_usuario("inativo");
 
-            $funcionario->alteraStatusFuncionario();
+            $funcionario->alteraStatusUsuario();
 
-            Funcionario::setSuccess("Funcionário Excluido com Sucesso!");
+            Usuario::setSuccess("Funcionário Excluido com Sucesso!");
 
             return $response->withRedirect($this->container->router->pathFor('funcionarios'));
 
         } catch (\Exception $e) {
 
-            Funcionario::setError("Erro ao Excluir Funcionário!");
+            Usuario::setError("Erro ao Excluir Funcionário!");
 
             return $response->withRedirect($this->container->router->pathFor('funcionarios'));
         }
@@ -259,22 +260,22 @@ class FuncionarioController extends Controller {
 
         Login::verifyLogin();
 
-        $funcionario = new Funcionario();
+        $funcionario = new Usuario();
 
-        $funcionario->getFuncionario((int)$params['id_usuario']);
+        $funcionario->getUsuario((int)$params['id_usuario'],2);
 
         try{
             $funcionario->setstatus_usuario("ativo");
 
-            $funcionario->alteraStatusFuncionario();
+            $funcionario->alteraStatusUsuario();
 
-            Funcionario::setSuccess("Sucesso ao Ativar Registro!");
+            Usuario::setSuccess("Sucesso ao Ativar Registro!");
 
             return $response->withRedirect($this->container->router->pathFor('funcionarios'));
 
         } catch (\Exception $e) {
 
-            Funcionario::setError("Erro ao Ativar Registro!");
+            Usuario::setError("Erro ao Ativar Registro!");
 
             return $response->withRedirect($this->container->router->pathFor('buscar-funcionario'));
         }

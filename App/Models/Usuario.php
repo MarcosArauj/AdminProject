@@ -9,11 +9,12 @@
 namespace App\Models;
 
 use project\model\Model;
+use project\model\Paginacao;
 use project\validacao\Validacao;
 use App\config\DB\Sql;
 
 
-class Usuario extends Model  {
+class Usuario extends Model {
 
     const SESSION = "Usuario";
     const SECRET = "Casa_Nova_Secret";
@@ -37,15 +38,17 @@ class Usuario extends Model  {
        // WHERE u.cargo = 'Administrador'
     }
 
-    public function get($id_usuario) {
+    // Pegar dados de Usuario/Funcionario e Cliente
+    public function getUsuario($id_usuario,$tipo_usuario) {
         $sql = new Sql();
 
         $results =  $sql->select("SELECT * FROM tb_usuario as u
                     INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
                     INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
                     INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
-                    WHERE u.id_usuario = :id_usuario",array(
-                    ":id_usuario"=>$id_usuario
+                    WHERE u.id_usuario = :id_usuario AND u.tipo_usuario = :tipo_usuario",array(
+                    ":id_usuario"=>$id_usuario,
+                    ":tipo_usuario"=>$tipo_usuario  // 2 - Funcionario/ 3 - Cliente
                  ));
 
         $this->setData($results[0]);
@@ -79,12 +82,12 @@ class Usuario extends Model  {
 
     }
 
-    // Proprietario e Funcionarios
+    // Proprietario e Funcionarios e Cliente
     public function salvarUsuario(){
 
         $sql = new Sql();
 
-        $results =  $sql->select("CALL sp_usuario_admin_salvar(:primeiro_nome,:sobrenome,:data_nascimento,:sexo,:naturalidade,:uf_nascimento,
+        $results =  $sql->select("CALL sp_usuario_admin_cliente_salvar(:primeiro_nome,:sobrenome,:data_nascimento,:sexo,:naturalidade,:uf_nascimento,
         :cpf,:rg,:telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:senha,:acesso,:tipo_usuario,:status_usuario,:responsavel_cadastro)",array(
             ":primeiro_nome"=>utf8_decode($this->getprimeiro_nome()),
             ":sobrenome"=>utf8_decode($this->getsobrenome()),
@@ -116,12 +119,12 @@ class Usuario extends Model  {
         $this->setData($results[0]);
     }
 
-//atualiza usuario Logadp
+//atualiza usuario Logado Proprietario/Funcionário/Cliente
     public function atualizaUsuario(){
 
         $sql = new Sql();
 
-        $results =  $sql->select("CALL sp_usuario_admin_atualizar(:id_usuario,:primeiro_nome,:sobrenome,
+        $results =  $sql->select("CALL sp_usuario_admin_cliente_atualizar(:id_usuario,:primeiro_nome,:sobrenome,
             :rg,:telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:responsavel_cadastro)",array(
             ":id_usuario"=>$this->getid_usuario(),
             ":primeiro_nome"=>$this->getprimeiro_nome(),
@@ -145,6 +148,55 @@ class Usuario extends Model  {
         $this->setData($results[0]);
     }
 
+    // atualizar dados do Funcionaraio
+    public function atualizarFuncionario(){
+        $sql = new Sql();
+
+        $results =  $sql->select("CALL sp_funcionario_atualizar(:id_usuario,:primeiro_nome,:sobrenome,:rg,
+        :telefone,:celular,:email,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:usuario,:acesso,:responsavel_cadastro)",array(
+            ":id_usuario"=>$this->getid_usuario(),
+            ":primeiro_nome"=>utf8_decode($this->getprimeiro_nome()),
+            ":sobrenome"=>utf8_decode($this->getsobrenome()),
+            ":rg"=>$this->getrg(),
+            ":telefone"=>$this->gettelefone(),
+            ":celular"=>$this->getcelular(),
+            ":email"=>$this->getemail(),
+            ":cep"=>$this->getcep(),
+            ":rua"=>$this->getrua(),
+            ":numero"=>$this->getnumero(),
+            ":bairro"=>$this->getbairro(),
+            ":cidade"=>$this->getcidade(),
+            ":estado"=>$this->getestado(),
+            ":pais"=>$this->getpais(),
+            ":usuario"=>Validacao::getUsuario($this->getemail()),
+            ":acesso"=>$this->getacesso(),
+            ":responsavel_cadastro"=>$this->getresponsavel_cadastro()
+
+        ));
+
+
+        if (count($results) === 0) {
+
+            throw new \Exception("Erro ao Alterar Funcionário!");
+
+        }
+
+        $this->setData($results[0]);
+
+    }
+
+    // Ativar de Desativar Usuario Funcionario ou Cliente
+    public function alteraStatusUsuario(){
+        $sql = new Sql();
+
+        $sql->query("CALL sp_altera_status_usuario(:id_usuario,:status_usuario,:responsavel_cadastro)", array(
+            ":id_usuario"=>$this->getid_usuario(),
+            ":status_usuario"=>$this->getstatus_usuario(),
+            ":responsavel_cadastro"=>$this->getresponsavel_cadastro()
+        ));
+
+    }
+
     // atualizar Senha
     public function atualizarSenha(){
         $sql = new Sql();
@@ -157,6 +209,87 @@ class Usuario extends Model  {
      //   print_r("   id: ".$this->getid_usuario()."senha: ".$this->getsenha());
         $this->setData($results[0]);
 
+    }
+
+    public static function getPage($pagina = 1,$tipo_usuario, $itemsPerPage = 10) {
+
+        $start = ($pagina - 1) * $itemsPerPage;
+
+        $sql = new Sql();
+
+        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS *  FROM tb_usuario as u
+                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
+                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                    WHERE u.tipo_usuario = :tipo_usuario AND u.status_usuario = 'ativo'
+                    ORDER BY pf.primeiro_nome
+                    LIMIT $start, $itemsPerPage;",array(
+            ':tipo_usuario' => $tipo_usuario
+        ));
+
+        $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
+
+        return array(
+            'data'=>$results,
+            'total'=>(int)$resultTotal[0]["nrtotal"],
+            'paginas'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
+        );
+
+    }
+
+
+    public static function getPageBusca($busca,$tipo_usuario,$pagina = 1, $itemsPerPage = 7){
+        $start = ($pagina - 1) * $itemsPerPage;
+
+        $sql = new Sql();
+
+
+        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS *  FROM tb_usuario as u
+                    INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
+                    INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                    WHERE u.tipo_usuario = :tipo_usuario AND u.status_usuario = 'ativo'
+                    AND pf.primeiro_nome LIKE :busca OR c.email = :busca
+                    ORDER BY pf.primeiro_nome
+                    LIMIT $start, $itemsPerPage;",array(
+            ":busca"=>'%'.$busca.'%',
+            ':tipo_usuario' => $tipo_usuario
+        ));
+
+        $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
+
+        return array(
+            'data'=>$results,
+            'total'=>(int)$resultTotal[0]["nrtotal"],
+            'paginas'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
+        );
+    }
+
+    public static function getBuscaUsuario($busca,$tipo_usuario,$pagina = 1, $itemsPerPage = 7){
+        $start = ($pagina - 1) * $itemsPerPage;
+
+        $sql = new Sql();
+
+        $cpf_sem_mascara =  Validacao::tiraMascaraCpf($busca);
+
+        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS *  FROM tb_usuario as u
+                        INNER JOIN tb_pessoa_fisica as pf ON u.pessoa_id = pf.id_pessoaf
+                        INNER JOIN tb_contato as c ON pf.contato_id = c.id_contato
+                        INNER JOIN tb_endereco as e ON pf.endereco_id = e.id_endereco
+                        WHERE u.tipo_usuario = :tipo_usuario AND pf.cpf LIKE :busca 
+                        ORDER BY pf.primeiro_nome
+                        LIMIT $start, $itemsPerPage;",array(
+            ":busca"=>'%'.$cpf_sem_mascara.'%',
+            ":tipo_usuario"=>$tipo_usuario
+        ));
+
+        $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
+
+        return array(
+            'data'=>$results,
+            'total'=>(int)$resultTotal[0]["nrtotal"],
+            'paginas'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
+        );
     }
 
 

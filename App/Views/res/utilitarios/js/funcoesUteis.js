@@ -1,6 +1,6 @@
 
 
-
+// Mostrar e ocultar senhas
 jQuery(document).ready(function($) {
 
         $('#mostrar_senha').click(function(e) {
@@ -34,9 +34,6 @@ jQuery(document).ready(function($) {
     });
 
 });
-
-
-
 
 
 // Carregar endereço buscando pelo CEP

@@ -143,8 +143,8 @@ desired effect
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Cadastrar</a></li>
-                        <li><a href="#">Listar</a></li>
+                        <li><a href="/admin/clientes/buscar">Cadastrar</a></li>
+                        <li><a href="/admin/clientes">Listar</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -156,7 +156,6 @@ desired effect
                     <ul class="treeview-menu">
                         <li><a href="#">Cadastrar</a></li>
                         <li><a href="#">Listar</a></li>
-                        <li><a href="#">Atualizar</a></li>
                     </ul>
                 </li>
             </ul>
