@@ -3,14 +3,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1 id="titulo_home">
-            <b>{function="getNomeEmpresaCompleto()"}</b>
+            <b>Painel de Controle</b>
 
 
         </h1>
 
         <ol class="breadcrumb">
-            <li><a href="admin"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">Here</li>
+            <li class="active"><a href="admin"><i class="fa fa-dashboard"></i> Home</a></li>
         </ol>
     </section>
 
@@ -47,13 +46,13 @@
             <div class="small-box bg-orange">
                 <div class="inner">
                     <h3>{function="getNomeEmpresa()"}</h3>
-                    <p>Cadastro da Empresa </p>
+                    <p>{function="getNomeEmpresaCompleto()"} </p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-cog"></i>
                 </div>
                 {if="getEmpresa() > 0"}
-                <a href="/admin/empresa/detalha/{function="getUrlEmpresa()"}" class="small-box-footer">Acessar
+                <a href="/admin/empresa/area-administrativo" class="small-box-footer">Acessar
                     <i class="fa fa-arrow-circle-right"></i></a>
                 {else}
                 <a href="/admin/empresa/cadastra" class="small-box-footer">Acessar

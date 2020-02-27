@@ -84,8 +84,6 @@ class RecuperaSenha  extends  Usuario {
 
 	  $sql = new Sql();
 
-//	  print_r($disrecupera);
-
 	  $results = $sql->select("SELECT * FROM
 	  tb_recupera_senha as r 
 	  INNER JOIN tb_usuario as u ON r.id_usuario = u.id_usuario

@@ -49,7 +49,8 @@ getControllers($container, array(
     'FornecedorController',
     'CategoriaController',
     'FabricanteController',
-    'ProdutoController'
+    'ProdutoController',
+    'PromocaoController'
 ));
 
 // Funções Uteis

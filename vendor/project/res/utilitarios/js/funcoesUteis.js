@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
 
         $('#mostrar_senha').click(function(e) {
             e.preventDefault();
-            if ( $('#senha').attr('type') == 'password') {
+            if ( $('#senha').attr('type') === 'password') {
                 $('#senha').attr('type', 'text');
                 $('#mostrar_senha').attr('class', 'fa fa-eye');
             } else {
@@ -17,8 +17,8 @@ jQuery(document).ready(function($) {
 
     $('#mostrar_senha_alterar').click(function(e) {
         e.preventDefault();
-        if ( $('#novasenha').attr('type') == 'password' || $('#confirmasenha').attr('type') == 'password' ||
-            $('#senhatual').attr('type') == 'password' ) {
+        if ( $('#novasenha').attr('type') === 'password' || $('#confirmasenha').attr('type') === 'password' ||
+            $('#senhatual').attr('type') === 'password' ) {
 
             $('#senhatual').attr('type', 'text');
             $('#novasenha').attr('type', 'text');

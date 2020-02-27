@@ -66,6 +66,15 @@ class EmpresaController extends Controller
         }
     }
 
+    // Tela Area de Trabalho do Administrador da Empresa e Site
+    public function areaAdministrativo(){
+        Login::verifyLogin();
+
+        $page = new PageCadastro();
+
+        $page->setTpl("area-administrativo");
+    }
+
     // Tela Dados da Empresa
     public function empresa($request, $response, $params){
         Login::verifyLogin();

@@ -12,7 +12,7 @@ use project\model\Model;
 use project\model\Paginacao;
 use App\config\DB\Sql;
 
-class Produto extends Model implements Paginacao {
+class Promocao extends Model implements Paginacao {
 
     public static function listarProduto(){
         $sql = new Sql();

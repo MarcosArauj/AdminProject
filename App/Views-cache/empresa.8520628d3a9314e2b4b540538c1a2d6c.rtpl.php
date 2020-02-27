@@ -9,7 +9,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="/admin/empresa/<?php echo htmlspecialchars( $empresa["url_empresa"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalaha"><?php echo htmlspecialchars( $empresa["nome_curto"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+            <li><a href="/admin/empresa/detalha/<?php echo htmlspecialchars( $empresa["url_empresa"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $empresa["nome_curto"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
 
         </ol>
     </section>
@@ -105,7 +105,7 @@
                         <div class="box-footer">
                             <div class="pull-right">
                             <a href="/admin/empresa/atualiza/<?php echo htmlspecialchars( $empresa["id_empresa"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-md">Editar</a>
-                            <a href="/admin" class="btn btn-primary btn-md">Voltar</a>
+                            <a href="/admin/empresa/area-administrativo" class="btn btn-primary btn-md">Voltar</a>
                             </div>
                         </div>
 

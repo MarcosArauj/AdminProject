@@ -43,10 +43,13 @@ $app->group('/recupera-senha/esqueci', function () {
 
 //Administrativo
 $app->group('/admin', function ($app){
+
     //Empresa
     $app->group('/empresa', function () {
         //Rota cadastrar empresa
         $this->map(['GET', 'POST'], '/cadastra', 'EmpresaController:cadastrarEmpresa')->setName('cadastra-empresa');
+        //Rota para area de trabalho do Administrador
+        $this->get('/area-administrativo', 'EmpresaController:areaAdministrativo')->setName('area-administrativo');
         //Detalha cadastro da Empresa
         $this->get('/detalha/{url_empresa}', 'EmpresaController:empresa')->setName('empresa');
         //Rota atualiar o cadastro da empresa
@@ -143,6 +146,21 @@ $app->group('/admin', function ($app){
         $this->map(['GET', 'POST'], '/{id_pcf}/fotoProduto', 'ProdutoController:atualizarFotoProduto')->setName('atualiza-foto-produto');
         //Rota Excluir Produto
         $this->get('/{id_pcf}/exclui', 'ProdutoController:excluirProduto')->setName('exclui-produto');
+    });
+    //Promocões
+    $app->group('/promocoes', function(){
+        //Rota listar Promocões
+        $this->get('', 'PromocaoController:promocoes')->setName('promocoes');
+        //Rota detalhar Promocão
+        $this->get('/{url}/detalha', 'PromocaoController:detalharPromocao')->setName('detalha-promocao');
+        //Rota cadastrar Promocões
+        $this->map(['GET', 'POST'], '/cadastra', 'PromocaoController:cadastrarPromocao')->setName('cadastra-promocao');
+        //Rota atualizar Promocão
+        $this->map(['GET', 'POST'], '/{id_pcf}/atualiza', 'PromocaoController:atualizarPromocao')->setName('atualiza-promocao');
+        //Rota atualizar foto do produto Promocão
+        $this->map(['GET', 'POST'], '/{id_pcf}/fotoProduto', 'PromocaoController:atualizarFotoPromocao')->setName('atualiza-foto-promocao');
+        //Rota Excluir Promocão
+        $this->get('/{id_pcf}/exclui', 'PromocaoController:excluirPromocao')->setName('exclui-promocao');
     });
 });
 

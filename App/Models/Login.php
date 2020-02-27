@@ -38,20 +38,21 @@ class Login  extends Usuario {
 
         $data = $results[0];
 
-        if ($data['tipo_usuario'] === 3){
-
-               throw new \Exception("Você não tem acesso a esse Sistema!!!");
-           }
-
         if (password_verify($senha, $data["senha"])) {
 
-            $usuario = new Usuario();
+            if ($data['tipo_usuario'] === 3) {
 
-            $usuario->setData($data);
+                throw new \Exception("Você não tem acesso a esse Sistema!!!");
+            } else {
 
-            $_SESSION[Usuario::SESSION] = $usuario->getValues();
+                $usuario = new Usuario();
 
-            return $usuario;
+                $usuario->setData($data);
+
+                $_SESSION[Usuario::SESSION] = $usuario->getValues();
+
+                return $usuario;
+            }
 
         } else {
 

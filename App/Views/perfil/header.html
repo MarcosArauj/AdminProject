@@ -11,18 +11,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!--Icone-->
-    <link rel="shortcut icon" href="/App/Views/res/imageSite/header/logo_cn.ico" />
+    <link rel="shortcut icon" href="/vendor/project/res/imageSite/header/logo_cn.ico" />
     <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="/App/Views/res/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/project/res/bootstrap/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="/App/Views/res/stylecn/css/styles.css">
+    <link rel="stylesheet" href="/vendor/project/res/stylecn/css/styles.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/App/Views/res/adminLte/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/vendor/project/res/adminLte/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
@@ -32,7 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="/App/Views/res/utilitarios/js/jquery.js"></script>
-    <script src="/App/Views/res/validacao/js/mascara.js"></script>
+    <script src="/vendor/project/res/utilitarios/js/jquery.js"></script>
+    <script src="/vendor/project/res/validacao/js/mascara.js"></script>
 </head>
 <body class="hold-transition login-page">

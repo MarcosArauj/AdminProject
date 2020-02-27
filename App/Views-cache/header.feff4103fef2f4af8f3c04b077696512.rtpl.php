@@ -6,21 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Icone -->
     <!--Icone-->
-    <link rel="shortcut icon" href="/App/Views/res/imageSite/header/logo_cn.ico" />
+    <link rel="shortcut icon" href="/vendor/project/res/imageSite/header/logo_cn.ico" />
     <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="/App/Views/res/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/project/res/bootstrap/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="/App/Views/res/stylecn/css/styles.css">
+    <link rel="stylesheet" href="/vendor/project/res/stylecn/css/styles.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/App/Views/res/adminLte/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/vendor/project/res/adminLte/dist/css/AdminLTE.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="/App/Views/res/adminLte/plugins/iCheck/square/blue.css">
-
-    <!-- Bootstrap 3.3.6 -->
-    <script src="/App/Views/res/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/vendor/project/res/adminLte/plugins/iCheck/square/blue.css">
 
 <body class="hold-transition login-page">
