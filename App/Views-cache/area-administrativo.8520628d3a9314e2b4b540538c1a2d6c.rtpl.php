@@ -45,7 +45,7 @@
             <div class="small-box bg-purple">
                 <div class="inner">
                     <h3>Ofertas</h3>
-                    <p>Controla</p>
+                    <p>Controle</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-shopping-basket" aria-hidden="true"></i>
@@ -58,7 +58,7 @@
             <div class="small-box bg-blue">
                 <div class="inner">
                     <h3>Rede Sociais</h3>
-                    <p>Controla</p>
+                    <p>Controle</p>
                 </div>
                 <div class="icon">
                     <i class="fa fa-share-square" aria-hidden="true"></i>

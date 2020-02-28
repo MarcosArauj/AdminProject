@@ -20,18 +20,26 @@ class FuncionarioController extends Controller {
     public function cadastrarFuncionario($request, $response){
         Login::verifyLogin();
 
+        $acesso =  Login::checkLogin();
+
         if ($request->isGet()) {
 
             $page = new PageCadastro();
 
-            $estados = EstadosCidades::listarEstado();
+            if($acesso == true) {
 
-            $page->setTpl("cadastro_funcionario", array(
-                "estados" => $estados,
+                $estados = EstadosCidades::listarEstado();
+
+                $page->setTpl("cadastro_funcionario", array(
+                    "estados" => $estados,
 //            "cidades"=>$cidades,
-                "funcionarioErro" => Usuario::getError(),
-                "funcionarioSucesso" => Usuario::getSuccess()
-            ));
+                    "funcionarioErro" => Usuario::getError(),
+                    "funcionarioSucesso" => Usuario::getSuccess()
+                ));
+
+            } else {
+                return $response->withRedirect($this->container->router->pathFor('admin'));
+            }
         } else {
 
             $funcionario = new Usuario();
@@ -86,6 +94,8 @@ class FuncionarioController extends Controller {
     public function funcionarios($request, $response){
         Login::verifyLogin();
 
+        $acesso =  Login::checkLogin();
+
         $gets = $request->getParams();
 
         $busca = (isset($gets['busca'])) ? $gets['busca'] : "";
@@ -117,18 +127,26 @@ class FuncionarioController extends Controller {
 
         $page = new PageCadastro();
 
-        $page->setTpl("funcionarios", array(
-            "funcionarioSucesso"=>Usuario::getSuccess(),
-            "funcionarioErro"=>Usuario::getError(),
-            "funcionarios"=>$paginacao['data'],
-            "busca"=>$busca,
-            "paginas"=>$paginas
-        ));
+        if($acesso == true) {
+
+            $page->setTpl("funcionarios", array(
+                "funcionarioSucesso" => Usuario::getSuccess(),
+                "funcionarioErro" => Usuario::getError(),
+                "funcionarios" => $paginacao['data'],
+                "busca" => $busca,
+                "paginas" => $paginas
+            ));
+
+        } else {
+            return $response->withRedirect($this->container->router->pathFor('admin'));
+        }
     }
 
     // Tela buscar Funcionário
     public function buscaFuncionario($request, $response){
         Login::verifyLogin();
+
+        $acesso =  Login::checkLogin();
 
         $gets = $request->getParams();
 
@@ -161,19 +179,27 @@ class FuncionarioController extends Controller {
 
         $page = new PageCadastro();
 
-        $page->setTpl("buscar_funcionario", array(
-            "funcionarioSucesso"=>Usuario::getSuccess(),
-            "funcionarioErro"=>Usuario::getError(),
-            "funcionarioErroAtiva"=>Usuario::getError(),
-            "funcionarios"=>$paginacao['data'],
-            "busca"=>$busca,
-            "paginas"=>$paginas
-        ));
+        if($acesso == true) {
+
+            $page->setTpl("buscar_funcionario", array(
+                "funcionarioSucesso" => Usuario::getSuccess(),
+                "funcionarioErro" => Usuario::getError(),
+                "funcionarioErroAtiva" => Usuario::getError(),
+                "funcionarios" => $paginacao['data'],
+                "busca" => $busca,
+                "paginas" => $paginas
+            ));
+
+        } else {
+            return $response->withRedirect($this->container->router->pathFor('admin'));
+        }
     }
 
     //Tela atualizar Funcionário
     public function atualizarFuncionario($request, $response, $params){
         Login::verifyLogin();
+
+        $acesso =  Login::checkLogin();
 
         $funcionario = new Usuario();
 
@@ -185,11 +211,17 @@ class FuncionarioController extends Controller {
 
             $page = new PageCadastro();
 
-            $page->setTpl("atualizar_funcionario", array(
-                "estados" => $estados,
-                "funcionarioErro" => Usuario::getError(),
-                "funcionario" => $funcionario->getValues()
-            ));
+            if($acesso == true) {
+                $page->setTpl("atualizar_funcionario", array(
+                    "estados" => $estados,
+                    "funcionarioErro" => Usuario::getError(),
+                    "funcionario" => $funcionario->getValues()
+                ));
+            } else {
+                return $response->withRedirect($this->container->router->pathFor('admin'));
+            }
+
+
         } else {
 
             $posts = $request->getParsedBody();
@@ -215,8 +247,10 @@ class FuncionarioController extends Controller {
     }
 
     //Tela detalhar cadastro de Funcionário
-    public static function detalharFuncionario($request, $response, $params){
+    public function detalharFuncionario($request, $response, $params){
         Login::verifyLogin();
+
+        $acesso =  Login::checkLogin();
 
         $funcionario = new Usuario();
 
@@ -224,9 +258,15 @@ class FuncionarioController extends Controller {
 
         $page = new PageCadastro();
 
+        if($acesso == true) {
+
         $page->setTpl("detalhar_funcionario", array(
             "funcionario"=>$funcionario->getValues()
         ));
+
+        } else {
+            return $response->withRedirect($this->container->router->pathFor('admin'));
+        }
 
     }
 

@@ -20,15 +20,22 @@ class EmpresaController extends Controller
     public function cadastrarEmpresa($request, $response){
         Login::verifyLogin();
 
+        $acesso =  Login::checkLogin();
+
         if ($request->isGet()) {
 
             $page = new PageCadastro();
 
-            $page->setTpl("cadastro_empresa", array(
-                "empresaErro" => Empresa::getError(),
-                "empresaSucesso" => Empresa::getSuccess()
+            if($acesso == true) {
+                $page->setTpl("cadastro_empresa", array(
+                    "empresaErro" => Empresa::getError(),
+                    "empresaSucesso" => Empresa::getSuccess()
 
-            ));
+                ));
+            }  else {
+                return $response->withRedirect($this->container->router->pathFor('admin'));
+                }
+
         } else {
 
             $empresa = new Empresa();
@@ -67,17 +74,29 @@ class EmpresaController extends Controller
     }
 
     // Tela Area de Trabalho do Administrador da Empresa e Site
-    public function areaAdministrativo(){
-        Login::verifyLogin();
+    public function areaAdministrativo($request, $response, $params){
+       Login::verifyLogin();
+
+       $acesso =  Login::checkLogin();
 
         $page = new PageCadastro();
 
-        $page->setTpl("area-administrativo");
+       if($acesso == true) {
+
+           $page->setTpl("area-administrativo");
+       } else {
+           return $response->withRedirect($this->container->router->pathFor('admin'));
+       }
+
+
+
     }
 
     // Tela Dados da Empresa
     public function empresa($request, $response, $params){
         Login::verifyLogin();
+
+        $acesso =  Login::checkLogin();
 
         $empresa = new Empresa();
 
@@ -85,10 +104,16 @@ class EmpresaController extends Controller
 
         $page = new PageCadastro();
 
+        if($acesso == true) {
+
         $page->setTpl("empresa", array(
             "empresa" => $empresa->getValues(),
             "empresaSucesso" => Empresa::getSuccess()
         ));
+
+        } else {
+            return $response->withRedirect($this->container->router->pathFor('admin'));
+        }
     }
 
     public function atualizarEmpresa($request, $response, $params) {
@@ -97,17 +122,25 @@ class EmpresaController extends Controller
 
         $empresa = new Empresa();
 
+        $acesso =  Login::checkLogin();
+
         $empresa->get((int)$params['id_empresa']);
 
         if ($request->isGet()) {
 
             $page = new PageCadastro();
 
+            if($acesso == true) {
+
             $page->setTpl("atualizar_empresa", array(
                 "empresa" => $empresa->getValues(),
                 "empresaErro" => Empresa::getError(),
                 "empresaSucesso" => Empresa::getSuccess()
             ));
+
+        } else {
+                return $response->withRedirect($this->container->router->pathFor('admin'));
+            }
         } else {
             $posts = $request->getParsedBody();
 
