@@ -80,6 +80,15 @@ desired effect
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
             </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="" class="glyphicon glyphicon-log-out" data-toggle="modal" data-target="#ModalSair">&nbsp;<strong>Sair</strong></a>
+
+                    </li>
+                </ul>
+            </div>
 
         </nav>
     </header>
@@ -151,11 +160,6 @@ desired effect
                         <li><a href="/admin/clientes/buscar">Cadastrar</a></li>
                         <li><a href="/admin/clientes">Listar</a></li>
                     </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#" data-toggle="modal" data-target="#ModalSair">
-                        <i class="glyphicon glyphicon-log-out" aria-hidden="true"></i>&nbsp;<span><strong>Sair</strong></span>
-                    </a>
                 </li>
             </ul>
             <!-- /.sidebar-menu -->

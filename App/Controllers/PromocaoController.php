@@ -8,17 +8,17 @@
 
 namespace App\Controllers;
 
+use App\Models\Promocao;
 use project\pages\PageCadastro;
 use App\Models\Login;
-use App\Models\Produto;
-use App\Models\Categoria;
-use App\Models\Fabricante;
 
 class PromocaoController extends Controller {
 
-    //Tela Produtos
-    public function produtos($request, $response){
+    //Tela Promções
+    public function promocoes($request, $response){
         Login::verifyLogin();
+
+        $acesso =  Login::checkLogin();
 
         $gets = $request->getParams();
 
@@ -27,17 +27,17 @@ class PromocaoController extends Controller {
         $paginas = array();
 
         if($busca != ''){
-            $paginacao = Produto::getPageBusca($busca);
+            $paginacao = Promocao::getPageBusca($busca);
         } else {
-            $paginacao = Produto::getPage($pagina);
+            $paginacao = Promocao::getPage($pagina);
         }
 
         if(!$paginacao['data']){
-            Produto::setError("Nenhum registro encontrado!");
+            Promocao::setError("Nenhum registro encontrado!");
         } else {
             for ($cont = 0; $cont < $paginacao['paginas']; $cont++) {
                 array_push($paginas, array(
-                    'href' => '/admin/produtos?' . http_build_query(array(
+                    'href' => '/admin/promocoes?' . http_build_query(array(
                             'pagina' => $cont + 1,
                             'busca' => $busca
                         )),
@@ -48,184 +48,209 @@ class PromocaoController extends Controller {
 
         $page = new PageCadastro();
 
-        $page->setTpl("produtos", array(
-            "produtoSucesso"=>Produto::getSuccess(),
-            "produtoErro"=>Produto::getError(),
-            "produtos"=>$paginacao['data'],
+        if($acesso == true) {
+
+        $page->setTpl("promocoes", array(
+            "promocaoSucesso"=>Promocao::getSuccess(),
+            "promocaoErro"=>Promocao::getError(),
+            "promocoes"=>$paginacao['data'],
             "busca"=>$busca,
             "paginas"=>$paginas
         ));
+
+        } else {
+            return $response->withRedirect($this->container->router->pathFor('admin'));
+        }
     }
 
-    //Tela cadastrar produtos
-    public function cadastrarProduto($request, $response){
+    //Tela cadastrar promoções
+    public function cadastrarPromocao($request, $response){
         Login::verifyLogin();
+
+        $acesso =  Login::checkLogin();
 
         if ($request->isGet()) {
 
-            $categorias = Categoria::listarCategoria();
-            $fabricantes = Fabricante::listarFaricante();
-
             $page = new PageCadastro();
 
-            $page->setTpl("cadastro_produto", array(
-                "produtoErro" => Produto::getError(),
-                "categorias" => $categorias,
-                "fabricantes" => $fabricantes
+            if($acesso == true) {
+
+            $page->setTpl("cadastro_promocao", array(
+                "promocaoErro" => Promocao::getError()
             ));
+            } else {
+                return $response->withRedirect($this->container->router->pathFor('admin'));
+            }
         } else {
-            $produto = new Produto();
+            $promocao = new Promocao();
 
             $posts = $request->getParsedBody();
 
-            if(Produto::ckecarProdutoExiste($posts['nome_produto'],$posts['fabricante_id'],$posts['descricao'])=== true) {
-                Produto::setError("Produto já cadastrado!");
+            if(Promocao::ckecarPromocaoExiste($posts['nome_promocao'],$posts['descricao'])=== true) {
+                Promocao::setError("Promoção já cadastrada!");
 
-                return $response->withRedirect($this->container->router->pathFor('cadastra-produto'));
+                return $response->withRedirect($this->container->router->pathFor('cadastra-promocao'));
             }
 
             try{
-                $produto->setData($posts);
+                $promocao->setData($posts);
 
-                $produto->salvarProduto();
+                $promocao->salvarPromocao();
 
-                $produto->setFotoProduto($_FILES["foto_produto"]);
+                $promocao->setFotoPromocao($_FILES["foto_promocao"]);
 
-                Produto::setSuccess("Produto Cadastrado com Sucesso!");
+                Promocao::setSuccess("Promoção Cadastrado com Sucesso!");
 
-                return $response->withRedirect($this->container->router->pathFor('produtos'));
+                return $response->withRedirect($this->container->router->pathFor('promocoes'));
 
             } catch (\Exception $e) {
 
-                Produto::setError($e->getMessage());
+                Promocao::setError($e->getMessage());
 
-                return $response->withRedirect($this->container->router->pathFor('cadastra-produto'));
+                return $response->withRedirect($this->container->router->pathFor('cadastra-promocao'));
             }
         }
     }
 
-    //Detalahar produto
-    public function detalharProduto($request, $response, $params){
+    //Detalahar promocao
+    public function detalharPromocao($request, $response, $params){
         Login::verifyLogin();
 
-        $produto = new Produto();
+        $acesso =  Login::checkLogin();
 
-        $produto->getFromURL($params['url']);
+        $promocao = new Promocao();
+
+        $promocao->getFromPromocaoURL($params['url_promocao']);
 
         $page = new PageCadastro();
 
-        $page->setTpl("detalhar_produto", array(
-            "produtoFotoSucesso"=>Produto::getSuccess(),
-            "produto"=>$produto->getValues()
+        if($acesso == true) {
+
+        $page->setTpl("detalhar_promocao", array(
+            "promocaoFotoSucesso"=>Promocao::getSuccess(),
+            "promocao"=>$promocao->getValues()
         ));
+        } else {
+            return $response->withRedirect($this->container->router->pathFor('admin'));
+        }
     }
 
-    //Tela atualizar cadastro de produto
-    public function atualizarProduto($request, $response, $params){
+    //Tela atualizar cadastro de promocao
+    public function atualizarPromocao($request, $response, $params){
         Login::verifyLogin();
 
-        $produto = new Produto();
-        $categorias = Categoria::listarCategoria();
-        $fabricantes = Fabricante::listarFaricante();
+        $acesso =  Login::checkLogin();
 
-        $produto->get((int)$params['id_pcf']);
+        $promocao = new Promocao();
+
+        $promocao->getPromocao((int)$params['id_promocao']);
 
         if ($request->isGet()) {
 
             $page = new PageCadastro();
 
-            $page->setTpl("atualizar_produto", array(
-                "produtoErro" => Produto::getError(),
-                "categorias" => $categorias,
-                "fabricantes" => $fabricantes,
-                "produto" => $produto->getValues()
+            if($acesso == true) {
+
+            $page->setTpl("atualizar_promocao", array(
+                "promocaoErro" => Promocao::getError(),
+                "promocao" => $promocao->getValues()
             ));
+
+            } else {
+                return $response->withRedirect($this->container->router->pathFor('admin'));
+            }
         } else {
             $posts = $request->getParsedBody();
 
-            if($posts['nome_produto'] !== $produto->getnome_produto() || $posts['fabricante_id'] !== $produto->getfabricante_id()
-                || $posts['descricao'] !== $produto->getdescricao()){
-                if(Produto::ckecarProdutoExiste($_POST['nome_produto'],$posts['fabricante_id'],$posts['descricao'])=== true) {
-                    Categoria::setError("Produto j&aacute; cadastrado!");
+            if($posts['nome_promocao'] !== $promocao->getnome_promocao() || $posts['descricao'] !== $promocao->getdescricao()){
+                if(Promocao::ckecarPromocaoExiste($_POST['nome_promocao'],$posts['descricao'])=== true) {
+                    Categoria::setError("Promocão já; cadastrada!");
 
-                    return $response->withRedirect($this->container->router->pathFor('atualiza-produto',['id_pcf'=>$produto->getid_pcf()]));
+                    return $response->withRedirect($this->container->router->pathFor('atualiza-promocao',['id_pcf'=>$promocao->getid_promocao()]));
                 }
 
             }
             try{
-                $produto->setData($posts);
+                $promocao->setData($posts);
 
-                $produto->atualizarProduto();
+                $promocao->salvarPromocao();
 
-                Produto::setSuccess("Produto Alterado com Sucesso!");
+                Promocao::setSuccess("Promocao Alterada com Sucesso!");
 
-                return $response->withRedirect($this->container->router->pathFor('produtos'));
+                return $response->withRedirect($this->container->router->pathFor('promocoes'));
 
             } catch (\Exception $e) {
-                Produto::setError($e->getMessage());
+                Promocao::setError($e->getMessage());
 
-                return $response->withRedirect($this->container->router->pathFor('atualiza-produto',['id_pcf'=>$produto->getid_pcf()]));
+                return $response->withRedirect($this->container->router->pathFor('atualiza-promocao',['id_pcf'=>$promocao->getid_promocao()]));
             }
         }
     }
 
-    //Tela atualizar Imagem do produto
-    public  function atualizarFotoProduto($request, $response, $params){
+    //Tela atualizar Imagem da Promocao
+    public  function atualizarFotoPromocao($request, $response, $params){
         Login::verifyLogin();
 
-        $produto = new Produto();
+        $acesso = Login::checkLogin();
 
-        $produto->get((int)$params['id_pcf']);
+        $promocao = new Promocao();
+
+        $promocao->getPromocao((int)$params['id_promocao']);
 
         if ($request->isGet()) {
 
             $page = new PageCadastro();
 
-            $page->setTpl("atualizar_fproduto", array(
-                "produtoFotoErro" => Produto::getError(),
-                "produto" => $produto->getValues()
+            if($acesso == true) {
+
+            $page->setTpl("atualizar_fpromocao", array(
+                "promocaoFotoErro" => Promocao::getError(),
+                "promocao" => $promocao->getValues()
             ));
+            } else {
+                return $response->withRedirect($this->container->router->pathFor('admin'));
+            }
 
         } else {
             $posts = $request->getParsedBody();
 
             try{
 
-                $produto->setData($posts);
+                $promocao->setData($posts);
 
-                $produto->setFotoProduto($_FILES["foto_produto"]);
+                $promocao->setFotoPromocao($_FILES["foto_promocao"]);
 
-                Produto::setSuccess("Imgagem do Produto Alterada com Sucesso!");
+                Promocao::setSuccess("Imgagem da Promoção Alterada com Sucesso!");
 
-                return $response->withRedirect($this->container->router->pathFor('detalha-produto',['url'=>$produto->geturl()]));
+                return $response->withRedirect($this->container->router->pathFor('detalha-promocao',['url_promocao'=>$promocao->geturl_promocao()]));
             } catch (\Exception $e) {
 
-                Produto::setError("Erro ao Alterar a imagem do Produto!");
+                Promocao::setError("Erro ao Alterar a imagem da Promoção!");
 
-                return $response->withRedirect($this->container->router->pathFor('atualiza-foto-produto',['id_pcf'=>$produto->getid_pcf()]));
+                return $response->withRedirect($this->container->router->pathFor('atualiza-foto-promocao',['id_promocao'=>$promocao->getid_promocao()]));
             }
         }
     }
 
-    //Excluir produto
-    public function excluirProduto($request, $response, $params){
+    //Excluir promoção
+    public function excluirPromocao($request, $response, $params){
         Login::verifyLogin();
 
-        $produto = new Produto();
+        $promocao = new Promocao();
 
-        $produto->get((int)$params['id_pcf']);
+        $promocao->getPromocao((int)$params['id_promocao']);
 
         try{
-            $produto->excluirProduto();
+            $promocao->excluirPromocao();
 
-            Produto::setSuccess("Produto Excluido com sucesso!");
+            Promocao::setSuccess("Promoção Excluida com sucesso!");
 
-            return $response->withRedirect($this->container->router->pathFor('produtos'));
+            return $response->withRedirect($this->container->router->pathFor('promocoes'));
 
         } catch (\Exception $e) {
-            Produto::setError("Erro ao Excluir Produto!");
+            Promocao::setError("Erro ao Excluir Promoção!");
 
-            return $response->withRedirect($this->container->router->pathFor('produtos'));
+            return $response->withRedirect($this->container->router->pathFor('promocoes'));
         }
     }
 

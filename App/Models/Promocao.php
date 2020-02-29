@@ -14,37 +14,29 @@ use App\config\DB\Sql;
 
 class Promocao extends Model implements Paginacao {
 
-    public static function listarProduto(){
+    public static function listarPromocoes(){
         $sql = new Sql();
 
-        return  $sql->select("SELECT * FROM tb_produto_categoria_fabricante as pcf
-            INNER JOIN tb_produto as p ON pcf.produto_id = p.id_produto
-            INNER JOIN tb_fabricante_produto as f ON pcf.fabricante_id = f.id_fabricante
-            INNER JOIN tb_categoria_produto as c ON pcf.categoria_id = c.id_categoria
-            ORDER BY p.nome_produto");
+        return  $sql->select(" SELECT * FROM tb_promocao ORDER BY dtinicio");
     }
 
     public static function checkList($list){
         foreach ($list as &$row){
-            $produto = new Produto();
-            $produto->setData($row);
-            $row = $produto->getValues();
+            $promocao = new Promocao();
+            $promocao->setData($row);
+            $row = $promocao->getValues();
         }
 
         return $list;
     }
 
-    public static function ckecarProdutoExiste($nome_produto, $fabricante, $descricao) {
+    public static function ckecarPromocaoExiste($nome_promocao, $descricao) {
 
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_produto_categoria_fabricante as pcf
-            INNER JOIN tb_produto as p ON pcf.produto_id = p.id_produto
-            INNER JOIN tb_fabricante_produto as f ON pcf.fabricante_id = f.id_fabricante
-            INNER JOIN tb_categoria_produto as c ON pcf.categoria_id = c.id_categoria
-            WHERE p.nome_produto = :nome_produto AND pcf.fabricante_id = :fabricante_id AND p.descricao = :descricao", array(
-            ":nome_produto"=>$nome_produto,
-            ":fabricante_id"=>$fabricante,
+        $results =  $sql->select("SELECT * FROM tb_promocao 
+            WHERE nome_promocao = :nome_promocao AND descricao = :descricao", array(
+            ":nome_promocao"=>$nome_promocao,
             ":descricao"=>$descricao,
 
         ));
@@ -53,25 +45,24 @@ class Promocao extends Model implements Paginacao {
 
     }
 
-    /// Salvar Produto
-    public function salvarProduto(){
+    /// Salvar/atualizar Promoção
+    public function salvarPromocao(){
         $sql = new Sql();
 
         $results = $sql->select(
-            "CALL sp_produto_salvar(:nome_produto,:fabricante_id,:categoria_id,:preco,:quantidade,:descricao,:url,:responsavel_cadastro)",array(
-            ":nome_produto"=>utf8_decode($this->getnome_produto()),
-            ":fabricante_id"=>$this->getfabricante_id(),
-            ":categoria_id"=>$this->getcategoria_id(),
-            ":preco"=>$this->getpreco(),
-            ":quantidade"=>$this->getquantidade(),
-            ":descricao"=>utf8_decode($this->getdescricao()),
-            ":url"=>$this->geturl(),
+            "CALL sp_promocao_salvar(:id_promocao,:nome_promocao,:dtinicio,:dtfinal,:url_promocao,:descricao,:responsavel_cadastro)",array(
+            ":id_promocao"=>$this->getid_promocao(),
+            ":nome_promocao"=>$this->getnome_promocao(),
+            ":dtinicio"=>$this->getdtinicio(),
+            ":dtfinal"=>$this->getdtfinal(),
+            ":url_promocao"=>$this->geturl_promocao(),
+            ":descricao"=>$this->getdescricao(),
             ":responsavel_cadastro"=>$this->getresponsavel_cadastro()
         ));
 
         if (count($results) === 0) {
 
-            throw new \Exception("Erro ao Cadastrar Produto!");
+            throw new \Exception("Erro ao Cadastrar Promocao!");
 
         }
 
@@ -80,133 +71,94 @@ class Promocao extends Model implements Paginacao {
 
     }
 
-    public function get($id_pcf) {
+    public function getPromocao($id_promocao) {
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_produto_categoria_fabricante as pcf
-             INNER JOIN tb_produto as p ON pcf.produto_id = p.id_produto
-             INNER JOIN tb_fabricante_produto as f ON pcf.fabricante_id = f.id_fabricante
-             INNER JOIN tb_categoria_produto as c ON pcf.categoria_id = c.id_categoria
-             WHERE pcf.id_pcf = :id_pcf",array(
-            ":id_pcf"=>$id_pcf
+        $results =  $sql->select("SELECT * FROM tb_promocao
+             WHERE id_promocao= :id_promocao",array(
+            ":id_promocao"=>$id_promocao
         ));
 
         $data = $results[0];
-
-        $data['nome_produto'] = utf8_encode($data['nome_produto']);
-        $data['descricao'] = utf8_encode($data['descricao']);
 
         $this->setData($data);
     }
 
-    public function getFromURL($url) {
+    public function getFromPromocaoURL($url_promocao) {
 
         $sql = new Sql();
 
-        $results =  $sql->select("SELECT * FROM tb_produto_categoria_fabricante as pcf
-             INNER JOIN tb_produto as p ON pcf.produto_id = p.id_produto
-             INNER JOIN tb_fabricante_produto as f ON pcf.fabricante_id = f.id_fabricante
-             INNER JOIN tb_categoria_produto as c ON pcf.categoria_id = c.id_categoria
-             WHERE p.url = :url",array(
-            ":url"=>$url
+        $results =  $sql->select("SELECT * FROM tb_promocao
+             WHERE url_promocao = :url_promocao",array(
+            ":url_promocao"=>$url_promocao
         ));
 
         $data = $results[0];
-
-        $data['nome_produto'] = utf8_encode($data['nome_produto']);
-        $data['descricao'] = utf8_encode($data['descricao']);
 
         $this->setData($data);
 
     }
 
-// atualizar Produto
-    public function atualizarProduto(){
+    public function excluirPromocao(){
         $sql = new Sql();
 
-        $results = $sql->select(
-            "CALL sp_produto_atualizar(:id_pcf,:nome_produto,:preco,:descricao,:fabricante_id,:categoria_id,:responsavel_cadastro)",array(
-            ":id_pcf"=>$this->getid_pcf(),
-            ":nome_produto"=>utf8_decode($this->getnome_produto()),
-            ":preco"=>$this->getpreco(),
-            ":descricao"=>utf8_decode($this->getdescricao()),
-            ":fabricante_id"=>$this->getfabricante_id(),
-            ":categoria_id"=>$this->getcategoria_id(),
-            ":responsavel_cadastro"=>$this->getresponsavel_cadastro()
+        $sql->query("DELETE FROM tb_promocao WHERE id_promocao = :id_promocao",array(
+            ":id_promocao"=>$this->getid_promocao()
         ));
 
-
-        if (count($results) === 0) {
-
-            throw new \Exception("Erro ao Alterar Produto!");
-
-        }
-
-        $this->setData($results[0]);
-
     }
 
-    public function excluirProduto(){
-        $sql = new Sql();
-
-        $sql->query("CALL sp_produto_excluir (:id_pcf)",array(
-            ":id_pcf"=>$this->getid_pcf()
-        ));;
-
-    }
-
-    public function checkFotoProduto(){
+    public function checkFotoPromocao(){
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR. "vendor". DIRECTORY_SEPARATOR. "project". DIRECTORY_SEPARATOR .
-            "res". DIRECTORY_SEPARATOR. "imageSite". DIRECTORY_SEPARATOR . "site". DIRECTORY_SEPARATOR . "produtos" . DIRECTORY_SEPARATOR . $this->getid_pcf() . ".jpg")){
+            "res". DIRECTORY_SEPARATOR. "imageSite". DIRECTORY_SEPARATOR . "site". DIRECTORY_SEPARATOR . "promocoes" . DIRECTORY_SEPARATOR . $this->getid_promocao() . ".jpg")){
 
-            $url = "/vendor/project/res/imageSite/site/produtos/" . $this->getid_pcf() . ".jpg";
+            $url_promocao = "/vendor/project/res/imageSite/site/promocoes/" . $this->getid_promocao() . ".jpg";
 
         } else {
-            $url =  "/vendor/project/res/imageSite/site/produtos.jpg";
+            $url_promocao =  "/vendor/project/res/imageSite/site/promocoes.jpg";
         }
 
-        return $this->setfoto_produto($url);
+        return $this->setfoto_promocao($url_promocao);
 
     }
 
     public function getValues() {
 
-        $this->checkFotoProduto();
+        $this->checkFotoPromocao();
 
         $values =  parent::getValues();
-
 
         return $values;
 
     }
 
-    public function setFotoProduto($foto_produto) {
+    public function setFotoPromocao($foto_promocao) {
 
-        $extension = explode('.',$foto_produto['name']);
+        $extension = explode('.',$foto_promocao['name']);
         $extension = end($extension);
 
         switch ($extension) {
 
             case "jpg":case "jpeg":
-            $image = imagecreatefromjpeg($foto_produto["tmp_name"]);
+            $image = imagecreatefromjpeg($foto_promocao["tmp_name"]);
             break;
             case "git":
-                $image = imagecreatefromgif($foto_produto["tmp_name"]);
+                $image = imagecreatefromgif($foto_promocao["tmp_name"]);
                 break;
             case "png":
-                $image = imagecreatefrompng($foto_produto["tmp_name"]);
+                $image = imagecreatefrompng($foto_promocao["tmp_name"]);
                 break;
 
         }
 
         $dist = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . "vendor". DIRECTORY_SEPARATOR. "project". DIRECTORY_SEPARATOR."res". DIRECTORY_SEPARATOR.
-            "imageSite". DIRECTORY_SEPARATOR . "site". DIRECTORY_SEPARATOR . "produtos" . DIRECTORY_SEPARATOR . $this->getid_pcf() . ".jpg";
+            "imageSite". DIRECTORY_SEPARATOR . "site". DIRECTORY_SEPARATOR . "promocoes" . DIRECTORY_SEPARATOR . $this->getid_promocao() . ".jpg";
 
         imagejpeg($image, $dist);
 
         imagedestroy($image);
 
-        $this->checkFotoProduto();
+        $this->checkFotoPromocao();
     }
 
 
@@ -215,11 +167,8 @@ class Promocao extends Model implements Paginacao {
 
         $sql = new Sql();
 
-        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_produto_categoria_fabricante as pcf
-                INNER JOIN tb_produto as p ON pcf.produto_id = p.id_produto
-                INNER JOIN tb_fabricante_produto as f ON pcf.fabricante_id = f.id_fabricante
-                INNER JOIN tb_categoria_produto as c ON pcf.categoria_id = c.id_categoria 
-                ORDER BY pcf.id_pcf LIMIT $start, $itemsPerPage;");
+        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_promocao
+                ORDER BY id_promocao LIMIT $start, $itemsPerPage;");
 
         $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
 
@@ -235,12 +184,9 @@ class Promocao extends Model implements Paginacao {
 
         $sql = new Sql();
 
-        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_produto_categoria_fabricante as pcf
-                INNER JOIN tb_produto as p ON pcf.produto_id = p.id_produto
-                INNER JOIN tb_fabricante_produto as f ON pcf.fabricante_id = f.id_fabricante
-                INNER JOIN tb_categoria_produto as c ON pcf.categoria_id = c.id_categoria
-                WHERE p.nome_produto LIKE :busca OR f.nome_fabricante = :busca OR c.nome_categoria LIKE :busca
-                ORDER BY p.nome_produto
+        $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_promocao
+                WHERE nome_promocao LIKE :busca 
+                ORDER BY dtinicio
                 LIMIT $start, $itemsPerPage;",array(
             ":busca"=>'%'.$busca.'%'
         ));

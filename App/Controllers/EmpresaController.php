@@ -83,7 +83,7 @@ class EmpresaController extends Controller
 
        if($acesso == true) {
 
-           $page->setTpl("area-administrativo");
+           $page->setTpl("area_administrativo");
        } else {
            return $response->withRedirect($this->container->router->pathFor('admin'));
        }

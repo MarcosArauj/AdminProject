@@ -9,8 +9,9 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active"><a href="/admin/produtos">Produtos</a></li>
-            <li class="active"><a href="/admin/produtos/{$produto.id_pcf}/detalha">{$produto.nome_produto}</a></li>
+            <li><a href="/admin/empresa/area-administrativo"> Painel de Controle</a></li>
+            <li><a href="/admin/promocoes">Promoções</a></li>
+            <li class="active"><a href="/admin/promocoes/{$promocao.id_promocao}/detalha">Detalhar </a></li>
         </ol>
     </section>
 
@@ -21,30 +22,24 @@
                     <div class="col-sm-6">
                         <div class="product-images">
                             <div class="product-main-img">
-                                <img width="300px"  src="{$produto.foto_produto}">
+                                <img width="300px"  src="{$promocao.foto_promocao}">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h2 class="panel-title">{$produto.nome_produto}</h2>
+                                <h2 class="panel-title">{$promocao.nome_promocao}</h2>
                             </div>
                             <div class="panel-body">
-                                <label>Fabricante: </label>
-                                <span>{$produto.nome_fabricante}</span>
+                                <label>Data de Início: </label>
+                                <span>{function="formatData($promocao.dtinicio)"}</span>
                                 <br>
-                                <label>Categoria:  </label>
-                                <span>{$produto.nome_categoria}</span>
-                                <br>
-                                <label>Valor:  </label>
-                                <span>{$produto.preco}</span>
+                                <label>Data Final:  </label>
+                                <span>{function="formatData($promocao.dtfinal)"}</span>
                                 <br>
                                 <label>Descrição: </label>
-                                <span>{$produto.descricao}</span>
-                                <br>
-                                <label>Quantidade em Estoque: </label>
-                                <span>{$produto.quantidade}</span>
+                                <span>{$promocao.descricao}</span>
                                 <br>
 
                             </div>
@@ -55,17 +50,17 @@
                     <div class="box-footer">
                         <div class="form-row">
                             <div class="col-md-6">
-                                <a href="/admin/produtos/{$produto.id_pcf}/fotoProduto" class="btn btn-primary btn-md"><i class="fa fa-edit"></i>Atualizar Foto</a>
-                                <a href="/admin/produtos/{$produto.id_pcf}/atualiza" class="btn btn-primary btn-md"><i class="fa fa-edit"></i>Editar Produto</a>
-                                <a href="/admin/produtos" class="btn btn-primary btn-md">Voltar</a>
+                                <a href="/admin/promocoes/{$promocao.id_promocao}/fotoPromocao" class="btn btn-primary btn-md"><i class="fa fa-edit"></i>Atualizar Foto</a>
+                                <a href="/admin/promocoes/{$promocao.id_promocao}/atualiza" class="btn btn-primary btn-md"><i class="fa fa-edit"></i>Editar Promoção</a>
+                                <a href="/admin/promocoes" class="btn btn-primary btn-md">Voltar</a>
                             </div>
                         </div>
                     </div>
             </div>
-        {if="$produtoFotoSucesso != ''"}
+        {if="$promocaoFotoSucesso != ''"}
         <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {$produtoFotoSucesso}
+            {$promocaoFotoSucesso}
         </div>
         {/if}
     </section>

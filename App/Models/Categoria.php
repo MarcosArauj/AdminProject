@@ -63,7 +63,7 @@ class Categoria extends Model implements Paginacao {
 
         $sql->query("DELETE FROM tb_categoria_produto  WHERE id_categoria = :id_categoria",array(
             ":id_categoria"=>$this->getid_categoria()
-        ));;
+        ));
 
     }
 

@@ -1,17 +1,18 @@
-
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Cadastro de Produto
+            Cadastro da Promoção
         </h1>
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="/admin/produtos">Produtos</a></li>
-            <li><a href="/admin/produtos/{$produto.id_pcf}/detalhar">{$produto.nome_produto}</a></li>
-            <li class="active"><a href="/admin/produtos/{$produto.id_pcf}/fotoProduto">Imagem do Produto</a></li>
+            <li><a href="/admin/empresa/area-administrativo"> Painel de Controle</a></li>
+            <li><a href="/admin/promocoes">Promoções</a></li>
+            <li class="active"><a href="/admin/promocoes/<?php echo htmlspecialchars( $promocao["id_promocao"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha">Detalhar </a></li>
+            <li class="active"><a href="/admin/promocoes/<?php echo htmlspecialchars( $promocao["id_promocao"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/fotoPromocao">Imagem da Promoção</a></li>
         </ol>
     </section>
 
@@ -20,28 +21,28 @@
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Nova Imagem</h3>
+                    <h3 class="box-title">Nova Imamgem</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form  name="FormAlteraImgProduto" role="form" action="/admin/produtos/{$produto.id_pcf}/fotoProduto" method="post" enctype="multipart/form-data">
+                <form  name="FormAlteraImgProduto" role="form" action="/admin/promocoes/<?php echo htmlspecialchars( $promocao["id_promocao"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/fotoPromocao" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                    <th>Imagem</th>
-                                    <th style="width: 250px">&nbsp;</th>
+                                    <th style="width: 300px">&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <input type="file" class="btn btn-primary" name="foto_produto" required onchange="carregarImagem(event)">
+                                        <input type="file" class="btn btn-primary" name="foto_promocao" required onchange="carregarImagem(event)">
                                     </td>
 
                                     <td class="botoescadastro">
                                         <input class="btn btn-primary btn-md" type="submit" value="Atualizar">
-                                        <a href="/admin/produtos" class="btn btn-primary btn-md">Voltar</a>
+                                        <a href="/admin/promocoes" class="btn btn-primary btn-md">Voltar</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -53,12 +54,12 @@
                 </form>
             </div>
         </div>
-            {if="$produtoFotoErro != ''"}
+            <?php if( $promocaoFotoErro != '' ){ ?>
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                {$produtoFotoErro}
+                <?php echo htmlspecialchars( $promocaoFotoErro, ENT_COMPAT, 'UTF-8', FALSE ); ?>
             </div>
-            {/if}
+            <?php } ?>
     </section>
     <!-- /.content -->
 </div>

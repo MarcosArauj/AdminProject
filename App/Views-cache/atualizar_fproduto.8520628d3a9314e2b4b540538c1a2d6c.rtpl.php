@@ -1,4 +1,4 @@
-
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -10,8 +10,8 @@
         <ol class="breadcrumb">
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="/admin/produtos">Produtos</a></li>
-            <li><a href="/admin/produtos/{$produto.id_pcf}/detalhar">{$produto.nome_produto}</a></li>
-            <li class="active"><a href="/admin/produtos/{$produto.id_pcf}/fotoProduto">Imagem do Produto</a></li>
+            <li><a href="/admin/produtos/<?php echo htmlspecialchars( $produto["id_pcf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalhar"><?php echo htmlspecialchars( $produto["nome_produto"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+            <li class="active"><a href="/admin/produtos/<?php echo htmlspecialchars( $produto["id_pcf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/fotoProduto">Imagem do Produto</a></li>
         </ol>
     </section>
 
@@ -20,11 +20,11 @@
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Nova Imagem</h3>
+                    <h3 class="box-title">Novo Produto</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form  name="FormAlteraImgProduto" role="form" action="/admin/produtos/{$produto.id_pcf}/fotoProduto" method="post" enctype="multipart/form-data">
+                <form  name="FormAlteraImgProduto" role="form" action="/admin/produtos/<?php echo htmlspecialchars( $produto["id_pcf"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/fotoProduto" method="post" enctype="multipart/form-data">
                     <div class="box-body">
                         <table class="table table-striped">
                             <thead>
@@ -40,7 +40,7 @@
                                     </td>
 
                                     <td class="botoescadastro">
-                                        <input class="btn btn-primary btn-md" type="submit" value="Atualizar">
+                                        <button class="btn btn-primary btn-md" type="submit">Atualizar</button>
                                         <a href="/admin/produtos" class="btn btn-primary btn-md">Voltar</a>
                                     </td>
                                 </tr>
@@ -53,12 +53,12 @@
                 </form>
             </div>
         </div>
-            {if="$produtoFotoErro != ''"}
+            <?php if( $produtoFotoErro != '' ){ ?>
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                {$produtoFotoErro}
+                <?php echo htmlspecialchars( $produtoFotoErro, ENT_COMPAT, 'UTF-8', FALSE ); ?>
             </div>
-            {/if}
+            <?php } ?>
     </section>
     <!-- /.content -->
 </div>

@@ -152,15 +152,15 @@ $app->group('/admin', function ($app){
         //Rota listar Promocões
         $this->get('', 'PromocaoController:promocoes')->setName('promocoes');
         //Rota detalhar Promocão
-        $this->get('/{url}/detalha', 'PromocaoController:detalharPromocao')->setName('detalha-promocao');
+        $this->get('/{url_promocao}/detalha', 'PromocaoController:detalharPromocao')->setName('detalha-promocao');
         //Rota cadastrar Promocões
         $this->map(['GET', 'POST'], '/cadastra', 'PromocaoController:cadastrarPromocao')->setName('cadastra-promocao');
         //Rota atualizar Promocão
-        $this->map(['GET', 'POST'], '/{id_pcf}/atualiza', 'PromocaoController:atualizarPromocao')->setName('atualiza-promocao');
+        $this->map(['GET', 'POST'], '/{id_promocao}/atualiza', 'PromocaoController:atualizarPromocao')->setName('atualiza-promocao');
         //Rota atualizar foto do produto Promocão
-        $this->map(['GET', 'POST'], '/{id_pcf}/fotoProduto', 'PromocaoController:atualizarFotoPromocao')->setName('atualiza-foto-promocao');
+        $this->map(['GET', 'POST'], '/{id_promocao}/fotoPromocao', 'PromocaoController:atualizarFotoPromocao')->setName('atualiza-foto-promocao');
         //Rota Excluir Promocão
-        $this->get('/{id_pcf}/exclui', 'PromocaoController:excluirPromocao')->setName('exclui-promocao');
+        $this->get('/{id_promocao}/exclui', 'PromocaoController:excluirPromocao')->setName('exclui-promocao');
     });
 });
 
