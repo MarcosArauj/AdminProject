@@ -14,6 +14,7 @@ use App\config\DB\Sql;
 
 class Promocao extends Model implements Paginacao {
 
+
     public function listarPromocoes(){
         $sql = new Sql();
 
@@ -176,7 +177,7 @@ class Promocao extends Model implements Paginacao {
         $sql = new Sql();
 
         $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_promocao
-                ORDER BY $data_atual > dtfinal  LIMIT $start, $itemsPerPage;");
+                ORDER BY $data_atual < dtfinal  LIMIT $start, $itemsPerPage;");
 
         $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
 
@@ -190,11 +191,13 @@ class Promocao extends Model implements Paginacao {
     public static function getPageBusca($busca, $pagina = 1, $itemsPerPage = 7){
         $start = ($pagina - 1) * $itemsPerPage;
 
+        $data_atual = date('Y-m-d');
+
         $sql = new Sql();
 
         $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_promocao
                 WHERE nome_promocao LIKE :busca 
-                ORDER BY dtinicio
+                ORDER BY $data_atual < dtfinal  
                 LIMIT $start, $itemsPerPage;",array(
             ":busca"=>'%'.$busca.'%'
         ));
