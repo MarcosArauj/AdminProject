@@ -2,6 +2,7 @@
 
 use App\Models\Login;
 use App\Models\Empresa;
+use \App\Models\Promocao;
 
 function formatPreco($preco){
 
@@ -126,4 +127,12 @@ function getUrlEmpresa(){
     $nome = $empresa->geturl_empresa();
 
     return $nome;
+}
+
+function getDataAtual(){
+
+    $data_atual = date('Y-m-d');
+
+    return $data_atual;
+
 }

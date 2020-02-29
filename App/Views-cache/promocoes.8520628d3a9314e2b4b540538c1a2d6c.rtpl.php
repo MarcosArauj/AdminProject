@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="box-body no-padding">
-                        <?php $counter1=-1;  if( isset($promocoes) && ( is_array($promocoes) || $promocoes instanceof Traversable ) && sizeof($promocoes) ) foreach( $promocoes as $key1 => $value1 ){ $counter1++; ?>
+                        <?php if( $promocoes ){ ?>
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -46,6 +46,7 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <?php $counter1=-1;  if( isset($promocoes) && ( is_array($promocoes) || $promocoes instanceof Traversable ) && sizeof($promocoes) ) foreach( $promocoes as $key1 => $value1 ){ $counter1++; ?>
                             <tr>
                                 <td><?php echo htmlspecialchars( $value1["id_promocao"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                                 <td><?php echo htmlspecialchars( $value1["nome_promocao"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
@@ -55,11 +56,17 @@
                                     <a href="/admin/promocoes/<?php echo htmlspecialchars( $value1["url_promocao"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
                                     <a href="/admin/promocoes/<?php echo htmlspecialchars( $value1["id_promocao"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                                     <a href="/admin/promocoes/<?php echo htmlspecialchars( $value1["id_promocao"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                                    <?php if( getDataAtual() > $value1["dtfinal"] ){ ?>
+                                       <span style="color: red"><b>Promoção Inativa</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <?php }else{ ?>
+                                      <span style="color: green"><b>Promoção Ativa</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <?php } ?>
                                 </td>
                             </tr>
                             <?php } ?>
                             </tbody>
                         </table>
+                        <?php } ?>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">

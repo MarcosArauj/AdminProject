@@ -14,10 +14,16 @@ use App\config\DB\Sql;
 
 class Promocao extends Model implements Paginacao {
 
-    public static function listarPromocoes(){
+    public function listarPromocoes(){
         $sql = new Sql();
 
-        return  $sql->select(" SELECT * FROM tb_promocao ORDER BY dtinicio");
+        $results =   $sql->select(" SELECT * FROM tb_promocao ORDER BY dtfinal");
+
+        if (count($results) > 0) {
+            $data = $results[0];
+
+            $this->setData($data);
+        }
     }
 
     public static function checkList($list){
@@ -165,10 +171,12 @@ class Promocao extends Model implements Paginacao {
     public static function getPage($pagina = 1 , $itemsPerPage = 7){
         $start = ($pagina - 1) * $itemsPerPage;
 
+        $data_atual = date('Y-m-d');
+
         $sql = new Sql();
 
         $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_promocao
-                ORDER BY id_promocao LIMIT $start, $itemsPerPage;");
+                ORDER BY $data_atual > dtfinal  LIMIT $start, $itemsPerPage;");
 
         $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
 

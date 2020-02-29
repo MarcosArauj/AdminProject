@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="box-body no-padding">
-                        {loop="$promocoes"}
+                        {if="$promocoes"}
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -46,6 +46,7 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {loop="$promocoes"}
                             <tr>
                                 <td>{$value.id_promocao}</td>
                                 <td>{$value.nome_promocao}</td>
@@ -55,11 +56,17 @@
                                     <a href="/admin/promocoes/{$value.url_promocao}/detalha" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Detalhar</a>
                                     <a href="/admin/promocoes/{$value.id_promocao}/atualiza" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                                     <a href="/admin/promocoes/{$value.id_promocao}/exclui" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                                    {if="getDataAtual() > $value.dtfinal"}
+                                       <span style="color: red"><b>Promoção Inativa</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    {else}
+                                      <span style="color: green"><b>Promoção Ativa</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    {/if}
                                 </td>
                             </tr>
                             {/loop}
                             </tbody>
                         </table>
+                        {/if}
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">

@@ -34,11 +34,11 @@
                                    </div>
                                     <div class="col-md-6">
                                         <label for="dtinicio">Data de Início</label>
-                                        <input type="date" class="form-control" id="dtinicio" value="<?php echo htmlspecialchars( $promocao["dtinicio"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
+                                        <input type="date" class="form-control" id="dtinicio"  name="dtinicio" value="<?php echo htmlspecialchars( $promocao["dtinicio"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="dtfinal">Data de Fim</label>
-                                        <input type="date" class="form-control" id="dtfinal" value="<?php echo htmlspecialchars( $promocao["dtfinal"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
+                                        <input type="date" class="form-control" id="dtfinal" name="dtfinal" value="<?php echo htmlspecialchars( $promocao["dtfinal"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required>
                                     </div>
                               </div>
                         </div>
