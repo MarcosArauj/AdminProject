@@ -25,7 +25,6 @@ class Validacao {
             return false;
         }
 
-
         // Elimina possivel mascara
         $cpf = Validacao::tiraMascaraCpf($cpf);
 

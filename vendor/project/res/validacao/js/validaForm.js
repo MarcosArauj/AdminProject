@@ -1,5 +1,5 @@
 
-function RemoveMascar(str, sub) {
+function removeMascar(str, sub) {
 
    var i = str.indexOf(sub);
    var r = "";
@@ -12,19 +12,18 @@ function RemoveMascar(str, sub) {
     return r;
 }
 
-function Verifica_cpf(cpf){
+function verifica_cpf(cpf){
 
     var numeros, soma, digitos, i, resultado, digitos_iguais;
     digitos_iguais = 1;
 
-    cpf = RemoveMascar(cpf, ".");
-    cpf = RemoveMascar(cpf, "-");
+    cpf = removeMascar(cpf, ".");
+    cpf = removeMascar(cpf, "-");
 
     if (cpf.length < 11)
         return false;
     for (i = 0; i < cpf.length - 1; i++)
-        if (cpf.charAt(i) != cpf.charAt(i + 1))
-        {
+        if (cpf.charAt(i) != cpf.charAt(i + 1)) {
             digitos_iguais = 0;
             break;
         }
@@ -53,18 +52,30 @@ function Verifica_cpf(cpf){
         return false;
 }
 
-function ValidaCampoCpf(){
+function validaCampoCpf(){
 
-    if(Verifica_cpf(document.FormCadastro.cpf.value))
+    if(verifica_cpf(document.FormCadastro.cpf.value)){
         document.getElementById("cpf").setAttribute("class", "has-success col-md-6");
-    else
+    } else {
         document.getElementById("cpf").setAttribute("class", "has-error col-md-6");
+    }
+}
+
+function validarCampoEmail() {
+
+    var email = document.FormCadastro.email.value;
+    var validarEmail = /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/;
+
+    if(validarEmail.test(email) == false) {
+        document.getElementById("email").setAttribute("class", "has-error");
+
+    } else  if (validarEmail.test(email) == true){
+        document.getElementById("email").setAttribute("class", "has-success");
+    }
 }
 
 
-
-
-function ValidarCampoDeSenha() {
+function validarCampoDeSenha() {
 
     if(document.FormAlteraSenha.confirma_senha.value != document.FormAlteraSenha.nova_senha.value) {
         document.getElementById("confirma_senha").setAttribute("class", " has-error");
@@ -87,25 +98,6 @@ function ValidarCampoDeSenha() {
 
 }
 
-function ValidarCampoEmail() {
-
-    var email = document.FormCadastro.email.value;
-    var validarEmail = /^[a-zA-Z0-9][a-zA-Z0-9\._-]+@([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2}/;
-
-    if(validarEmail.test(email) == false) {
-        document.getElementById("email").setAttribute("class", "has-error");
-
-    } else  if (validarEmail.test(email) == true){
-        document.getElementById("email").setAttribute("class", "has-success");
-    }
-}
 
 
 
-function ValidaFormCategoria(){
-    var formulario = document.forms["FormCategoria"];
-
-    formulario.nome_categoria.value;
-
-    // return false;
-}

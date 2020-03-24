@@ -65,7 +65,7 @@ class PromocaoController extends Controller {
 
     //Tela cadastrar promoções
     public function cadastrarPromocao($request, $response){
-        
+
         Login::verifyLogin();
 
         $acesso =  Login::checkLogin();
