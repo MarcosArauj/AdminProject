@@ -75,6 +75,11 @@ class ProprietarioController extends Controller {
     public function atualizaProprietario($request, $response){
         Login::verifyLogin();
 
+        $acesso =  Login::checkLogin();
+
+        if($acesso == true) {
+
+
         if($request->isGet()) {
 
             $page = new PagePerfil();
@@ -115,6 +120,10 @@ class ProprietarioController extends Controller {
                 return $response->withRedirect($this->container->router->pathFor('atualiza-proprietario'));
             }
 
+        }
+
+        } else {
+            return $response->withRedirect($this->container->router->pathFor('admin'));
         }
     }
 

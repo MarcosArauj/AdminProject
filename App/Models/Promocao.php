@@ -69,7 +69,7 @@ class Promocao extends Model implements Paginacao {
 
         if (count($results) === 0) {
 
-            throw new \Exception("Erro ao Cadastrar Promocao!");
+            throw new \Exception("Erro no resgistro da Promocao!");
 
         }
 
@@ -177,7 +177,9 @@ class Promocao extends Model implements Paginacao {
         $sql = new Sql();
 
         $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_promocao
-                ORDER BY $data_atual < dtfinal  LIMIT $start, $itemsPerPage;");
+                ORDER BY  dtfinal < :data_atual LIMIT $start, $itemsPerPage;", array(
+                    ":data_atual"=>$data_atual
+        ));
 
         $resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal" );
 
@@ -191,13 +193,12 @@ class Promocao extends Model implements Paginacao {
     public static function getPageBusca($busca, $pagina = 1, $itemsPerPage = 7){
         $start = ($pagina - 1) * $itemsPerPage;
 
-        $data_atual = date('Y-m-d');
 
         $sql = new Sql();
 
         $results = $sql->select("SELECT SQL_CALC_FOUND_ROWS * FROM tb_promocao
                 WHERE nome_promocao LIKE :busca 
-                ORDER BY $data_atual < dtfinal  
+                ORDER BY dtfinal  
                 LIMIT $start, $itemsPerPage;",array(
             ":busca"=>'%'.$busca.'%'
         ));
@@ -211,3 +212,4 @@ class Promocao extends Model implements Paginacao {
         );
     }
 }
+

@@ -15,10 +15,10 @@ class Empresa extends Model {
         $sql = new Sql();
 
         $results =  $sql->select(" SELECT * FROM tb_empresa as ep 
-                    INNER JOIN tb_pessoa_juridica as pj ON ep.pessoaj_id = pj.id_pessoaj
-                    INNER JOIN tb_contato as c ON ep.contato_id = c.id_contato
-                    INNER JOIN tb_endereco as e ON ep.endereco_id = e.id_endereco
-                    INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha");
+                        INNER JOIN tb_pessoa_juridica as pj ON ep.pessoaj_id = pj.id_pessoaj
+                        INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
+                        INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha
+                        INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco");
 
         return (count($results) > 0);
     }
@@ -29,9 +29,9 @@ class Empresa extends Model {
 
         $results =  $sql->select(" SELECT * FROM tb_empresa as ep 
                     INNER JOIN tb_pessoa_juridica as pj ON ep.pessoaj_id = pj.id_pessoaj
-                    INNER JOIN tb_contato as c ON ep.contato_id = c.id_contato
-                    INNER JOIN tb_endereco as e ON ep.endereco_id = e.id_endereco
+                    INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
                     INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha
+                    INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco
                     WHERE ep.id_empresa = :id_empresa",array(
             ":id_empresa"=>$id_empresa
         ));
@@ -39,10 +39,7 @@ class Empresa extends Model {
         if (count($results) > 0) {
 
             $data = $results[0];
-
-            $data['nome_curto'] = utf8_encode($data['nome_curto']);
-            $data['nome_fantasia'] = utf8_encode($data['nome_fantasia']);
-            $data['razao_social'] = utf8_encode($data['razao_social']);
+            
             $data['senha'] = base64_decode($data['senha']);
 
             $this->setData($data);
@@ -55,9 +52,9 @@ class Empresa extends Model {
 
         $results =  $sql->select(" SELECT * FROM tb_empresa as ep 
                     INNER JOIN tb_pessoa_juridica as pj ON ep.pessoaj_id = pj.id_pessoaj
-                    INNER JOIN tb_contato as c ON ep.contato_id = c.id_contato
-                    INNER JOIN tb_endereco as e ON ep.endereco_id = e.id_endereco
+                    INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
                     INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha
+                    INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco
                     WHERE ep.url_empresa = :url_empresa",array(
             ":url_empresa"=>$url_empresa
         ));
@@ -66,9 +63,8 @@ class Empresa extends Model {
 
             $data = $results[0];
 
-            $data['nome_curto'] = utf8_encode($data['nome_curto']);
-            $data['nome_fantasia'] = utf8_encode($data['nome_fantasia']);
-            $data['razao_social'] = utf8_encode($data['razao_social']);
+            $data['senha'] = base64_decode($data['senha']);
+
             $this->setData($data);
 
         }
@@ -80,8 +76,8 @@ class Empresa extends Model {
 
         $results =  $sql->select(" SELECT * FROM tb_empresa as ep 
                     INNER JOIN tb_pessoa_juridica as pj ON ep.pessoaj_id = pj.id_pessoaj
-                    INNER JOIN tb_contato as c ON ep.contato_id = c.id_contato
-                    INNER JOIN tb_endereco as e ON ep.endereco_id = e.id_endereco
+                    INNER JOIN tb_contato as c ON pj.contato_id = c.id_contato
+                    INNER JOIN tb_endereco as e ON pj.endereco_id = e.id_endereco
                     INNER JOIN tb_senha_email_empresa as see ON ep.senha_email_id = see.id_senha
                     WHERE id_empresa > 0");
 
@@ -89,6 +85,8 @@ class Empresa extends Model {
             $data = $results[0];
 
             $data['senha'] = base64_decode($data['senha']);
+
+         //   $data['senha'] = base64_decode($data['senha']);
 
             $this->setData($data);
         }
@@ -105,12 +103,12 @@ class Empresa extends Model {
         $results =  $sql->select("CALL sp_empresa_salvar(:id_empresa,:razao_social,:nome_fantasia,:cnpj,:inscricao_municipal,:inscricao_estadual,
         :nome_curto,:url_empresa,:telefone,:celular,:email,:senha,:cep,:rua,:numero,:bairro,:cidade,:estado,:pais,:responsavel_cadastro)",array(
             ":id_empresa"=>$this->getid_empresa(),
-            ":razao_social"=>utf8_decode($this->getrazao_social()),
-            ":nome_fantasia"=>utf8_decode($this->getnome_fantasia()),
+            ":razao_social"=>$this->getrazao_social(),
+            ":nome_fantasia"=>$this->getnome_fantasia(),
             ":cnpj"=>$this->getcnpj(),
             ":inscricao_municipal"=>$this->getinscricao_municipal(),
             ":inscricao_estadual"=>$this->getinscricao_estadual(),
-            ":nome_curto"=>utf8_decode($this->getnome_curto()),
+            ":nome_curto"=>$this->getnome_curto(),
             ":url_empresa"=>$this->geturl_empresa(),
             ":telefone"=>$this->gettelefone(),
             ":celular"=>$this->getcelular(),

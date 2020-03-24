@@ -65,6 +65,7 @@ class PromocaoController extends Controller {
 
     //Tela cadastrar promoções
     public function cadastrarPromocao($request, $response){
+        
         Login::verifyLogin();
 
         $acesso =  Login::checkLogin();
@@ -88,6 +89,18 @@ class PromocaoController extends Controller {
 
             if(Promocao::ckecarPromocaoExiste($posts['nome_promocao'],$posts['descricao'])=== true) {
                 Promocao::setError("Promoção já cadastrada!");
+
+                return $response->withRedirect($this->container->router->pathFor('cadastra-promocao'));
+            } else if($posts['dtinicio'] < getDataAtual()) {
+                Promocao::setError("Data de Inicio precisa ser Maior ou Igual que a Data Atual");
+
+                return $response->withRedirect($this->container->router->pathFor('cadastra-promocao'));
+            } else if($posts['dtfinal'] <= getDataAtual()) {
+                Promocao::setError("Data de Final precisa ser Maior que a Data Atual");
+
+                return $response->withRedirect($this->container->router->pathFor('cadastra-promocao'));
+            } else if($posts['dtfinal'] <= $posts['dtinicio'] ) {
+                Promocao::setError("Data de Final precisa ser Maior que a Data de Inicio");
 
                 return $response->withRedirect($this->container->router->pathFor('cadastra-promocao'));
             }
@@ -163,12 +176,17 @@ class PromocaoController extends Controller {
             $posts = $request->getParsedBody();
 
             if($posts['nome_promocao'] !== $promocao->getnome_promocao() || $posts['descricao'] !== $promocao->getdescricao()){
-                if(Promocao::ckecarPromocaoExiste($_POST['nome_promocao'],$posts['descricao'])=== true) {
-                    Categoria::setError("Promocão já; cadastrada!");
+                if(Promocao::ckecarPromocaoExiste($posts['nome_promocao'],$posts['descricao'])=== true) {
+                    Promocao::setError("Promocão já cadastrada!");
 
-                    return $response->withRedirect($this->container->router->pathFor('atualiza-promocao',['id_pcf'=>$promocao->getid_promocao()]));
+                    return $response->withRedirect($this->container->router->pathFor('atualiza-promocao',['id_promocao'=>$promocao->getid_promocao()]));
+
                 }
 
+            } else if($promocao->getdtinicio() >= $posts['dtfinal']) {
+                Promocao::setError("Data de Final precisa ser Maior que a Data de Inicio");
+
+                return $response->withRedirect($this->container->router->pathFor('atualiza-promocao',['id_promocao'=>$promocao->getid_promocao()]));
             }
             try{
                 $promocao->setData($posts);
@@ -182,7 +200,7 @@ class PromocaoController extends Controller {
             } catch (\Exception $e) {
                 Promocao::setError($e->getMessage());
 
-                return $response->withRedirect($this->container->router->pathFor('atualiza-promocao',['id_pcf'=>$promocao->getid_promocao()]));
+                return $response->withRedirect($this->container->router->pathFor('atualiza-promocao',['id_promocao'=>$promocao->getid_promocao()]));
             }
         }
     }

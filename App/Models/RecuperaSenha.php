@@ -64,7 +64,7 @@ class RecuperaSenha  extends  Usuario {
                     array(
                        "name"=>$data["primeiro_nome"],
                         "link"=>$link,
-                        "empresa"=>utf8_encode($empresa->getnome_fantasia())
+                        "empresa"=>$empresa->getnome_fantasia()
                     ));
 
                 $email->send();
