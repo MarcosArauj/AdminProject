@@ -14,14 +14,20 @@
             <p class="login-box-msg"><strong>Entre em sua Conta</strong></p>
 
             <form action="/" class="log" method="post" id="login-form">
-                <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="exemplo@exemplo.com (Usuário: exemplo)" name="login" required>
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="exemplo@exemplo.com (Usuário: exemplo)" name="login" required autofocus>
+                    <span class="input-group-addon" >
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
                 </div>
-               <div class="form-group has-feedback">
-                    <input type="password" class="form-control" name="senha" id="senha" placeholder="Password" class="form-control" required>
-                   <button type="button" id="mostrar_senha" name="mostrar_senha" class="fa fa-eye-slash" aria-hidden="true"></button>
-              </div>
+                <br>
+                <div class="input-group">
+                    <input type="password" class="form-control" name="senha" id="senha" placeholder="Password" required>
+                    <span class="input-group-addon" >
+                        <span id="mostrar_senha" name="mostrar_senha" class="fa fa-eye-slash" aria-hidden="true"></span>
+                    </span>
+                </div>
+                <br>
               <div align="center">
                   <button type="submit" class="btn btn-block btn-primary" id="acessar"><span class="glyphicon glyphicon-lock">
                       <strong> Entrar</strong></span></button>
