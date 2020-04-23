@@ -5,7 +5,7 @@
         Marcos Araujo da Cruz.
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2019 <a href="#">Company</a>.</strong> Todos direitos reservados.
+    <strong>Copyright &copy; <?php echo getAnoAtual(); ?> <a href="#">Company</a>.</strong> Todos direitos reservados.
 </footer>
 
 <!-- ./wrapper -->

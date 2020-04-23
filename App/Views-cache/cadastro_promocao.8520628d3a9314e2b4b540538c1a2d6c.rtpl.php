@@ -47,8 +47,9 @@
                                  <input type="text" class="form-control" id="url_promocao" name="url_promocao" placeholder="url-exemplo" required>
                              </div>
                               <div class="col-md-8">
-                                  <label for="descricao">Descrição do Produto</label>
+                                  <label for="descricao">Descrição da</label>
                                   <textarea name="descricao" class="form-control" id="descricao" placeholder="Digite aqui..." required></textarea>
+                                  
                               </div>
                             <div class="col-md-4">
                                 <label for="foto_promocao">Imagem da Promoção</label>

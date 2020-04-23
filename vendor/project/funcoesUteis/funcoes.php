@@ -136,3 +136,11 @@ function getDataAtual(){
     return $data_atual;
 
 }
+
+function getAnoAtual(){
+
+    $ano_atual = date('Y');
+
+    return $ano_atual;
+
+}

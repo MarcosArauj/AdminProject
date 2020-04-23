@@ -49,7 +49,7 @@ class OAuth
     protected $oauthToken;
 
     /**
-     * The user's email address, usually used as the home ID
+     * The user's email address, usually used as the login ID
      * and also the from address when sending email.
      *
      * @var string

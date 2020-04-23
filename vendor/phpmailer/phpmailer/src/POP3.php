@@ -45,7 +45,7 @@ class POP3
      *
      * @var string
      */
-    const VERSION = '6.1.4';
+    const VERSION = '6.1.5';
 
     /**
      * Default POP3 port number.
@@ -157,7 +157,7 @@ class POP3
 
     /**
      * Authenticate with a POP3 server.
-     * A connect, home, disconnect sequence
+     * A connect, login, disconnect sequence
      * appropriate for POP-before SMTP authorisation.
      *
      * @param string   $host        The hostname to connect to
@@ -199,7 +199,7 @@ class POP3
                 return true;
             }
         }
-        // We need to disconnect regardless of whether the home succeeded
+        // We need to disconnect regardless of whether the login succeeded
         $this->disconnect();
 
         return false;
@@ -230,6 +230,8 @@ class POP3
         }
 
         //  connect to the POP3 server
+        $errno = 0;
+        $errstr = '';
         $this->pop_conn = fsockopen(
             $host, //  POP3 Host
             $port, //  Port #

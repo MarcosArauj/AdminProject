@@ -44,7 +44,7 @@
                                     <label for="email"><strong style="color:red">*</strong>Email</label>
                                     <div class="input-group">
                                         <span class="input-group-addon" id="sizing-addon2">@</span>
-                                        <input type="email" class="form-control" name="email"  value="<?php echo htmlspecialchars( $proprietario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" oninput="ValidarCampoEmail()" required>
+                                        <input type="email" class="form-control" name="email"  value="<?php echo htmlspecialchars( $proprietario["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" oninput="validarCampoEmail()" required>
                                     </div>
                                 </div>
                             </div>
