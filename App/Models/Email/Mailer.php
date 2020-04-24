@@ -48,7 +48,7 @@ class Mailer {
         ////Ask for HTML-friendly debug output
         $this->mail->Debugoutput = 'html';
         //Set the hostname of the mail server
-        $this->mail->Host = 'smtp.gmail.com';
+        $this->mail->Host = 'smtp.hostinger.com.br';
         $this->mail->SMTPOptions = array(
             'ssl' => array(
                 'verify_peer' => false,

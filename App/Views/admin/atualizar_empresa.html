@@ -80,16 +80,18 @@
                                 <div id="email">
                                     <label class="control-label" for="email"><strong class="obrigatorio">*</strong>Email</label>
                                     <div class="input-group">
-                                        <span class="input-group-addon" id="sizing-addon2">@</span>
+                                        <span class="input-group-addon" >@</span>
                                         <input type="email" class="form-control" name="email"  oninput="ValidarCampoEmail()" value="{$empresa.email}" required >
                                     </div>
                                 </div>
                                 </div>
                                 <div class="col-md-5">
                                     <label class="control-label" for="senha"><strong class="obrigatorio">*</strong>Senha do Email</label>
-                                    <div class="form-group has-feedback">
-                                        <input type="password" class="form-control" name="senha" id="senha" class="form-control" value="{$empresa.senha}" required>
-                                        <button type="button" id="mostrar_senha" name="mostrar_senha" class="fa fa-eye-slash" aria-hidden="true"></button>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control" name="senha" id="senha" placeholder="Password"  value="{$empresa.senha}" required>
+                                        <span class="input-group-addon" >
+                                            <span id="mostrar_senha" name="mostrar_senha" class="fa fa-eye-slash" aria-hidden="true"></span>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
