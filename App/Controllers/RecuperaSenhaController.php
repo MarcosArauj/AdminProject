@@ -60,9 +60,7 @@ class RecuperaSenhaController extends Controller {
             }
 
             $page = new PageRecuperaSenha();
-
-
-
+            
             $page->setTpl("esqueci-recuperar", array(
                 'name' => $recuperarSenha["primeiro_nome"],
                 'code' => $request->getParam('code'),

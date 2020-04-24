@@ -87,11 +87,9 @@ function validarCampoDeSenha() {
 
     }
 
-    if(document.FormAlteraSenha.nova_senha.value == document.FormAlteraSenha.senha_atual.value) {
-        document.getElementById("nova_senha").setAttribute("class", "has-error");
-    }
-
     if(document.FormAlteraSenha.nova_senha.value != document.FormAlteraSenha.senha_atual.value) {
+        document.getElementById("nova_senha").setAttribute("class", "has-error");
+    } else {
         document.getElementById("nova_senha").setAttribute("class", "has-success");
     }
 

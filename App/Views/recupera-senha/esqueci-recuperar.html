@@ -12,11 +12,11 @@
                         <div class="form-row">
                             <div id="nova_senha">
                                 <label class="control-label" for="nova_senha">Nova Senha*</label>
-                                <input type="password" class="form-control"  name="nova_senha" id="novasenha" maxlength="20" oninput="ValidarCampoDeSenha()" required>
+                                <input type="password" class="form-control"  name="nova_senha" id="novasenha" maxlength="20" oninput="validarCampoDeSenha()" required>
                             </div>
                             <div id="confirma_senha">
                                 <label class="control-label" for="confirma_senha">Confirme a Nova Senha*</label>
-                                <input type="password" class="form-control" name="confirma_senha" id="confirmasenha" maxlength="20" oninput="ValidarCampoDeSenha()" required>
+                                <input type="password" class="form-control" name="confirma_senha" id="confirmasenha" maxlength="20" oninput="validarCampoDeSenha()" required>
                             </div>
                         </div>
                    </div>
