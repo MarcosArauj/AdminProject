@@ -11,7 +11,6 @@ namespace App\Models;
 
 use App\config\DB\Sql;
 
-
 class Login  extends Usuario {
 
     // Ligin Administrativo

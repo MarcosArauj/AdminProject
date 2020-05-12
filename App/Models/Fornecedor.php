@@ -3,10 +3,7 @@
 
 namespace App\Models;
 
-
 use App\config\DB\Sql;
-use project\model\Model;
-use project\model\Paginacao;
 use project\validacao\Validacao;
 
 

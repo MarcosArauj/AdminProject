@@ -8,11 +8,9 @@
 
 namespace App\Models\Email;
 
-
 use PHPMailer\PHPMailer\PHPMailer;
 use  PHPMailer\PHPMailer\Exception;
 use Rain\Tpl;
-
 
 class Mailer {
 

@@ -8,8 +8,6 @@
 
 namespace App\Models;
 
-use project\model\Model;
-use project\model\Paginacao;
 use App\config\DB\Sql;
 
 class Produto extends Model implements Paginacao {

@@ -6,8 +6,7 @@
  * Time: 16:51
  */
 
-namespace project\model;
-use App\config\DB\Sql;
+namespace App\Models;
 
 abstract class Model{
 

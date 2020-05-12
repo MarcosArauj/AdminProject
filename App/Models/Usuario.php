@@ -8,8 +8,6 @@
 
 namespace App\Models;
 
-use project\model\Model;
-use project\model\Paginacao;
 use project\validacao\Validacao;
 use App\config\DB\Sql;
 

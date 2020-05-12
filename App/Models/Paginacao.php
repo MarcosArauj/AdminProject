@@ -6,7 +6,7 @@
  * Time: 15:53
  */
 
-namespace project\model;
+namespace App\Models;
 
 interface Paginacao{
 

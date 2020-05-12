@@ -12,7 +12,6 @@ namespace App\Models;
 use App\Models\Email\Mailer;
 use App\config\DB\Sql;
 
-
 class RecuperaSenha  extends  Usuario {
 
     public static function getEmailRecuperaSenha($email) {
